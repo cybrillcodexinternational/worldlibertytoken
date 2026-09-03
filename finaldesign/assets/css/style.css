@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+}
+:root{
+    --font-primary: "Raleway", sans-serif;
+    --primary-color: hsl(70.79deg 67.15% 59.41%);
+}
+.main-header{
+    background-color: black;
+    height: 80px;
+}
+.logo-image {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.logo-img{
+    width: 70%;
+}
+.h-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    font-size: 13px;
+}
+.h-buttons button {
+    border: 0px;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-left: 26px;
+}
+button.login-btn {
+    background: transparent;
+    color: white;
+}
+button.colored-btn {
+    background: var(--primary-color);
+    padding: 9px;
+    width: 51%;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 11px;
+}
+nav.main-nav {
+    display: flex;
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    height: 80px;
+    align-items: center;
+    font-size: 14px;
+}
+li.navigation-item {
+    padding-right: 23px;
+}
+.home-hero{
+
+}
+.main-hero-section {
+    background: black;
+    padding: 20px;
+    height: 91vh;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+.hero-text {
+    display: flex;
+    align-items: center;
+}
+.hero-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-image-coin img {
+    width: 117%;
+    margin-left: -153px;
+}
+.hero-subtitle {
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-family: var(--font-primary);
+}
+.hero-title {
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 70px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 78px;
+}
+
+
+.hero-description {
+    color: #888888;
+    width: 62%;
+    margin-top: 20px;
+}
+
+.hero-btns button {
+    border: 0px;
+    margin-top: 32px;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    padding: 14px;
+    width: 37%;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 3px;
+}
+.colored-button{
+    background-color: var(--primary-color);;
+}
+.bordered-button{
+    border: 1px solid rgb(218, 218, 218) !important;
+    background-color: transparent;
+    color: rgb(218, 218, 218);
+}
