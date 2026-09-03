@@ -189,7 +189,7 @@ img {
 }
 
 .ecosystem-label-top-left { top: 15%; left: calc(2% + 20px); }
-.ecosystem-label-top-right { top: 15%; right: calc(2% + 20px); }
+.ecosystem-label-top-right { top: 15%; right: calc(2% + 32px); }
 .ecosystem-label-left {
   top: 45%;
   left: -20px;
