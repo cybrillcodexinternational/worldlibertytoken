@@ -11,6 +11,8 @@
         
 </head>
 <body>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
     <section class="header">
         <div class="container-fluid">
                 <div class="row main-header">
@@ -146,12 +148,16 @@
     <section class="ecosystem-showcase">
         <div class="ecosystem-showcase-inner">
             <div class="ecosystem-content">
+                <span class="ecosystem-stars-extra" aria-hidden="true"></span>
                 <p class="ecosystem-kicker">Ecosystem</p>
                 <h2 class="ecosystem-heading">A Unified Ecosystem<br />Built For Every<br />Participant.</h2>
                 <p class="ecosystem-description">From early access to real-world utility, NovaX<br />brings together the essential modules that<br />drive participation, growth, and adoption.</p>
             </div>
             <div class="ecosystem-visual">
-                <img src="assets/images/echosystem.png" alt="World Liberty Token ecosystem modules" class="ecosystem-image" />
+                <!-- <img src="assets/images/echosystem.png" alt="World Liberty Token ecosystem modules" class="ecosystem-image" /> -->
+                 <video class="echo-video" muted autoplay loop>
+                    <source src="assets/images/echosystem.mp4" type="video/mp4" />
+                 </video>
             </div>
         </div>
     </section>
@@ -243,7 +249,10 @@
                 <h2 class="tokenomics-heading">A Balanced Model<br />For Sustainable<br />Growth.</h2>
             </div>
             <div class="tokenomics-visual">
-                <img src="assets/images/tokenomics.png" alt="World Liberty Token tokenomics distribution" class="tokenomics-image" />
+                <!-- <img src="assets/images/tokenomics.png" alt="World Liberty Token tokenomics distribution" class="tokenomics-image" /> -->
+                 <video muted loop autoplay class="tokenomics-video">
+                    <source src="assets/images/tokenomics.mp4" type="video/mp4" />
+                 </video>
             </div>
             <div class="tokenomics-list">
                 <div class="tokenomics-row">
@@ -285,6 +294,59 @@
             </div>
             <div class="mission-description">
                 <p>World Liberty Token Coin is the foundation for a new digital economy—where innovation meets integrity, and every participant has a place to grow.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="roadmap-section">
+        <div class="roadmap-inner">
+            <div class="roadmap-lead">
+                <p class="roadmap-kicker">Roadmap</p>
+                <p class="roadmap-phase-tag">Phase 01</p>
+                <h2 class="roadmap-heading">Foundation</h2>
+                <ul class="roadmap-lead-list">
+                    <li>Project Development</li>
+                    <li>Core Smart Contracts</li>
+                    <li>Community Building</li>
+                </ul>
+            </div>
+            <div class="roadmap-timeline">
+                <span class="roadmap-connector" aria-hidden="true"></span>
+                <div class="roadmap-phase">
+                    <span class="roadmap-dot" aria-hidden="true"></span>
+                    <p class="roadmap-phase-tag">Phase 02</p>
+                    <h3 class="roadmap-phase-title">Launch</h3>
+                    <ul class="roadmap-phase-list">
+                        <li>Token Launch</li>
+                        <li>Ecosystem Modules</li>
+                        <li>Exchange Listings</li>
+                    </ul>
+                </div>
+                <div class="roadmap-phase">
+                    <span class="roadmap-dot" aria-hidden="true"></span>
+                    <p class="roadmap-phase-tag">Phase 03</p>
+                    <h3 class="roadmap-phase-title">Expansion</h3>
+                    <ul class="roadmap-phase-list">
+                        <li>Strategic Partnerships</li>
+                        <li>Cross-Chain Integration</li>
+                        <li>Global Growth</li>
+                    </ul>
+                </div>
+                <div class="roadmap-phase">
+                    <span class="roadmap-dot" aria-hidden="true"></span>
+                    <p class="roadmap-phase-tag">Phase 04</p>
+                    <h3 class="roadmap-phase-title">Evolution</h3>
+                    <ul class="roadmap-phase-list">
+                        <li>DAO Governance</li>
+                        <li>Advanced Utilities</li>
+                        <li>Mass Adoption</li>
+                    </ul>
+                </div>
+                <div class="roadmap-emblem" aria-hidden="true">
+                    <span class="roadmap-emblem-ring roadmap-emblem-ring-outer"></span>
+                    <span class="roadmap-emblem-ring roadmap-emblem-ring-inner"></span>
+                    <img src="assets/images/novax-logo.png" alt="" class="roadmap-emblem-logo" />
+                </div>
             </div>
         </div>
     </section>

@@ -13,6 +13,90 @@
 
 body {
     background: #050505;
+    scrollbar-color: var(--primary-color) #0d0d0d;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 6px;
+    border: 2px solid #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c2e35a;
+}
+
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.35s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    margin-top: -3px;
+    background: var(--primary-color);
+    box-shadow: 0 0 8px 1px rgba(167, 214, 61, 0.65);
+}
+
+.cursor-ring {
+    width: 38px;
+    height: 38px;
+    margin-left: -19px;
+    margin-top: -19px;
+    border: 1px solid rgba(167, 214, 61, 0.45);
+    box-shadow: 0 0 20px rgba(167, 214, 61, 0.08);
+}
+
+.cursor-dot.is-active,
+.cursor-ring.is-active {
+    opacity: 1;
+}
+
+.cursor-ring.is-hovering {
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    margin-top: -32px;
+    background: rgba(167, 214, 61, 0.08);
+    border-color: rgba(167, 214, 61, 0.75);
+}
+
+.cursor-dot.is-hovering {
+    opacity: 0;
+}
+
+@media (max-width: 991px), (hover: none) {
+
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+.echo-video {
+    width: 100%;
+    margin-right: 55px;
+    min-width: 993px;
 }
 
 .main-header {
@@ -149,15 +233,63 @@ li.navigation-item {
     background: #000;
     border-top: 1px solid var(--panel-border);
     border-bottom: 1px solid var(--panel-border);
+    position: relative;
+    overflow: hidden;
 }
 
 .ecosystem-strip .container-fluid {
     padding-left: 0;
     padding-right: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.ecosystem-strip::before,
+.ecosystem-strip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+    z-index: 0;
 }
 
 .ecosystem-strip::before {
-    content: none;
+    background-image:
+        radial-gradient(0.9px 0.9px at 20px 30px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 90px 80px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 160px 40px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 220px 120px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 55px 140px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 130px 190px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 260px 70px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 10px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 75px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 200px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 240px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 5px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 170px 230px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 110px 130px, #ffffff 100%, transparent 100%);
+    background-size: 160px 140px;
+    opacity: 0.55;
+    animation: ecosystem-stars-twinkle 4s ease-in-out infinite alternate;
+}
+
+.ecosystem-strip::after {
+    background-image:
+        radial-gradient(0.6px 0.6px at 45px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 110px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 190px 150px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 250px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 30px 180px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 150px 20px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 15px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 210px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 95px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 270px 130px, #ffffff 100%, transparent 100%);
+    background-size: 180px 160px;
+    opacity: 0.35;
+    animation: ecosystem-stars-twinkle 6s ease-in-out infinite alternate-reverse;
 }
 
 .stats-row {
@@ -250,6 +382,87 @@ li.navigation-item {
     flex-direction: column;
     justify-content: center;
     background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.ecosystem-content::before,
+.ecosystem-content::after,
+.ecosystem-content .ecosystem-stars-extra {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+    z-index: 0;
+}
+
+.ecosystem-content::before {
+    background-image:
+        radial-gradient(0.9px 0.9px at 20px 30px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 90px 80px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 160px 40px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 220px 120px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 55px 140px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 130px 190px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 260px 70px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 10px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 75px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 200px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 240px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 5px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 170px 230px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 110px 130px, #ffffff 100%, transparent 100%);
+    background-size: 160px 140px;
+    opacity: 0.6;
+    animation: ecosystem-stars-twinkle 4s ease-in-out infinite alternate;
+}
+
+.ecosystem-content::after {
+    background-image:
+        radial-gradient(0.6px 0.6px at 45px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 110px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 190px 150px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 250px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 30px 180px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 150px 20px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 15px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 210px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 95px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 270px 130px, #ffffff 100%, transparent 100%);
+    background-size: 180px 160px;
+    opacity: 0.4;
+    animation: ecosystem-stars-twinkle 6s ease-in-out infinite alternate-reverse;
+}
+
+.ecosystem-content .ecosystem-stars-extra {
+    background-image:
+        radial-gradient(0.5px 0.5px at 12px 55px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 65px 15px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.5px 0.5px at 100px 100px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 140px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.5px 0.5px at 20px 120px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 80px 140px, #ffffff 100%, transparent 100%);
+    background-size: 120px 110px;
+    opacity: 0.5;
+    animation: ecosystem-stars-twinkle 5s ease-in-out infinite alternate;
+}
+
+.ecosystem-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes ecosystem-stars-twinkle {
+    0% {
+        opacity: 0.25;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0.35;
+    }
 }
 
 .ecosystem-kicker {
@@ -291,6 +504,61 @@ li.navigation-item {
     overflow: hidden;
     background: #000;
     padding: 10px 10px 10px 0;
+    position: relative;
+}
+
+.ecosystem-visual::before,
+.ecosystem-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+    z-index: 0;
+}
+
+.ecosystem-visual::before {
+    background-image:
+        radial-gradient(0.9px 0.9px at 20px 30px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 90px 80px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 160px 40px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 220px 120px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 55px 140px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 130px 190px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 260px 70px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 10px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 75px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 200px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 240px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 5px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 170px 230px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 110px 130px, #ffffff 100%, transparent 100%);
+    background-size: 160px 140px;
+    opacity: 0.55;
+    animation: ecosystem-stars-twinkle 4s ease-in-out infinite alternate;
+}
+
+.ecosystem-visual::after {
+    background-image:
+        radial-gradient(0.6px 0.6px at 45px 10px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 110px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 190px 150px, #ffffff 100%, transparent 100%),
+        radial-gradient(1px 1px at 250px 200px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 30px 180px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 150px 20px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 15px 60px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.6px 0.6px at 210px 90px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.7px 0.7px at 95px 220px, #ffffff 100%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 270px 130px, #ffffff 100%, transparent 100%);
+    background-size: 180px 160px;
+    opacity: 0.35;
+    animation: ecosystem-stars-twinkle 6s ease-in-out infinite alternate-reverse;
+}
+
+.ecosystem-image,
+.echo-video {
+    position: relative;
+    z-index: 1;
 }
 
 .ecosystem-image {
@@ -502,6 +770,10 @@ li.navigation-item {
     max-width: 758px;
     height: auto;
     display: block;
+}
+
+video.tokenomics-video {
+    width: 100%;
 }
 
 .tokenomics-list {
@@ -874,5 +1146,245 @@ li.navigation-item {
 
     .why-feature-text {
         max-width: none;
+    }
+}
+
+.roadmap-section {
+    background: #000;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.roadmap-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    padding: 90px 64px;
+}
+
+.roadmap-lead {
+    width: 22%;
+    flex-shrink: 0;
+}
+
+.roadmap-kicker {
+    margin: 0 0 20px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    font-family: var(--font-stats);
+    font-weight: 600;
+}
+
+.roadmap-phase-tag {
+    margin: 0 0 10px;
+    color: #8f8f8f;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    font-family: var(--font-stats);
+    font-weight: 600;
+}
+
+.roadmap-heading {
+    margin: 0 0 24px;
+    color: #f3f3f3;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+}
+
+.roadmap-lead-list,
+.roadmap-phase-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.roadmap-lead-list li,
+.roadmap-phase-list li {
+    position: relative;
+    padding-left: 18px;
+    color: #8d8d8d;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    line-height: 1.9;
+    font-weight: 400;
+}
+
+.roadmap-lead-list li::before,
+.roadmap-phase-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.roadmap-timeline {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex: 1;
+    padding-top: 14px;
+    gap: 40px;
+}
+
+.roadmap-connector {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 2px dashed #2a2a2a;
+    z-index: 0;
+}
+
+.roadmap-phase {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.roadmap-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    box-shadow: 0 0 0 4px #000, 0 0 12px rgba(205, 220, 57, 0.6);
+    margin-bottom: 22px;
+}
+
+.roadmap-phase-title {
+    margin: 0 0 16px;
+    color: #f3f3f3;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+}
+
+.roadmap-emblem {
+    position: relative;
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -8px;
+}
+
+.roadmap-emblem-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+}
+
+.roadmap-emblem-ring-outer {
+    border: 1px dashed #2a2a2a;
+    animation: roadmap-emblem-spin 18s linear infinite;
+}
+
+.roadmap-emblem-ring-inner {
+    inset: 14px;
+    border: 1px dashed rgba(205, 220, 57, 0.4);
+    animation: roadmap-emblem-spin 12s linear infinite reverse;
+}
+
+.roadmap-emblem-logo {
+    position: relative;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+@keyframes roadmap-emblem-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1200px) {
+    .roadmap-inner {
+        padding: 70px 40px;
+        gap: 32px;
+    }
+
+    .roadmap-heading {
+        font-size: 32px;
+    }
+
+    .roadmap-timeline {
+        gap: 26px;
+    }
+
+    .roadmap-emblem {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 991px) {
+    .roadmap-inner {
+        flex-direction: column;
+    }
+
+    .roadmap-lead {
+        width: 100%;
+    }
+
+    .roadmap-timeline {
+        flex-wrap: wrap;
+        padding-top: 0;
+        width: 100%;
+    }
+
+    .roadmap-connector {
+        display: none;
+    }
+
+    .roadmap-phase {
+        flex: 1 1 220px;
+    }
+
+    .roadmap-emblem {
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    .roadmap-inner {
+        padding: 50px 24px;
+    }
+
+    .roadmap-heading {
+        font-size: 26px;
+    }
+
+    .roadmap-timeline {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .roadmap-phase {
+        flex: 1 1 auto;
+    }
+
+    .roadmap-emblem {
+        align-self: flex-start;
     }
 }
