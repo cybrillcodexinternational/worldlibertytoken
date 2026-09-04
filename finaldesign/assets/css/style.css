@@ -5,6 +5,7 @@
     --font-primary: "Raleway", sans-serif;
     --primary-color: hsl(70.79deg 67.15% 59.41%);
 }
+
 .main-header{
     background-color: black;
     height: 80px;
@@ -15,7 +16,7 @@
     display: flex;
 }
 .logo-img{
-    width: 70%;
+   width: 91%;
 }
 .h-buttons{
     display: flex;
@@ -83,7 +84,7 @@ li.navigation-item {
 .hero-subtitle {
     text-transform: uppercase;
     color: var(--primary-color);
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     font-family: var(--font-primary);
 }
 .hero-title {

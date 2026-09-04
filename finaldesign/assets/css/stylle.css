@@ -1,0 +1,878 @@
+* {
+    margin: 0;
+}
+
+:root {
+    --font-primary: "Raleway", sans-serif;
+    --font-stats: "Rajdhani", sans-serif;
+    --primary-color: hsl(70.79deg 67.15% 59.41%);
+    --panel-border: #1a1a1a;
+    --panel-text-main: #f5f5f5;
+    --panel-text-muted: #8f8f8f;
+}
+
+body {
+    background: #050505;
+}
+
+.main-header {
+    background-color: black;
+    height: 80px;
+}
+
+.logo-image {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.logo-img {
+    width: 91%;
+}
+
+.h-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    font-size: 13px;
+}
+
+.h-buttons button {
+    border: 0;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-left: 26px;
+}
+
+button.login-btn {
+    background: transparent;
+    color: white;
+}
+
+button.colored-btn {
+    background: var(--primary-color);
+    padding: 9px;
+    width: 51%;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+nav.main-nav {
+    display: flex;
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    height: 80px;
+    align-items: center;
+    font-size: 14px;
+}
+
+li.navigation-item {
+    padding-right: 23px;
+}
+
+.main-hero-section {
+    background: black;
+    padding: 20px;
+    height: 91vh;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.hero-text {
+    display: flex;
+    align-items: center;
+}
+
+.hero-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image-coin img {
+    width: 117%;
+    margin-left: -153px;
+}
+
+.hero-subtitle {
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-family: var(--font-primary);
+}
+
+.hero-title {
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 70px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 78px;
+}
+
+.hero-description {
+    color: #888888;
+    width: 62%;
+    margin-top: 20px;
+}
+
+.hero-btns button {
+    border: 0;
+    margin-top: 32px;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    padding: 14px;
+    width: 37%;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.colored-button {
+    background-color: var(--primary-color);
+}
+
+.bordered-button {
+    border: 1px solid rgb(218, 218, 218) !important;
+    background-color: transparent;
+    color: rgb(218, 218, 218);
+}
+
+.ecosystem-strip {
+    background: #000;
+    border-top: 1px solid var(--panel-border);
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.ecosystem-strip .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.ecosystem-strip::before {
+    content: none;
+}
+
+.stats-row {
+    min-height: 116px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 15px 32px;
+    min-height: 116px;
+    border-right: 1px solid var(--panel-border);
+}
+
+.stat-item:last-child {
+    border-right: 0;
+}
+
+.stat-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    color: #d7d7d7;
+    flex: 0 0 auto;
+}
+
+.stat-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.stat-meta {
+    font-family: var(--font-stats);
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--panel-text-muted);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    color: var(--panel-text-main);
+    font-size: 41px;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+}
+
+.stat-subvalue {
+    color: var(--panel-text-main);
+    font-size: 41px;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+}
+
+.stat-caption {
+    color: #c8c8c8;
+    font-size: 27px;
+    font-weight: 400;
+    margin-top: 2px;
+    text-transform: none;
+}
+
+.ecosystem-showcase {
+    background: #000;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.ecosystem-showcase-inner {
+    display: flex;
+    align-items: stretch;
+    min-height: 620px;
+}
+
+.ecosystem-content {
+    width: 40%;
+    padding: 88px 30px 70px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #000;
+}
+
+.ecosystem-kicker {
+    margin: 0 0 20px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    font-family: var(--font-primary);
+    font-weight: 600;
+}
+
+.ecosystem-heading {
+    margin: 0;
+    color: #f3f3f3;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+}
+
+.ecosystem-description {
+    margin: 26px 0 0;
+    color: #8d8d8d;
+    font-family: var(--font-primary);
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 400;
+    max-width: 430px;
+}
+
+.ecosystem-visual {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    padding: 10px 10px 10px 0;
+}
+
+.ecosystem-image {
+    width: 90%;
+    height: auto;
+    max-height: 620px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin-right: 134px;
+}
+
+.why-novax {
+    background: #000;
+    border-top: 1px solid #141414;
+    border-bottom: 1px solid #141414;
+    overflow: hidden;
+}
+
+.why-novax-inner {
+    display: flex;
+    align-items: center;
+    min-height: 420px;
+    padding: 36px 48px 36px 0;
+    gap: 0;
+}
+
+.why-novax-left {
+    width: 34%;
+    position: relative;
+    min-height: 360px;
+    padding: 28px 10px 20px 72px;
+}
+
+.why-novax-cube-image {
+    position: absolute;
+    left: 0px;
+    top: 18px;
+    width: 118%;
+    max-width: 520px;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    filter: brightness(0.2);
+}
+
+.why-novax-copy {
+    position: relative;
+    z-index: 2;
+}
+
+.why-novax-kicker {
+    margin: 0 0 16px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-family: var(--font-primary);
+    font-weight: 600;
+}
+
+.why-novax-heading {
+    margin: 0;
+    color: #f4f4f4;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+}
+
+.why-novax-panel {
+    width: 66%;
+    display: block;
+    min-height: 292px;
+    align-self: center;
+    position: relative;
+    z-index: 3;
+}
+
+.why-novax-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding: 4px 0;
+}
+
+.why-novax-track {
+    display: flex;
+    align-items: stretch;
+    width: max-content;
+    animation: why-novax-scroll 24s linear infinite;
+    will-change: transform;
+}
+
+.why-novax-carousel:hover .why-novax-track {
+    animation-play-state: paused;
+}
+
+.why-feature {
+    flex: 0 0 275px;
+    padding: 37px 24px 30px;
+    background: #cddc391a;
+    border-radius: 12px;
+    margin-right: 12px;
+    box-shadow: inset 0px 0px 10px #ffffff21;
+}
+
+.why-feature:last-child {
+    border-right: 0;
+}
+
+.why-feature-icon {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin-bottom: 27px;
+}
+
+.why-feature-ring {
+    position: absolute;
+    inset: 0;
+    width: 70px;
+    height: 70px;
+    stroke: #ffffff;
+    stroke-width: 3.05px;
+}
+
+.why-feature-glyph {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1;
+    stroke: #c4dd4f;
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.why-feature-title {
+    margin: 0 0 11px;
+    color: #d6d6d6;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.why-feature-text {
+    margin: 0;
+    color: #969696;
+    font-family: var(--font-primary);
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 228px;
+}
+
+.tokenomics-section {
+    background: #000;
+    border-top: 1px solid #141414;
+    border-bottom: 1px solid #141414;
+}
+
+.tokenomics-inner {
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+    padding: 60px 64px;
+    gap: 24px;
+}
+
+.tokenomics-content {
+    width: 29%;
+}
+
+.tokenomics-kicker {
+    margin: 0 0 18px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-family: var(--font-stats);
+    font-weight: 600;
+}
+
+.tokenomics-heading {
+    margin: 0;
+    color: #d9d9d9;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 1.25;
+}
+
+.tokenomics-visual {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tokenomics-image {
+    width: 100%;
+    max-width: 758px;
+    height: auto;
+    display: block;
+}
+
+.tokenomics-list {
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tokenomics-row {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.tokenomics-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.mission-section {
+    background: #f9efe4;
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-inner {
+    display: flex;
+    align-items: center;
+    min-height: 260px;
+    padding: 0 48px;
+    position: relative;
+}
+
+.mission-visual {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 38%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.mission-image {
+    width: 100%;
+    height: auto;
+}
+
+.mission-content {
+    width: 34%;
+    margin-left: 40%;
+    padding: 48px 0;
+}
+
+.mission-kicker {
+    margin: 0 0 14px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    font-family: var(--font-stats);
+    font-weight: 600;
+}
+
+.mission-heading {
+    margin: 0;
+    color: #17181a;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 46px;
+    line-height: 1.1;
+}
+
+.mission-description {
+    width: 26%;
+    padding: 48px 0;
+}
+
+.mission-description p {
+    margin: 0;
+    color: #4a4a48;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.tokenomics-percent {
+    color: #f0f0f0;
+    font-family: var(--font-stats);
+    font-size: 20px;
+    font-weight: 600;
+    width: 46px;
+    flex: 0 0 auto;
+}
+
+.tokenomics-label {
+    color: #8a8a8a;
+    font-family: var(--font-stats);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+@keyframes why-novax-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-novax-track {
+        animation: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    .stat-value {
+        font-size: 34px;
+    }
+
+    .stat-subvalue {
+        font-size: 34px;
+    }
+
+    .stat-caption {
+        font-size: 22px;
+    }
+
+    .ecosystem-heading {
+        font-size: 32px;
+    }
+
+    .ecosystem-description {
+        font-size: 14px;
+    }
+
+    .ecosystem-content {
+        padding: 64px 22px 56px 36px;
+    }
+
+    .why-novax-heading {
+        font-size: 28px;
+    }
+
+    .why-novax-inner {
+        padding: 28px 24px 28px 0;
+    }
+
+    .why-novax-left {
+        padding: 24px 8px 16px 36px;
+        min-height: 300px;
+    }
+
+    .why-novax-panel {
+        min-height: 250px;
+    }
+
+    .why-feature {
+        flex-basis: 248px;
+        padding: 26px 16px 24px;
+    }
+}
+
+@media (max-width: 991px) {
+    .main-hero-section {
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .hero-title {
+        font-size: 52px;
+        line-height: 1.1;
+    }
+
+    .hero-description {
+        width: 95%;
+    }
+
+    .hero-btns button {
+        width: auto;
+    }
+
+    .hero-image-coin img {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .stat-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--panel-border);
+        padding: 18px 24px;
+        min-height: 92px;
+    }
+
+    .stat-item:last-child {
+        border-bottom: 0;
+    }
+
+    .ecosystem-showcase-inner {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .ecosystem-content {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid #181818;
+        padding: 48px 28px 36px;
+    }
+
+    .ecosystem-visual {
+        width: 100%;
+        min-height: auto;
+        padding: 0 12px 20px;
+    }
+
+    .ecosystem-image {
+        max-height: none;
+    }
+
+    .why-novax-inner {
+        flex-direction: column;
+        min-height: auto;
+        padding: 20px 20px 28px;
+    }
+
+    .why-novax-left,
+    .why-novax-panel {
+        width: 100%;
+    }
+
+    .why-novax-left {
+        padding: 28px 16px 10px;
+        min-height: 280px;
+    }
+
+    .why-novax-cube-image {
+        left: 0;
+        width: 70%;
+        max-width: 360px;
+    }
+
+    .why-novax-panel {
+        min-height: auto;
+    }
+
+    .why-feature {
+        flex-basis: 240px;
+        padding: 24px 18px;
+    }
+
+    .tokenomics-inner {
+        flex-direction: column;
+        padding: 40px 28px;
+        min-height: auto;
+    }
+
+    .tokenomics-content,
+    .tokenomics-visual,
+    .tokenomics-list {
+        width: 100%;
+    }
+
+    .tokenomics-content {
+        text-align: center;
+    }
+
+    .tokenomics-list {
+        max-width: 420px;
+    }
+
+    .mission-inner {
+        flex-direction: column;
+        padding: 32px 28px;
+        min-height: auto;
+    }
+
+    .mission-visual {
+        position: static;
+        width: 100%;
+        min-height: 200px;
+    }
+
+    .mission-content,
+    .mission-description {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px 0;
+    }
+
+    .mission-heading {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 767px) {
+    nav.main-nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+
+    .h-buttons {
+        justify-content: flex-end;
+        padding-right: 12px;
+    }
+
+    .hero-title {
+        font-size: 40px;
+    }
+
+    .stat-item {
+        padding: 14px 18px;
+        min-height: 88px;
+    }
+
+    .stat-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .stat-subvalue {
+        font-size: 28px;
+    }
+
+    .stat-caption {
+        font-size: 18px;
+    }
+
+    .ecosystem-kicker {
+        font-size: 11px;
+        margin-bottom: 14px;
+    }
+
+    .ecosystem-heading {
+        font-size: 28px;
+    }
+
+    .ecosystem-description {
+        margin-top: 18px;
+        font-size: 14px;
+    }
+
+    .ecosystem-description br,
+    .ecosystem-heading br {
+        display: none;
+    }
+
+    .why-novax-heading {
+        font-size: 26px;
+    }
+
+    .why-feature {
+        flex-basis: 220px;
+        padding: 22px 18px;
+    }
+
+    .why-feature-text {
+        max-width: none;
+    }
+}
