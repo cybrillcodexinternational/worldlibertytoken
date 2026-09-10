@@ -142,6 +142,7 @@
   font-size: 13.5px;
   font-weight: 500;
   position: relative;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .navItem svg,
@@ -151,16 +152,16 @@
   flex-shrink: 0;
 }
 
-.navItem:hover {
+.navItem:hover,
+.navActive:hover {
   color: #f4f8e6;
-  background: rgba(201, 245, 58, 0.05);
+  background: #151b11;
+  box-shadow: inset 3px 0 0 rgba(201, 245, 58, 0.72), 0 8px 18px rgba(0, 0, 0, 0.16);
+  transform: translateX(3px);
 }
 
 .navActive {
-  background: linear-gradient(90deg, #d2ff4d 0%, #c1ea46 100%);
-  color: #111806;
-  font-weight: 700;
-  box-shadow: 0 0 22px rgba(201, 245, 58, 0.28);
+  background: transparent;
 }
 
 .navChevron {
@@ -213,6 +214,15 @@
   color: #111806 !important;
   font-size: 12px;
   font-weight: 700;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.promoBtn:hover,
+.heroPrimary:hover,
+.claimBtn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 18px rgba(201, 245, 58, 0.18);
+  transform: translateY(-2px);
 }
 
 .main {
@@ -281,6 +291,17 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.iconBtn:hover,
+.langBtn:hover,
+.userBadge:hover {
+  border-color: rgba(201, 245, 58, 0.46);
+  background: #151b11;
+  color: #f3f6ea;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .langBtn {
@@ -317,6 +338,7 @@
   border: 1px solid rgba(201, 245, 58, 0.16);
   background: #0b0e0a;
   text-align: left;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .userBadge span {
@@ -437,6 +459,7 @@
   gap: 8px;
   font-size: 13.5px;
   font-weight: 700;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .heroPrimary {
@@ -448,6 +471,12 @@
   border: 1px solid rgba(201, 245, 58, 0.35);
   background: rgba(8, 12, 7, 0.55);
   color: #eef6d4 !important;
+}
+
+.heroGhost:hover {
+  border-color: rgba(201, 245, 58, 0.72);
+  background: rgba(201, 245, 58, 0.1);
+  transform: translateY(-2px);
 }
 
 .heroVisual {
@@ -628,6 +657,19 @@
   align-items: center;
   justify-content: center;
   align-self: center;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.roundBtn:hover,
+.ghostMini:hover,
+.rangeBtn:hover,
+.copyLink:hover,
+.periodBtn:hover,
+.linkBox button:hover {
+  color: var(--lime);
+  border-color: rgba(201, 245, 58, 0.58) !important;
+  background: rgba(201, 245, 58, 0.1);
+  transform: translateY(-2px);
 }
 
 .timer {
@@ -642,6 +684,7 @@
   color: #111806 !important;
   font-size: 11px;
   font-weight: 700;
+  transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .ghostMini {
@@ -652,6 +695,7 @@
   color: #e7f0c8;
   font-size: 11px;
   font-weight: 600;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
 }
 
 .midRow,
@@ -739,6 +783,7 @@
   border-radius: 999px;
   border: 1px solid rgba(201, 245, 58, 0.2) !important;
   background: #10150e;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
 }
 
 .chartWrap {
@@ -759,6 +804,13 @@
   border-radius: 7px;
   font-size: 12px;
   color: #9aa388;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.periodBtn:hover {
+  color: #eaf3cc;
+  background: rgba(201, 245, 58, 0.08);
+  transform: translateY(-2px);
 }
 
 .periodActive {
@@ -820,14 +872,22 @@
   border-radius: 50%;
 }
 
+.quickCard {
+  display: flex;
+  flex-direction: column;
+}
+
 .quickGrid {
   margin-top: 12px;
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .quickBtn {
+  height: 100%;
   min-height: 86px;
   border-radius: 12px;
   border: 1px solid rgba(201, 245, 58, 0.14) !important;
@@ -840,6 +900,7 @@
   gap: 8px;
   font-size: 12px;
   font-weight: 600;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .quickBtn svg {
@@ -849,6 +910,21 @@
 .quickBtn:hover {
   border-color: rgba(201, 245, 58, 0.4) !important;
   background: rgba(201, 245, 58, 0.06);
+  color: #f4f8e6;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pageWrap button:not(:disabled):active,
+.pageWrap a:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.pageWrap button:focus-visible,
+.pageWrap a:focus-visible,
+.searchBox:focus-within {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
 }
 
 .linkBox {

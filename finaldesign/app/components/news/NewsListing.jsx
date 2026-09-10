@@ -1,17 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Clock, Eye, Search } from "lucide-react";
+import { ArrowRight, Clock, Search } from "lucide-react";
 import styles from "../../news/news.module.css";
-import coinImage from "../../../assets/images/novax-coin.png";
-import globeImage from "../../../assets/images/heroneon.png";
-import ecosystemImage from "../../../assets/images/echosystem.png";
-import tokenomicsImage from "../../../assets/images/tokenomics.png";
-import cityImage from "../../../assets/images/echosystem5.png";
-import partnershipImage from "../../../assets/images/patnershipfinal.jpeg";
-import communityImage from "../../../assets/images/moon.jpeg";
+import fallbackImage from "../../../assets/images/novax-coin.png";
 
 const FILTERS = [
   "All",
@@ -23,108 +17,91 @@ const FILTERS = [
   "Community",
 ];
 
-const FEATURED = {
-  category: "Announcements",
-  date: "Sep 13, 2026",
-  title: "World Liberty Token Enters a New Phase of Global Expansion",
-  excerpt:
-    "We are excited to share the next chapter in our journey. World Liberty Token is officially entering a new phase of global expansion, strengthening our ecosystem, partnerships, and real-world utility.",
-  readTime: "5 min read",
-  views: "12.4K",
-  image: coinImage,
+const CATEGORY_QUERIES = {
+  All: "cryptocurrency OR blockchain OR bitcoin OR web3",
+  Announcements: "crypto token launch OR crypto announcement",
+  Tokenomics: "tokenomics OR crypto token supply",
+  Ecosystem: "blockchain ecosystem OR web3 ecosystem",
+  Guides: "how to buy crypto OR crypto guide",
+  Industry: "cryptocurrency regulation OR crypto industry",
+  Community: "crypto community OR web3 community",
 };
 
-const ARTICLES = [
-  {
-    id: "ecosystem",
-    category: "Ecosystem",
-    date: "Aug 28, 2026",
-    title: "Building a More Inclusive Financial Future",
-    excerpt:
-      "Discover how WLT is creating real-world utility and empowering communities across the globe through decentralised innovation.",
-    readTime: "4 min read",
-    views: "8.3K",
-    image: globeImage,
-  },
-  {
-    id: "tokenomics",
-    category: "Tokenomics",
-    date: "Aug 22, 2026",
-    title: "Understanding the Tokenomics Behind WLT",
-    excerpt:
-      "A deep dive into our token distribution, supply model, and how it fuels a sustainable and growing ecosystem.",
-    readTime: "6 min read",
-    views: "10.1K",
-    image: tokenomicsImage,
-  },
-  {
-    id: "guides",
-    category: "Guides",
-    date: "Aug 18, 2026",
-    title: "How To Buy WLT: A Step-by-Step Guide",
-    excerpt:
-      "A simple guide to getting started with WLT, including wallet setup, exchange options, and security best practices.",
-    readTime: "5 min read",
-    views: "9.7K",
-    image: cityImage,
-  },
-  {
-    id: "partnerships",
-    category: "Partnerships",
-    date: "Aug 14, 2026",
-    title: "Strategic Partnerships for a Stronger Tomorrow",
-    excerpt:
-      "We're building strategic partnerships to expand utility, adoption, and global accessibility for World Liberty Token.",
-    readTime: "3 min read",
-    views: "6.8K",
-    image: partnershipImage,
-  },
-  {
-    id: "community",
-    category: "Community",
-    date: "Aug 10, 2026",
-    title: "Our Community, Our Strength",
-    excerpt:
-      "The WLT community is at the heart of everything we do. Learn how our global community is shaping the future of digital freedom.",
-    readTime: "4 min read",
-    views: "5.9K",
-    image: communityImage,
-  },
-  {
-    id: "industry",
-    category: "Industry",
-    date: "Aug 05, 2026",
-    title: "The Future of Digital Assets in a Changing World",
-    excerpt:
-      "Explore the opportunities and challenges shaping the next era of blockchain, and how WLT is positioned for long-term impact.",
-    readTime: "7 min read",
-    views: "11.3K",
-    image: ecosystemImage,
-  },
-];
+const PAGE_SIZE = 10;
 
-function matchesQuery(item, query) {
-  if (!query) return true;
-  const haystack = `${item.category} ${item.title} ${item.excerpt}`.toLowerCase();
-  return haystack.includes(query);
+function formatDate(value) {
+  if (!value) return "";
+  try {
+    return new Date(value).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
+}
+
+function estimateReadTime(text) {
+  const words = (text || "").split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 60))} min read`;
 }
 
 export default function NewsListing() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All");
   const [page, setPage] = useState(1);
-  const search = query.trim().toLowerCase();
+  const [articles, setArticles] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const filteredArticles = useMemo(() => {
-    return ARTICLES.filter((article) => {
-      const categoryOk = filter === "All" || article.category === filter;
-      return categoryOk && matchesQuery(article, search);
+  useEffect(() => {
+    const controller = new AbortController();
+    const search = query.trim();
+    const baseQuery = CATEGORY_QUERIES[filter] || CATEGORY_QUERIES.All;
+    const finalQuery = search ? `${baseQuery} AND ${search}` : baseQuery;
+
+    setLoading(true);
+    setError("");
+
+    const params = new URLSearchParams({
+      q: finalQuery,
+      page: String(page),
+      pageSize: String(PAGE_SIZE),
     });
-  }, [filter, search]);
 
-  const showFeatured =
-    (filter === "All" || filter === "Announcements") &&
-    matchesQuery(FEATURED, search);
+    fetch(`/api/news?${params.toString()}`, { signal: controller.signal })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) {
+          setError(data.message || "Unable to load news right now.");
+          setArticles([]);
+          setTotalResults(0);
+          return;
+        }
+        setArticles(data.articles);
+        setTotalResults(data.totalResults);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          setError("Unable to load news right now.");
+          setArticles([]);
+        }
+      })
+      .finally(() => setLoading(false));
+
+    return () => controller.abort();
+  }, [filter, page, query]);
+
+  const featured = page === 1 ? articles[0] : null;
+  const gridArticles = page === 1 ? articles.slice(1) : articles;
+  const totalPages = Math.max(1, Math.ceil(totalResults / PAGE_SIZE));
+
+  const pageNumbers = useMemo(() => {
+    const count = Math.min(totalPages, 10);
+    return Array.from({ length: count }, (_, i) => i + 1);
+  }, [totalPages]);
 
   return (
     <section className={styles.listingSection}>
@@ -159,38 +136,38 @@ export default function NewsListing() {
           </div>
         </div>
 
-        {showFeatured ? (
+        {loading ? <p className={styles.emptyState}>Loading latest news...</p> : null}
+        {!loading && error ? <p className={styles.emptyState}>{error}</p> : null}
+
+        {!loading && !error && featured ? (
           <article className={styles.featuredCard}>
             <div className={styles.featuredMedia}>
               <span className={styles.featuredBadge}>Featured</span>
               <Image
-                src={FEATURED.image}
-                alt="World Liberty Token coin"
+                src={featured.image || fallbackImage}
+                alt={featured.title}
                 className={styles.featuredImage}
                 sizes="(max-width: 992px) 100vw, 46vw"
                 fill
+                unoptimized={Boolean(featured.image)}
               />
             </div>
             <div className={styles.featuredCopy}>
               <div className={styles.cardMeta}>
-                <span className={styles.cardCategory}>{FEATURED.category}</span>
-                <span className={styles.cardDate}>{FEATURED.date}</span>
+                <span className={styles.cardCategory}>{featured.source}</span>
+                <span className={styles.cardDate}>{formatDate(featured.publishedAt)}</span>
               </div>
-              <h2>{FEATURED.title}</h2>
-              <p>{FEATURED.excerpt}</p>
+              <h2>{featured.title}</h2>
+              <p>{featured.description}</p>
               <div className={styles.featuredFooter}>
-                <Link href="#" className={styles.readButton}>
+                <Link href={featured.url} target="_blank" rel="noopener noreferrer" className={styles.readButton}>
                   Read Full Article
                   <ArrowRight size={15} strokeWidth={2.2} />
                 </Link>
                 <div className={styles.stats}>
                   <span>
                     <Clock size={14} strokeWidth={1.8} />
-                    {FEATURED.readTime}
-                  </span>
-                  <span>
-                    <Eye size={14} strokeWidth={1.8} />
-                    {FEATURED.views}
+                    {estimateReadTime(featured.description)}
                   </span>
                 </div>
               </div>
@@ -199,36 +176,39 @@ export default function NewsListing() {
         ) : null}
 
         <div className={styles.articleGrid}>
-          {filteredArticles.map((article) => (
-            <article className={styles.articleCard} key={article.id}>
+          {gridArticles.map((article) => (
+            <article className={styles.articleCard} key={article.url}>
               <div className={styles.articleMedia}>
                 <Image
-                  src={article.image}
+                  src={article.image || fallbackImage}
                   alt=""
                   fill
                   className={styles.articleImage}
                   sizes="(max-width: 992px) 100vw, 32vw"
+                  unoptimized={Boolean(article.image)}
                 />
               </div>
               <div className={styles.articleBody}>
                 <div className={styles.cardMeta}>
-                  <span className={styles.cardCategory}>{article.category}</span>
-                  <span className={styles.cardDate}>{article.date}</span>
+                  <span className={styles.cardCategory}>{article.source}</span>
+                  <span className={styles.cardDate}>{formatDate(article.publishedAt)}</span>
                 </div>
                 <h3>{article.title}</h3>
-                <p>{article.excerpt}</p>
+                <p>{article.description}</p>
                 <div className={styles.articleFooter}>
                   <div className={styles.stats}>
                     <span>
                       <Clock size={13} strokeWidth={1.8} />
-                      {article.readTime}
-                    </span>
-                    <span>
-                      <Eye size={13} strokeWidth={1.8} />
-                      {article.views}
+                      {estimateReadTime(article.description)}
                     </span>
                   </div>
-                  <Link href="#" className={styles.articleArrow} aria-label={`Read ${article.title}`}>
+                  <Link
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.articleArrow}
+                    aria-label={`Read ${article.title}`}
+                  >
                     <ArrowRight size={16} strokeWidth={2} />
                   </Link>
                 </div>
@@ -237,12 +217,12 @@ export default function NewsListing() {
           ))}
         </div>
 
-        {!showFeatured && filteredArticles.length === 0 ? (
+        {!loading && !error && !featured && gridArticles.length === 0 ? (
           <p className={styles.emptyState}>No articles match your search.</p>
         ) : null}
 
         <div className={styles.pagination}>
-          {[1, 2, 3, 4].map((item) => (
+          {pageNumbers.map((item) => (
             <button
               type="button"
               key={item}
@@ -252,14 +232,6 @@ export default function NewsListing() {
               {item}
             </button>
           ))}
-          <span className={styles.pageDots}>...</span>
-          <button
-            type="button"
-            className={page === 10 ? styles.pageActive : styles.pageBtn}
-            onClick={() => setPage(10)}
-          >
-            10
-          </button>
         </div>
 
         <div className={styles.subscribeCard}>
