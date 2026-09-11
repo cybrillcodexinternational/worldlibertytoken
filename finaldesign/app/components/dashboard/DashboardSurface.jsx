@@ -6,7 +6,6 @@ import Image from "next/image";
 import {
   ArrowDownToLine,
   ArrowLeftRight,
-  ArrowUpFromLine,
   ArrowUpRight,
   Bell,
   ChartNoAxesCombined,
@@ -15,6 +14,7 @@ import {
   Coins,
   Copy,
   Gift,
+  HandCoins,
   Handshake,
   Headphones,
   House,
@@ -23,7 +23,7 @@ import {
   Pickaxe,
   Receipt,
   Search,
-  Send,
+  SendHorizontal,
   Settings,
   ShieldCheck,
   ShoppingBag,
@@ -83,9 +83,9 @@ const PERIODS = ["1D", "1W", "1M", "3M", "6M", "1Y"];
 
 const QUICK_ACTIONS = [
   { label: "Deposit", Icon: ArrowDownToLine },
-  { label: "Withdraw", Icon: ArrowUpFromLine, locked: true },
+  { label: "Withdraw", Icon: HandCoins, locked: true },
   { label: "Buy WLT", Icon: Wallet },
-  { label: "Send", Icon: Send, locked: true },
+  { label: "Send", Icon: SendHorizontal, locked: true },
   { label: "Receive", Icon: ArrowDownToLine },
   { label: "Swap", Icon: ArrowLeftRight },
 ];
@@ -380,7 +380,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             </div>
             <Link
               href={panel === "admin" ? "/admin/rewards" : "/user/rewards"}
-              className={styles.roundBtn}
+              className={`${styles.roundBtn} ${styles.rewardArrow}`}
               aria-label="Open rewards"
             >
               <ChevronRight size={16} />
@@ -403,7 +403,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             </div>
             <Link
               href={panel === "admin" ? "/admin/mining" : "/user/mining"}
-              className={styles.roundBtn}
+              className={`${styles.roundBtn} ${styles.miningArrow}`}
               aria-label="Open mining"
             >
               <ChevronRight size={16} />

@@ -217,6 +217,7 @@ export default function PresaleStudio({ panel = "user" }) {
         <div className={styles.toolbarActions}>
           {data.wallet.connected ? null : (
             <button className={styles.primary} type="button" onClick={connectWallet} disabled={Boolean(busy)}>
+              <Wallet size={15} />
               {busy === "wallet" ? "Connecting..." : "Connect Phantom"}
             </button>
           )}

@@ -1,6 +1,8 @@
 .studio {
   display: grid;
-  gap: 16px;
+  gap: 18px;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--font-primary), "Raleway", sans-serif;
 }
 
@@ -17,6 +19,14 @@
   border-radius: 22px;
 }
 
+.mixCard,
+.card,
+.noteRow,
+.hero {
+  width: 100%;
+  max-width: 100%;
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -26,6 +36,7 @@
   align-items: center;
   min-height: 340px;
   padding: 28px 30px 24px;
+  border-radius: 10px;
   background:
     radial-gradient(circle at 86% 18%, rgba(201, 245, 58, 0.22), transparent 32%),
     linear-gradient(180deg, #0c1209 0%, #070a06 100%);
@@ -241,6 +252,7 @@
 
 .statusCard {
   min-width: 0;
+  min-height: 68px;
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr) auto;
   gap: 10px;
@@ -249,14 +261,41 @@
   border-radius: 14px;
   background: rgba(12, 18, 10, 0.88);
   border: 1px solid rgba(201, 245, 58, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   color: #c9f53a;
   text-align: left;
   font: inherit;
   cursor: pointer;
+  appearance: none;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+.statusCardInvestor,
+.statusCardPhantom {
+  background: rgba(12, 18, 10, 0.88);
+  border: 1px solid rgba(201, 245, 58, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+button.statusCard {
+  border: 1px solid rgba(201, 245, 58, 0.2);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+button.statusCard:hover {
+  transform: none;
+  border-color: rgba(201, 245, 58, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 article.statusCard {
   cursor: default;
+}
+
+button.statusCard:focus-visible {
+  outline: 2px solid rgba(201, 245, 58, 0.6);
+  outline-offset: 2px;
 }
 
 .statusCard small,
@@ -290,6 +329,30 @@ article.statusCard {
   overflow-wrap: anywhere;
 }
 
+.statusCard .iconTile {
+  background: #c9f53a;
+  border: 1px solid #c9f53a;
+  color: #000000;
+  box-shadow: 0 6px 14px rgba(201, 245, 58, 0.18);
+}
+
+.statusCard .iconTile svg {
+  color: #000000;
+  stroke: #000000;
+}
+
+.holding .iconTile {
+  background: #c9f53a;
+  border: 1px solid #c9f53a;
+  color: #000000;
+  box-shadow: 0 6px 14px rgba(201, 245, 58, 0.18);
+}
+
+.holding .iconTile svg {
+  color: #000000;
+  stroke: #000000;
+}
+
 .iconTile {
   width: 36px;
   height: 36px;
@@ -320,6 +383,47 @@ article.statusCard {
   backdrop-filter: blur(10px);
 }
 
+.heroTotalCard {
+  position: absolute;
+  overflow: hidden;
+  top: 22px;
+  right: 28px;
+  width: 236px;
+  gap: 5px;
+  padding: 13px 15px 11px;
+  border-radius: 12px;
+  border-color: rgba(201, 245, 58, 0.4);
+  background: linear-gradient(145deg, #18220f, #0d120b);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.heroTotalCard::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: #c9f53a;
+  content: "";
+}
+
+.heroTotalCard strong {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.heroTotalCard em {
+  font-size: 11px;
+}
+
+.heroTotalCard span {
+  font-size: 11px;
+}
+
+.heroTotalCard .usdcRow {
+  margin-top: 4px;
+  gap: 6px;
+  padding-top: 8px;
+}
+
 .totalCard small {
   display: inline-flex;
   align-items: center;
@@ -330,10 +434,10 @@ article.statusCard {
 .totalCard strong {
   font-family: var(--font-primary), "Raleway", sans-serif;
   color: #c9f53a;
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .totalCard em {
@@ -399,11 +503,61 @@ article.statusCard {
   display: inline-flex;
 }
 
-.primary,
-.primaryWide {
+.referralStyleButton {
   border: 0;
   background: var(--primary-color, #c9f53a);
-  color: #000;
+  color: #000 !important;
+  box-shadow: none;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.referralStyleButton span,
+.referralStyleButton svg,
+.referralStyleButton * {
+  color: #000 !important;
+}
+
+.primary,
+.primaryWide,
+.connectPhantomButton {
+  border: 1px solid rgba(201, 245, 58, 0.22);
+  background: linear-gradient(180deg, rgba(30, 39, 24, 0.98), rgba(16, 22, 14, 0.98));
+  color: #f5f9dd;
+  box-shadow: 0 10px 18px rgba(201, 245, 58, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.connectPhantomButton {
+  border: 0;
+  border-radius: 12px;
+  background: #c9f53a !important;
+  background-image: none !important;
+  color: #000 !important;
+  box-shadow: none;
+}
+
+.connectPhantomButton svg {
+  color: #000 !important;
 }
 
 .primaryWide {
@@ -413,7 +567,8 @@ article.statusCard {
 }
 
 .primary:disabled,
-.primaryWide:disabled {
+.primaryWide:disabled,
+.connectPhantomButton:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -424,44 +579,88 @@ article.statusCard {
   color: #000;
 }
 
+.noteActionPrimary,
+.noteActionSecondary {
+  border: 0;
+  background: var(--primary-color, #c9f53a);
+  color: #000 !important;
+  box-shadow: none;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.noteActionPrimary svg,
+.noteActionSecondary svg,
+.noteActionPrimary span,
+.noteActionSecondary span,
+.noteActionPrimary *,
+.noteActionSecondary * {
+  color: #000 !important;
+}
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  width: fit-content;
+  width: 100%;
   padding: 6px;
   border-radius: 16px;
-  background: #0b0f09;
-  border: 1px solid rgba(201, 245, 58, 0.1);
+  background: #10160d;
+  border: 1px solid rgba(201, 245, 58, 0.22);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .tab,
 .tabOn {
-  border: 0;
+  flex: 1 1 0;
+  border: 1px solid rgba(201, 245, 58, 0.16);
   min-height: 40px;
   padding: 0 16px;
-  border-radius: 100px;
+  border-radius: 10px;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
 .tab {
-  background: transparent;
-  color: #8b927c;
+  background: #182014;
+  color: #b4c09b;
+}
+
+.tab:hover {
+  background: #202b18;
+  border-color: rgba(201, 245, 58, 0.38);
+  color: #f3f6ea;
+  transform: translateY(-1px);
 }
 
 .tabOn {
-  background: #151b12;
-  color: #f3f6ea;
-  border: 1px solid rgba(201, 245, 58, 0.1);
+  background: #c9f53a !important;
+  color: #10150c !important;
+  border-color: #c9f53a !important;
+  box-shadow: 0 6px 16px rgba(201, 245, 58, 0.18);
 }
 
 .mixCard,
 .card {
   padding: 24px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .mixCard {
   display: grid;
   gap: 18px;
+  background:
+    linear-gradient(180deg, rgba(10, 16, 8, 0.96), rgba(11, 15, 9, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 18px 32px rgba(0, 0, 0, 0.2);
 }
 
 .cardHead {
@@ -584,13 +783,30 @@ article.statusCard {
   min-height: 76px;
   padding: 14px;
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) auto auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto auto;
   gap: 10px;
   align-items: center;
   justify-content: stretch;
   text-align: left;
   color: #c9f53a;
   background: rgba(11, 16, 9, 0.9);
+  border: 1px solid rgba(201, 245, 58, 0.24);
+  appearance: none;
+  font: inherit;
+}
+
+.flowItem .iconTile {
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.flowItem .iconTile svg {
+  width: 24px;
+  height: 24px;
 }
 
 .flowItem strong {
@@ -600,10 +816,28 @@ article.statusCard {
   white-space: nowrap;
 }
 
+.flowItem:nth-child(3) strong {
+  font-size: 11px;
+}
+
+button.flowItem {
+  border: 1px solid rgba(201, 245, 58, 0.24);
+  background: rgba(11, 16, 9, 0.9);
+  font: inherit;
+}
+
 .desk {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.card {
+  background:
+    linear-gradient(180deg, rgba(12, 18, 10, 0.96), rgba(10, 14, 9, 0.94));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 14px 30px rgba(0, 0, 0, 0.18);
 }
 
 .levelList,
@@ -681,8 +915,9 @@ article.statusCard {
   gap: 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
-  background: rgba(11, 16, 9, 0.72);
+  padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(11, 16, 9, 0.82), rgba(8, 12, 8, 0.9));
+  border: 1px solid rgba(201, 245, 58, 0.12);
 }
 
 .noteRow .actions {
@@ -696,9 +931,24 @@ article.statusCard {
   gap: 8px;
 }
 
+.noteRow p svg {
+  transform: translateY(-2px);
+  flex-shrink: 0;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.table thead th {
+  color: #c9f53a;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .table th,
@@ -782,6 +1032,14 @@ article.statusCard {
   .sideNote {
     display: none;
   }
+
+  .heroTotalCard {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 720px) {
@@ -798,6 +1056,6 @@ article.statusCard {
   }
 
   .flowItem {
-    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
   }
 }

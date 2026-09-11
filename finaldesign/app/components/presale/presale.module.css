@@ -62,13 +62,25 @@
 }
 
 .priceCard {
+  position: relative;
+  overflow: hidden;
   display: grid;
   justify-items: end;
-  gap: 2px;
-  padding: 16px 18px;
-  border-radius: 14px;
-  border: 1px solid rgba(201, 245, 58, 0.2);
-  background: #10150c;
+  gap: 4px;
+  min-width: 190px;
+  padding: 15px 18px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 245, 58, 0.38);
+  background: linear-gradient(145deg, #18220f, #0d120b);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.priceCard::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: #c9f53a;
+  content: "";
 }
 
 .priceCard span,
@@ -91,7 +103,8 @@
 
 .priceCard strong {
   color: #c9f53a;
-  font-size: 36px;
+  font-size: 32px;
+  font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -99,16 +112,40 @@
 .toolbar {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
   padding: 12px 14px;
 }
 
 .walletStrip {
+  min-width: 0;
   display: grid;
   grid-template-columns: 36px 1fr;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
+}
+
+.walletStrip .iconTile {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #c9f53a;
+}
+
+.walletStrip .iconTile svg {
+  width: 24px;
+  height: 24px;
+  color: #c9f53a;
+  stroke: #c9f53a;
+}
+
+.walletStrip > div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
 }
 
 .walletStrip b,
@@ -125,8 +162,15 @@
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(201, 245, 58, 0.1);
-  color: #c9f53a;
+  background: #c9f53a;
+  border: 1px solid #c9f53a;
+  color: #000000;
+  box-shadow: 0 6px 14px rgba(201, 245, 58, 0.18);
+}
+
+.iconTile svg {
+  color: #000000;
+  stroke: #000000;
 }
 
 .toolbarActions {
@@ -337,6 +381,40 @@
   border-color: #c9f53a;
 }
 
+.primary,
+.primaryWide,
+.ghost,
+.presetOn {
+  background: #c9f53a !important;
+  color: #000000 !important;
+}
+
+.primary svg,
+.primaryWide svg,
+.ghost svg,
+.presetOn svg {
+  color: #000000 !important;
+  stroke: #000000;
+}
+
+.toolbarActions .primary {
+  background: #c9f53a !important;
+  background-image: none !important;
+  color: #000000 !important;
+  box-shadow: none;
+}
+
+.toolbarActions .ghost {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 100px;
+  border: 0;
+  background: #c9f53a !important;
+  background-image: none !important;
+  color: #000000 !important;
+  box-shadow: none;
+}
+
 .quote {
   display: grid;
   gap: 0;
@@ -476,6 +554,10 @@
   .priceCard,
   .walletStrip {
     justify-items: start;
+  }
+
+  .toolbarActions {
+    justify-content: flex-start;
   }
 }
 

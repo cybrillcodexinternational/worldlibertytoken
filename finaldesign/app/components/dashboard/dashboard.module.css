@@ -683,6 +683,17 @@
   transform: translateY(-2px);
 }
 
+.rewardArrow,
+.miningArrow {
+  color: #000 !important;
+}
+
+.rewardArrow svg,
+.miningArrow svg {
+  color: #000 !important;
+  stroke: #000;
+}
+
 .timer {
   font-variant-numeric: tabular-nums;
 }
@@ -712,9 +723,14 @@ a.claimBtn {
   border-radius: 7px;
   border: 0 !important;
   background: var(--primary-color, var(--lime));
-  color: #000;
+  color: #000 !important;
   font-size: 11px;
   font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
 }
 
@@ -910,13 +926,14 @@ a.claimBtn {
   gap: 10px;
 }
 
-.quickBtn {
+.quickBtn,
+.quickBtnLocked {
   height: 100%;
   min-height: 86px;
   border-radius: 12px;
   border: 0 !important;
-  background: var(--primary-color, var(--lime));
-  color: #000;
+  background: var(--primary-color, var(--lime)) !important;
+  color: #000 !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -927,45 +944,32 @@ a.claimBtn {
   transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
-.quickBtn svg {
+.quickBtn svg,
+.quickBtnLocked svg {
+  width: 24px;
+  height: 24px;
   color: #000;
+  stroke: #000;
 }
 
 .quickBtn:hover {
   border-color: transparent !important;
-  background: var(--primary-color, var(--lime));
-  color: #000;
+  background: var(--primary-color, var(--lime)) !important;
+  color: #000 !important;
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .quickBtnLocked {
-  height: 100%;
-  min-height: 86px;
-  border-radius: 12px;
-  border: 1px solid rgba(201, 245, 58, 0.1) !important;
-  background: #0a0d09;
-  color: #8d9578;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
   cursor: not-allowed;
-  opacity: 0.72;
-}
-
-.quickBtnLocked svg {
-  color: #c9f53a;
+  opacity: 0.62;
 }
 
 .quickBtnLocked small {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c9f53a;
+  color: #000 !important;
 }
 
 .lockNote {

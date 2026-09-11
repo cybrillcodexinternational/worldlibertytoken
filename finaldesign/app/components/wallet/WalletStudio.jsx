@@ -255,10 +255,19 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
     <div className={styles.studio}>
       <motion.section className={styles.hero} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <div className={styles.globe} aria-hidden="true" />
-        <p className={styles.heroMark}>
-          Global people
-          <span>Real opportunity</span>
-        </p>
+        <aside className={`${styles.totalCard} ${styles.heroTotalCard}`}>
+          <small>
+            Total WLT <Info size={12} />
+          </small>
+          <strong>{totalWlt.toFixed(7)}</strong>
+          <em>≈ {money(usdValue)} USD</em>
+          <span>Ledger: {Number(data.balances.ledger || 0).toFixed(7)}</span>
+          <div className={styles.usdcRow}>
+            <span className={styles.coin} />
+            <b>{money(data.presale.commission.available)}</b>
+            <i>SOL available</i>
+          </div>
+        </aside>
 
         <div className={styles.heroMain}>
           <div className={styles.vaultCol}>
@@ -296,7 +305,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
             </p>
 
             <div className={styles.statusGrid}>
-              <button className={styles.statusCard} type="button" onClick={connectWallet}>
+              <button className={`${styles.statusCard} ${styles.statusCardInvestor}`} type="button" onClick={connectWallet}>
                 <span className={styles.iconTile}>
                   <Wallet size={16} />
                 </span>
@@ -306,7 +315,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
                 </div>
                 <ChevronRight size={14} />
               </button>
-              <article className={styles.statusCard}>
+              <article className={`${styles.statusCard} ${styles.statusCardPhantom}`}>
                 <span className={styles.iconTile}>
                   {qualified ? <BadgeCheck size={16} /> : <ShieldCheck size={16} />}
                 </span>
@@ -327,7 +336,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
             </div>
 
             <div className={styles.actions}>
-              <button className={styles.primary} type="button" onClick={connectWallet} disabled={Boolean(busy)}>
+              <button className={styles.connectPhantomButton} type="button" onClick={connectWallet} disabled={Boolean(busy)}>
                 <Wallet size={16} />
                 {busy === "wallet"
                   ? "Connecting..."
@@ -335,26 +344,15 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
                     ? "Reconnect Phantom"
                     : "Connect Phantom Wallet"}
               </button>
-              <Link className={styles.ghost} href={presaleHref}>
-                <ShoppingBag size={15} /> Buy Presale
+              <Link className={styles.referralStyleButton} href={presaleHref}>
+                <ShoppingBag size={15} />
+                <span>Buy Presale</span>
+                <ArrowRight size={15} />
               </Link>
             </div>
           </div>
         </div>
 
-        <aside className={styles.totalCard}>
-          <small>
-            Total WLT <Info size={12} />
-          </small>
-          <strong>{totalWlt.toFixed(7)}</strong>
-          <em>≈ {money(usdValue)} USD</em>
-          <span>Ledger: {Number(data.balances.ledger || 0).toFixed(7)}</span>
-          <div className={styles.usdcRow}>
-            <span className={styles.coin} />
-            <b>{money(data.presale.commission.available)}</b>
-            <i>SOL available</i>
-          </div>
-        </aside>
       </motion.section>
 
       {error ? <p className={styles.error}>{error}</p> : null}
@@ -480,10 +478,10 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
               <Lock size={14} /> {data.lock?.message || "WLT is locked. Withdraw and send stay closed until trade opens."}
             </p>
             <div className={styles.actions}>
-              <Link className={styles.primary} href={miningHref}>
-                <Pickaxe size={14} /> Open mining <ArrowRight size={14} />
+              <Link className={styles.noteActionPrimary} href={miningHref}>
+                <Coins size={14} /> Open mining <ArrowRight size={14} />
               </Link>
-              <Link className={styles.ghost} href={referralHref}>
+              <Link className={styles.noteActionSecondary} href={referralHref}>
                 <Users size={14} /> Referral network <ArrowRight size={14} />
               </Link>
             </div>
