@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -19,6 +19,7 @@ import {
   Headphones,
   House,
   LayoutDashboard,
+  Lock,
   Pickaxe,
   Receipt,
   Search,
@@ -44,6 +45,7 @@ import LogoutButton from "../auth/LogoutButton";
 import styles from "./dashboard.module.css";
 import coinImage from "../../../assets/images/novax-coin.png";
 import heroGlow from "../../../assets/images/heroneon.png";
+import { TOKEN_LOCK } from "@/lib/token-lock";
 
 const ICON = 18;
 const STROKE = 1.7;
@@ -81,46 +83,109 @@ const PERIODS = ["1D", "1W", "1M", "3M", "6M", "1Y"];
 
 const QUICK_ACTIONS = [
   { label: "Deposit", Icon: ArrowDownToLine },
-  { label: "Withdraw", Icon: ArrowUpFromLine },
+  { label: "Withdraw", Icon: ArrowUpFromLine, locked: true },
   { label: "Buy WLT", Icon: Wallet },
-  { label: "Send", Icon: Send },
+  { label: "Send", Icon: Send, locked: true },
   { label: "Receive", Icon: ArrowDownToLine },
   { label: "Swap", Icon: ArrowLeftRight },
 ];
 
 const NAV_ITEMS = [
-  { label: "Dashboard", Icon: House },
-  { label: "Wallet", Icon: Wallet },
-  { label: "Buy / Presale", Icon: ShoppingBag },
-  { label: "Mining", Icon: Pickaxe },
-  { label: "Daily Rewards", Icon: Gift },
-  { label: "Referral Program", Icon: Users, chevron: true },
-  { label: "Transactions", Icon: Receipt },
-  { label: "Market & Charts", Icon: ChartNoAxesCombined },
-  { label: "KYC Verification", Icon: ShieldCheck },
-  { label: "Settings", Icon: Settings },
-  { label: "Support", Icon: Headphones },
+  { key: "dashboard", label: "Dashboard", Icon: House },
+  { key: "wallet", label: "Wallet", Icon: Wallet },
+  { key: "presale", label: "Presale", Icon: ShoppingBag },
+  { key: "mining", label: "Mining", Icon: Pickaxe },
+  { key: "rewards", label: "Scratch & Win", Icon: Gift },
+  { key: "referral", label: "Referral Program", Icon: Users, chevron: true },
+  { key: "transactions", label: "Transactions", Icon: Receipt },
+  { key: "market", label: "Market & Charts", Icon: ChartNoAxesCombined },
+  { key: "kyc", label: "KYC Verification", Icon: ShieldCheck },
+  { key: "settings", label: "Settings", Icon: Settings },
+  { key: "support", label: "Support", Icon: Headphones },
 ];
+
+function navHref(key, panel) {
+  if (key === "dashboard") {
+    return panel === "admin" ? "/admin" : "/user";
+  }
+  if (key === "mining") {
+    return panel === "admin" ? "/admin/mining" : "/user/mining";
+  }
+  if (key === "rewards") {
+    return panel === "admin" ? "/admin/rewards" : "/user/rewards";
+  }
+  if (key === "referral") {
+    return panel === "admin" ? "/admin/referral" : "/user/referral";
+  }
+  if (key === "presale") {
+    return panel === "admin" ? "/admin/presale" : "/user/presale";
+  }
+  if (key === "wallet") {
+    return panel === "admin" ? "/admin/wallet" : "/user/wallet";
+  }
+  if (key === "transactions") {
+    return panel === "admin" ? "/admin/transactions" : "/user/transactions";
+  }
+  return "#";
+}
 
 function NavIcon({ Icon }) {
   return <Icon size={ICON} strokeWidth={STROKE} />;
 }
 
-export default function DashboardSurface({ user, panel }) {
+export default function DashboardSurface({ user, panel, activeNav = "dashboard", children }) {
   const displayName = user?.full_name || "User";
   const roleLabel = panel === "admin" ? "Administrator" : "Verified User";
-  const homeHref = panel === "admin" ? "/admin" : "/user";
   const initial = displayName.trim().charAt(0).toUpperCase() || "U";
-  const refSlug = displayName.toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const referralUrl = `https://wlt.io/ref/${refSlug || "member"}`;
 
   const [period, setPeriod] = useState("1M");
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [referral, setReferral] = useState({
+    url: "",
+    total: 0,
+    active: 0,
+    earnings: "0.0000000 WLT",
+    commission: "$0.00",
+  });
+
+  useEffect(() => {
+    let alive = true;
+
+    async function loadReferral() {
+      try {
+        const response = await fetch("/api/referral/status", { cache: "no-store" });
+        const payload = await response.json();
+        if (!response.ok || !alive) {
+          return;
+        }
+        const origin = window.location.origin;
+        setReferral({
+          url: payload.code ? `${origin}/register?ref=${encodeURIComponent(payload.code)}` : "",
+          total: Number(payload.presale?.network?.total || payload.counts?.total || 0),
+          active: Number(payload.presale?.network?.qualifiedDirect || 0),
+          earnings: `${Number(payload.earnings?.total || 0).toFixed(7)} WLT`,
+          commission: `$${Number(payload.presale?.commission?.available || 0).toFixed(2)}`,
+        });
+      } catch {
+        if (alive) {
+          setReferral((current) => current);
+        }
+      }
+    }
+
+    loadReferral();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   async function copyReferral() {
+    if (!referral.url) {
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(referralUrl);
+      await navigator.clipboard.writeText(referral.url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -141,12 +206,12 @@ export default function DashboardSurface({ user, panel }) {
         </Link>
 
         <nav className={styles.sideNav}>
-          {NAV_ITEMS.map((item, index) => {
-            const active = index === 0;
+          {NAV_ITEMS.map((item) => {
+            const active = item.key === activeNav;
             return (
               <Link
-                key={item.label}
-                href={active ? homeHref : "#"}
+                key={item.key}
+                href={navHref(item.key, panel)}
                 className={active ? styles.navActive : styles.navItem}
               >
                 <NavIcon Icon={item.Icon} />
@@ -214,6 +279,10 @@ export default function DashboardSurface({ user, panel }) {
           </div>
         </header>
 
+        {children ? (
+          children
+        ) : (
+        <>
         <section className={styles.hero}>
           <div className={styles.heroCopy}>
             <p className={styles.heroEyebrow}>WELCOME BACK,</p>
@@ -266,11 +335,9 @@ export default function DashboardSurface({ user, panel }) {
               <p>WLT Balance</p>
               <h3>12,450.85 WLT</h3>
               <div className={styles.statMeta}>
-                <small>≈ $3,982.76</small>
-                <b>
-                  <ArrowUpRight size={12} strokeWidth={2.4} /> +5.23%{" "}
-                  <em>(24h)</em>
-                </b>
+                <small className={styles.lockMeta}>
+                  <Lock size={11} strokeWidth={2.2} /> Tokens locked
+                </small>
               </div>
             </div>
             <button className={styles.roundBtn} type="button" aria-label="Open balance">
@@ -303,17 +370,21 @@ export default function DashboardSurface({ user, panel }) {
             </div>
             <div className={styles.statBody}>
               <p>Daily Reward</p>
-              <h3>25.00 WLT</h3>
+              <h3>Scratch & Win</h3>
               <div className={styles.statMeta}>
-                <small className={styles.timer}>12:24:16</small>
-                <button className={styles.claimBtn} type="button">
-                  Claim Now
-                </button>
+                <small>Up to 1.0000000 WLT</small>
+                <Link href={panel === "admin" ? "/admin/rewards" : "/user/rewards"} className={styles.claimBtn}>
+                  Play Now
+                </Link>
               </div>
             </div>
-            <button className={styles.roundBtn} type="button" aria-label="Open rewards">
+            <Link
+              href={panel === "admin" ? "/admin/rewards" : "/user/rewards"}
+              className={styles.roundBtn}
+              aria-label="Open rewards"
+            >
               <ChevronRight size={16} />
-            </button>
+            </Link>
           </article>
 
           <article className={styles.statCard}>
@@ -324,15 +395,19 @@ export default function DashboardSurface({ user, panel }) {
               <p>Mining Status</p>
               <h3>Active</h3>
               <div className={styles.statMeta}>
-                <small>1.25 WLT / Day</small>
-                <button className={styles.ghostMini} type="button">
+                <small>2.8756990 WLT / 24h</small>
+                <Link href={panel === "admin" ? "/admin/mining" : "/user/mining"} className={styles.ghostMini}>
                   View Mining
-                </button>
+                </Link>
               </div>
             </div>
-            <button className={styles.roundBtn} type="button" aria-label="Open mining">
+            <Link
+              href={panel === "admin" ? "/admin/mining" : "/user/mining"}
+              className={styles.roundBtn}
+              aria-label="Open mining"
+            >
               <ChevronRight size={16} />
-            </button>
+            </Link>
           </article>
         </section>
 
@@ -454,13 +529,28 @@ export default function DashboardSurface({ user, panel }) {
               <h3>Quick Actions</h3>
             </div>
             <div className={styles.quickGrid}>
-              {QUICK_ACTIONS.map((action) => (
-                <button key={action.label} type="button" className={styles.quickBtn}>
-                  <action.Icon size={20} strokeWidth={1.7} />
-                  <span>{action.label}</span>
-                </button>
-              ))}
+              {QUICK_ACTIONS.map((action) => {
+                const locked = Boolean(action.locked && TOKEN_LOCK.minedLocked);
+                return (
+                  <button
+                    key={action.label}
+                    type="button"
+                    className={locked ? styles.quickBtnLocked : styles.quickBtn}
+                    disabled={locked}
+                    title={locked ? TOKEN_LOCK.message : undefined}
+                  >
+                    {locked ? <Lock size={20} strokeWidth={1.7} /> : <action.Icon size={20} strokeWidth={1.7} />}
+                    <span>{action.label}</span>
+                    {locked ? <small>Locked</small> : null}
+                  </button>
+                );
+              })}
             </div>
+            {TOKEN_LOCK.minedLocked ? (
+              <p className={styles.lockNote}>
+                <Lock size={13} /> WLT cannot be withdrawn or sent until trade opens, including presale purchases.
+              </p>
+            ) : null}
           </article>
         </section>
 
@@ -469,14 +559,14 @@ export default function DashboardSurface({ user, panel }) {
             <div className={styles.cardHead}>
               <div>
                 <h3>Referral Program</h3>
-                <p className={styles.subHead}>Invite. Earn. Grow Together.</p>
+                <p className={styles.subHead}>Mining 10/5/3 WLT · Presale 5% SOL</p>
               </div>
               <button className={styles.copyLink} type="button" onClick={copyReferral}>
                 {copied ? "Copied" : "Copy Link"}
               </button>
             </div>
             <div className={styles.linkBox}>
-              <span>{referralUrl}</span>
+              <span>{referral.url || "Generating referral URL..."}</span>
               <button type="button" onClick={copyReferral} aria-label="Copy referral link">
                 <Copy size={15} strokeWidth={1.8} />
               </button>
@@ -484,18 +574,23 @@ export default function DashboardSurface({ user, panel }) {
             <div className={styles.referStats}>
               <div>
                 <Users size={16} strokeWidth={1.8} />
-                <b>132</b>
+                <b>{referral.total}</b>
                 <small>Total Referrals</small>
               </div>
               <div>
                 <Handshake size={16} strokeWidth={1.8} />
-                <b>84</b>
-                <small>Active Users</small>
+                <b>{referral.active}</b>
+                <small>Qualified Presale</small>
               </div>
               <div>
                 <Coins size={16} strokeWidth={1.8} />
-                <b>425.50 WLT</b>
-                <small>Total Earnings</small>
+                <b>{referral.earnings}</b>
+                <small>Mining Earnings</small>
+              </div>
+              <div>
+                <Coins size={16} strokeWidth={1.8} />
+                <b>{referral.commission}</b>
+                <small>SOL Commission</small>
               </div>
             </div>
           </article>
@@ -580,6 +675,8 @@ export default function DashboardSurface({ user, panel }) {
             </ul>
           </article>
         </section>
+        </>
+        )}
       </div>
     </div>
   );

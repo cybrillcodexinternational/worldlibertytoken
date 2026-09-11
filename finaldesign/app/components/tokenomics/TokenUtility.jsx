@@ -29,7 +29,7 @@ const UTILITY = [
   {
     icon: Users,
     title: "Community",
-    text: "Powers rewards, referrals and community initiatives.",
+    text: "Powers mining referrals at 10% / 5% / 3% of mined WLT from the Referral Reward Pool.",
   },
 ];
 

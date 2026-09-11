@@ -33,7 +33,7 @@ const PHASES = [
 	{
 		num: "04",
 		title: "Expansion",
-		copy: "Grow the ecosystem.",
+		copy: "Grow the ecosystem with a 10% / 5% / 3% mining referral network.",
 		Icon: Layers,
 	},
 	{

@@ -1,0 +1,500 @@
+.studio {
+  display: grid;
+  gap: 16px;
+  font-family: var(--font-primary), "Raleway", sans-serif;
+}
+
+.top,
+.toolbar,
+.stat,
+.ticket,
+.qualify,
+.withdraw,
+.tableCard,
+.admin {
+  border: 1px solid rgba(201, 245, 58, 0.14);
+  background: #0b0e0a;
+  border-radius: 16px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 26px;
+  background:
+    linear-gradient(180deg, rgba(201, 245, 58, 0.06), transparent 48%),
+    #0b0e0a;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  color: #c9f53a;
+  letter-spacing: 0.16em;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.top h1,
+.ticket h2,
+.qualify h2,
+.withdraw h2,
+.tableCard h2,
+.admin h2 {
+  margin: 0;
+  color: #f3f6ea;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.lead,
+.copy,
+.empty,
+.ok {
+  margin: 8px 0 0;
+  color: #9aa18c;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+.priceCard {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(201, 245, 58, 0.2);
+  background: #10150c;
+}
+
+.priceCard span,
+.priceCard small,
+.stat small,
+.stat em,
+.walletStrip small,
+.progressLabel,
+.field span,
+.quote dt,
+.miniStats span,
+.table th,
+.empty {
+  color: #8b927c;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.priceCard strong {
+  color: #c9f53a;
+  font-size: 36px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.walletStrip {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.walletStrip b,
+.stat b,
+.quote dd,
+.miniStats b {
+  color: #eef6c8;
+  font-size: 14px;
+}
+
+.iconTile {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(201, 245, 58, 0.1);
+  color: #c9f53a;
+}
+
+.toolbarActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.primary,
+.ghost,
+.primaryWide,
+.preset,
+.presetOn {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.primary,
+.primaryWide {
+  border: 0;
+  background: var(--primary-color, #c9f53a);
+  color: #000;
+}
+
+.primaryWide {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 16px;
+}
+
+.primary:disabled,
+.primaryWide:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ghost {
+  border: 0;
+  background: var(--primary-color, #c9f53a);
+  color: #000;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  padding: 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.stat b {
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 245, 58, 0.1);
+  background: #0b0e0a;
+  color: #cfd6c0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.steps span {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #151b12;
+  color: #8b927c;
+  font-size: 10px;
+}
+
+.stepNow {
+  border-color: rgba(201, 245, 58, 0.35);
+  color: #f3f6ea;
+}
+
+.stepNow span,
+.stepDone span {
+  background: #c9f53a;
+  color: #111806;
+}
+
+.stepDone {
+  color: #c9f53a;
+}
+
+.desk {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 14px;
+}
+
+.ticket,
+.qualify,
+.withdraw,
+.tableCard,
+.admin {
+  padding: 20px;
+}
+
+.side {
+  display: grid;
+  gap: 14px;
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #c9f53a;
+}
+
+.pill {
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(201, 245, 58, 0.12);
+  color: #c9f53a;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 245, 58, 0.2);
+  background: #11160d;
+}
+
+.inputWrap b {
+  color: #c9f53a;
+  font-size: 18px;
+}
+
+.inputWrap input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #f3f6ea;
+  font-size: 22px;
+  font-weight: 700;
+  outline: none;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 4px;
+}
+
+.preset,
+.presetOn {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  background: transparent;
+  color: #dce6c4;
+}
+
+.presetOn {
+  background: #c9f53a;
+  color: #111806;
+  border-color: #c9f53a;
+}
+
+.quote {
+  display: grid;
+  gap: 0;
+  margin: 16px 0 0;
+}
+
+.quote div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(201, 245, 58, 0.08);
+}
+
+.quote dd {
+  margin: 0;
+  text-align: right;
+}
+
+.accent,
+.total dd {
+  color: #c9f53a !important;
+  font-weight: 700;
+}
+
+.total {
+  font-size: 15px;
+}
+
+.progressLabel {
+  margin: 0 0 8px;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #161b12;
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: #c9f53a;
+}
+
+.miniStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.miniStats li {
+  padding: 10px;
+  border-radius: 10px;
+  background: #11160d;
+  display: grid;
+  gap: 4px;
+}
+
+.ledgers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 12px 8px 12px 0;
+  border-top: 1px solid rgba(201, 245, 58, 0.08);
+  color: #eef6c8;
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.table strong {
+  display: block;
+  color: #f3f6ea;
+}
+
+.table small,
+.hash {
+  display: block;
+  margin-top: 4px;
+  color: #8b927c;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.hash {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-all;
+}
+
+.status {
+  display: inline-flex;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(201, 245, 58, 0.1);
+  color: #c9f53a;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.error {
+  margin: 0;
+  color: #e7b4b4;
+  font-size: 13px;
+}
+
+.ok {
+  color: #c9f53a;
+}
+
+@media (max-width: 1100px) {
+  .top,
+  .toolbar,
+  .stats,
+  .steps,
+  .desk,
+  .ledgers {
+    grid-template-columns: 1fr;
+  }
+
+  .priceCard,
+  .walletStrip {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .stats,
+  .miniStats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .top,
+  .ticket,
+  .qualify,
+  .withdraw,
+  .tableCard,
+  .admin {
+    padding: 16px;
+  }
+
+  .top h1 {
+    font-size: 24px;
+  }
+}

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import AuthShell from "../components/auth/AuthShell";
 import RegisterForm from "../components/auth/RegisterForm";
 
@@ -19,9 +20,11 @@ export default function RegisterPage() {
         </>
       }
       description="Join World Liberty Token to participate in the ecosystem — built for people, utility, and a brighter tomorrow."
-      highlights={["Free To Join", "Global Community", "Real Utility"]}
+      highlights={["Free To Join", "Mining Referral 10/5/3", "Real Utility"]}
     >
-      <RegisterForm />
+      <Suspense fallback={null}>
+        <RegisterForm />
+      </Suspense>
     </AuthShell>
   );
 }

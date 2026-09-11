@@ -28,7 +28,7 @@ const PHASES = [
       "Core concept & vision",
       "Smart contract planning",
       "Brand creation",
-      "Community building",
+      "3-level mining referral: 10% / 5% / 3% of mined WLT",
     ],
   },
   {
@@ -55,8 +55,8 @@ const PHASES = [
       "Token launch",
       "Website release",
       "Whitepaper publish",
-      "Presale access",
-      "Early ecosystem modules",
+      "Phantom presale at $0.50 / WLT",
+      "Qualified investor referral: $1,000 unlock · 5% SOL",
     ],
   },
   {
@@ -70,7 +70,7 @@ const PHASES = [
       "Strategic partnerships",
       "Staking & rewards rollout",
       "Dashboard launch",
-      "Community growth",
+      "Mining referral network: 10% / 5% / 3% of mined WLT",
     ],
   },
   {

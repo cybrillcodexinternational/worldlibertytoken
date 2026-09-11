@@ -9,7 +9,7 @@ const PHASES = [
     title: "Expansion",
     items: [
       "Strategic Partnerships",
-      "Cross-Chain Integration",
+      "Mining Referral Network 10/5/3",
       "Global Growth",
     ],
   },
@@ -49,7 +49,7 @@ export default function Roadmap() {
           <ul className="roadmap-lead-list">
             <li>Project Development</li>
             <li>Core Smart Contracts</li>
-            <li>Community Building</li>
+            <li>3-Level Mining Referral (10% / 5% / 3%)</li>
           </ul>
         </div>
         <div className="roadmap-timeline">

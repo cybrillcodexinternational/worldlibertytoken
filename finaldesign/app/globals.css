@@ -11,6 +11,7 @@
 
 body {
     background: #050505;
+    font-family: var(--font-primary), "Raleway", sans-serif;
     scrollbar-color: var(--primary-color) #0d0d0d;
     scrollbar-width: thin;
 }

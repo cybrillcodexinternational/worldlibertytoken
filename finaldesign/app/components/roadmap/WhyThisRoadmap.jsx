@@ -26,7 +26,7 @@ const CARDS = [
   },
   {
     title: "Community-Centered Vision",
-    text: "Powered by a global community, for a more inclusive tomorrow.",
+    text: "Invite miners and earn 10%, 5%, and 3% of their mined WLT from the Referral Reward Pool — never deducted from the miner.",
     Icon: Users,
   },
 ];
