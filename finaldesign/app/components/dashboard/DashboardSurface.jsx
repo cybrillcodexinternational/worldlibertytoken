@@ -20,6 +20,7 @@ import {
   House,
   LayoutDashboard,
   Lock,
+  Medal,
   Pickaxe,
   Receipt,
   Search,
@@ -27,6 +28,7 @@ import {
   Settings,
   ShieldCheck,
   ShoppingBag,
+  Sparkles,
   Users,
   Wallet,
 } from "lucide-react";
@@ -94,8 +96,10 @@ const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard", Icon: House },
   { key: "wallet", label: "Wallet", Icon: Wallet },
   { key: "presale", label: "Presale", Icon: ShoppingBag },
+  { key: "airdrops", label: "Airdrops", Icon: Sparkles },
   { key: "mining", label: "Mining", Icon: Pickaxe },
   { key: "rewards", label: "Scratch & Win", Icon: Gift },
+  { key: "achievements", label: "Achievements", Icon: Medal },
   { key: "referral", label: "Referral Program", Icon: Users, chevron: true },
   { key: "transactions", label: "Transactions", Icon: Receipt },
   { key: "market", label: "Market & Charts", Icon: ChartNoAxesCombined },
@@ -117,14 +121,23 @@ function navHref(key, panel) {
   if (key === "referral") {
     return panel === "admin" ? "/admin/referral" : "/user/referral";
   }
-  if (key === "presale") {
+  if (key === "presale" ) {
     return panel === "admin" ? "/admin/presale" : "/user/presale";
+  }
+  if (key === "airdrops") {
+    return panel === "admin" ? "/admin/airdrops" : "/user/airdrops";
+  }
+  if (key === "achievements") {
+    return panel === "admin" ? "/admin/achievements" : "/user/achievements";
   }
   if (key === "wallet") {
     return panel === "admin" ? "/admin/wallet" : "/user/wallet";
   }
   if (key === "transactions") {
     return panel === "admin" ? "/admin/transactions" : "/user/transactions";
+  }
+  if (key === "settings") {
+    return panel === "admin" ? "/admin/settings" : "/user/settings";
   }
   return "#";
 }
@@ -272,6 +285,13 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               </button>
               {menuOpen ? (
                 <div className={styles.userMenu}>
+                  <Link
+                    href={panel === "admin" ? "/admin/settings" : "/user/settings"}
+                    className={styles.logoutBtn}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Settings
+                  </Link>
                   <LogoutButton className={styles.logoutBtn} />
                 </div>
               ) : null}
@@ -559,7 +579,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             <div className={styles.cardHead}>
               <div>
                 <h3>Referral Program</h3>
-                <p className={styles.subHead}>Mining 10/5/3 WLT · Presale 5% SOL</p>
+                <p className={styles.subHead}>Mining 10/5/3 WLT · Presale 5% USD (SOL payout)</p>
               </div>
               <button className={styles.copyLink} type="button" onClick={copyReferral}>
                 {copied ? "Copied" : "Copy Link"}
@@ -590,7 +610,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               <div>
                 <Coins size={16} strokeWidth={1.8} />
                 <b>{referral.commission}</b>
-                <small>SOL Commission</small>
+                <small>USD Commission</small>
               </div>
             </div>
           </article>

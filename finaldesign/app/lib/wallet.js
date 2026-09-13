@@ -1,3 +1,4 @@
+import { getAirdropStatus } from "@/lib/airdrop";
 import { getMiningStatus } from "@/lib/mining";
 import { getPresaleStatus } from "@/lib/presale";
 import { getReferralStatus } from "@/lib/referral";
@@ -14,11 +15,12 @@ function stamp(value) {
 }
 
 export async function getWalletStatus(userId) {
-  const [mining, presale, referral, rewards] = await Promise.all([
+  const [mining, presale, referral, rewards, airdrop] = await Promise.all([
     getMiningStatus(userId),
     getPresaleStatus(userId),
     getReferralStatus(userId),
     getRewardsStatus(userId),
+    getAirdropStatus(userId),
   ]);
 
   const mined = roundToken(mining.lifetimeMined);
@@ -78,7 +80,7 @@ export async function getWalletStatus(userId) {
       at: row.createdAt,
       source: "Presale referral",
       title: row.label,
-      detail: `${row.buyerName} bought $${Number(row.purchaseUsd || 0).toFixed(2)} · 5% SOL`,
+      detail: `${row.buyerName} bought $${Number(row.purchaseUsd || 0).toFixed(2)} · 5% USD`,
       amount: `+$${Number(row.commission || 0).toFixed(2)}`,
       status: row.status,
       lock: false,
@@ -88,8 +90,34 @@ export async function getWalletStatus(userId) {
       at: row.createdAt,
       source: "Withdrawal",
       title: `${row.asset || "SOL"} to Phantom`,
+      detail:
+        row.txHash ||
+        (row.solAmount
+          ? `$${Number(row.amount || 0).toFixed(2)} -> ${Number(row.solAmount || 0).toFixed(8)} SOL`
+          : row.wallet || ""),
+      amount: row.solAmount
+        ? `-${Number(row.solAmount || 0).toFixed(8)} SOL`
+        : `-$${Number(row.amount || 0).toFixed(2)}`,
+      status: row.status,
+      lock: false,
+    })),
+    ...(airdrop.history || []).map((row) => ({
+      id: `airdrop-${row.id}`,
+      at: row.at,
+      source: "Presale airdrop",
+      title: `Airdrop ${row.label}`,
+      detail: row.txHash || "Released Saturday-night reward",
+      amount: `+${Number(row.sol || 0).toFixed(8)} SOL`,
+      status: row.status,
+      lock: false,
+    })),
+    ...(airdrop.withdrawals || []).map((row) => ({
+      id: `airdrop-wd-${row.id}`,
+      at: row.createdAt,
+      source: "Airdrop withdrawal",
+      title: `${row.asset || "SOL"} to Phantom`,
       detail: row.txHash || row.wallet || "",
-      amount: `-$${Number(row.amount || 0).toFixed(2)}`,
+      amount: `-${Number(row.amount || 0).toFixed(8)} SOL`,
       status: row.status,
       lock: false,
     })),
@@ -109,6 +137,15 @@ export async function getWalletStatus(userId) {
       presale: presaleWlt,
       presaleUsd: Number(presale.allocation?.usd || 0),
       usdcAvailable: Number(presale.commission?.available || 0),
+      commissionEarned: Number(presale.commission?.earned || 0),
+      commissionWithdrawn: Number(presale.commission?.withdrawn || 0),
+      airdropSol: Number(airdrop.balance?.earned || 0),
+      airdropSolAvailable: Number(airdrop.balance?.available || 0),
+      airdropSolWithdrawn: Number(airdrop.balance?.withdrawn || 0),
+    },
+    withdrawable: {
+      commissionUsd: Number(presale.commission?.available || 0),
+      airdropSol: Number(airdrop.balance?.available || 0),
     },
     mining: {
       cycles: mining.cycles,

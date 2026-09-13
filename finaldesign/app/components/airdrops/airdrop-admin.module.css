@@ -1,0 +1,42 @@
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+  gap: 14px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 4px;
+  color: #cfd6c0;
+  font-size: 13px;
+}
+
+.tiers {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+
+.tier {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 0.7fr 0.7fr 0.7fr auto;
+  gap: 8px;
+}
+
+.tier input {
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  background: #11160d;
+  color: #f3f6ea;
+}
+
+@media (max-width: 1100px) {
+  .row,
+  .tier {
+    grid-template-columns: 1fr;
+  }
+}

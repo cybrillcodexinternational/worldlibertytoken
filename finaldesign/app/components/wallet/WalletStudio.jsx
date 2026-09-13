@@ -4,12 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ArrowDownToLine,
   ArrowRight,
   BadgeCheck,
   Banknote,
   ChevronRight,
-  Clock3,
   Coins,
   Gift,
   Info,
@@ -19,10 +17,12 @@ import {
   Receipt,
   ShieldCheck,
   ShoppingBag,
+  Sparkles,
   Users,
   Vault,
   Wallet,
 } from "lucide-react";
+import WithdrawModal from "./WithdrawModal";
 import styles from "./wallet.module.css";
 
 const EMPTY = {
@@ -39,7 +39,13 @@ const EMPTY = {
     presale: 0,
     presaleUsd: 0,
     usdcAvailable: 0,
+    commissionEarned: 0,
+    commissionWithdrawn: 0,
+    airdropSol: 0,
+    airdropSolAvailable: 0,
+    airdropSolWithdrawn: 0,
   },
+  withdrawable: { commissionUsd: 0, airdropSol: 0 },
   mining: { cycles: 0, live: false, session: null },
   rewards: { plays: 0, lifetime: 0 },
   referral: {
@@ -96,11 +102,24 @@ async function connectAndSign(message) {
 }
 
 function money(value) {
-  return `$${Number(value || 0).toFixed(2)}`;
+  return `$${Number(value || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
-function tokens(value) {
-  return `${Number(value || 0).toFixed(7)} WLT`;
+function wlt(value) {
+  return Number(value || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 7,
+    maximumFractionDigits: 7,
+  });
+}
+
+function solAmt(value) {
+  return Number(value || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 8,
+  });
 }
 
 function when(value) {
@@ -114,7 +133,7 @@ function when(value) {
 export default function WalletStudio({ panel = "user", defaultTab = "overview" }) {
   const [data, setData] = useState(EMPTY);
   const [tab, setTab] = useState(defaultTab);
-  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
@@ -122,6 +141,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
   const presaleHref = panel === "admin" ? "/admin/presale" : "/user/presale";
   const referralHref = panel === "admin" ? "/admin/referral" : "/user/referral";
   const miningHref = panel === "admin" ? "/admin/mining" : "/user/mining";
+  const airdropHref = panel === "admin" ? "/admin/airdrops" : "/user/airdrops";
 
   async function load() {
     const response = await fetch("/api/wallet/status", { cache: "no-store" });
@@ -129,7 +149,12 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
     if (!response.ok) {
       throw new Error(payload.message || "Could not load wallet.");
     }
-    setData({ ...EMPTY, ...payload, balances: { ...EMPTY.balances, ...(payload.balances || {}) } });
+    setData({
+      ...EMPTY,
+      ...payload,
+      balances: { ...EMPTY.balances, ...(payload.balances || {}) },
+      withdrawable: { ...EMPTY.withdrawable, ...(payload.withdrawable || {}) },
+    });
     return payload;
   }
 
@@ -146,48 +171,133 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
     ? Number(data.balances.presaleUsd || 0)
     : totalWlt * Number(data.presale.price || 0.5);
 
-  const holdings = useMemo(() => {
-    const rows = [
+  const commissionEarned = Number(data.balances.commissionEarned || data.presale.commission.earned || 0);
+  const commissionAvailable = Number(data.withdrawable?.commissionUsd ?? data.presale.commission.available ?? 0);
+  const commissionAvailableSol = Number(data.presale.commission?.availableSol || 0);
+  const airdropEarned = Number(data.balances.airdropSol || 0);
+  const airdropAvailable = Number(data.withdrawable?.airdropSol ?? data.balances.airdropSolAvailable ?? 0);
+  const canWithdraw = commissionAvailable >= 1 || airdropAvailable >= 0.0001;
+
+  const statement = [
+    {
+      key: "presale",
+      label: "Purchased in presale",
+      amount: wlt(data.balances.presale),
+      unit: "WLT",
+      note: `Paid ${money(data.balances.presaleUsd)} at $0.50`,
+      state: locked ? "Locked" : "Held",
+    },
+    {
+      key: "mined",
+      label: "Mined tokens",
+      amount: wlt(data.balances.mined),
+      unit: "WLT",
+      note: `${data.mining?.cycles || 0} completed cycles`,
+      state: locked ? "Locked" : "Held",
+    },
+    {
+      key: "commission",
+      label: "Direct referral commission",
+      amount: money(commissionEarned),
+      unit: "USD earned",
+      note: `${money(commissionAvailable)} available (${solAmt(commissionAvailableSol)} SOL est.)`,
+      state: "Paid in SOL",
+    },
+    {
+      key: "airdrop",
+      label: "Airdrop earned",
+      amount: solAmt(airdropEarned),
+      unit: "SOL",
+      note: `${solAmt(airdropAvailable)} available to withdraw`,
+      state: "SOL",
+    },
+  ];
+
+  const sources = useMemo(
+    () => [
+      {
+        key: "commission",
+        label: "Direct referral",
+        unit: "USD",
+        prefix: "$",
+        available: commissionAvailable,
+        min: 1,
+        step: "0.01",
+        format: (value) => Number(value || 0).toFixed(2),
+      },
+      {
+        key: "airdrop",
+        label: "Presale airdrop",
+        unit: "SOL",
+        prefix: "",
+        available: airdropAvailable,
+        min: 0.0001,
+        step: "0.0001",
+        format: (value) => Number(value || 0).toFixed(4),
+      },
+    ],
+    [commissionAvailable, airdropAvailable]
+  );
+
+  const holdings = useMemo(
+    () => [
       {
         key: "mined",
-        label: "Mined WLT",
-        value: Number(data.balances.mined || 0),
-        note: locked ? "Locked until trade opens" : "Available",
+        label: "Mined tokens",
+        amount: wlt(data.balances.mined),
+        unit: "WLT",
+        note: locked ? "Locked until trade opens" : "Held in vault",
         Icon: Pickaxe,
         lock: locked,
-        tone: "#c9f53a",
       },
       {
         key: "presale",
-        label: "Presale WLT",
-        value: Number(data.balances.presale || 0),
-        note: locked ? `Locked until trade · ${money(data.balances.presaleUsd)} at $0.50` : `${money(data.balances.presaleUsd)} at $0.50`,
+        label: "Purchased tokens",
+        amount: wlt(data.balances.presale),
+        unit: "WLT",
+        note: `Paid ${money(data.balances.presaleUsd)} at $0.50`,
         Icon: ShoppingBag,
         lock: locked,
-        tone: "#8fa53a",
       },
       {
         key: "referral",
         label: "Mining referral",
-        value: Number(data.balances.miningReferral || 0),
+        amount: wlt(data.balances.miningReferral),
+        unit: "WLT",
         note: "Pool-funded 10 / 5 / 3",
         Icon: Users,
         lock: locked,
-        tone: "#d7ff5c",
       },
       {
         key: "scratch",
         label: "Scratch & Win",
-        value: Number(data.balances.scratch || 0),
+        amount: wlt(data.balances.scratch),
+        unit: "WLT",
         note: `${data.rewards?.plays || 0} plays`,
         Icon: Gift,
         lock: locked,
-        tone: "#6d7a2a",
       },
-    ];
-    const sum = rows.reduce((acc, row) => acc + row.value, 0) || 1;
-    return rows.map((row) => ({ ...row, pct: Math.max(2, Math.round((row.value / sum) * 100)) }));
-  }, [data, locked]);
+      {
+        key: "commission",
+        label: "Direct referral commission",
+        amount: money(commissionEarned),
+        unit: "earned",
+        note: `${money(commissionAvailable)} available`,
+        Icon: Banknote,
+        lock: false,
+      },
+      {
+        key: "airdrop",
+        label: "Airdrop received",
+        amount: solAmt(airdropEarned),
+        unit: "SOL",
+        note: `${solAmt(airdropAvailable)} available`,
+        Icon: Sparkles,
+        lock: false,
+      },
+    ],
+    [data, locked, commissionEarned, commissionAvailable, airdropEarned, airdropAvailable]
+  );
 
   async function connectWallet() {
     setError("");
@@ -213,16 +323,18 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
     }
   }
 
-  async function withdraw() {
+  async function confirmWithdraw(sourceKey, amount) {
     setError("");
     setNote("");
     setBusy("withdraw");
     try {
-      const amount = Number(withdrawAmount || data.presale.commission.available);
+      const isAirdrop = sourceKey === "airdrop";
       const signed = await connectAndSign(
-        `Withdraw ${money(amount)} WLT referral commission as SOL to Phantom.`
+        isAirdrop
+          ? `WLT Wallet: withdraw ${Number(amount).toFixed(8)} SOL airdrop to Phantom.`
+          : `WLT Wallet: withdraw ${money(amount)} direct referral commission (USD ledger, SOL payout) to Phantom.`
       );
-      const response = await fetch("/api/presale/withdraw", {
+      const response = await fetch(isAirdrop ? "/api/airdrop/withdraw" : "/api/presale/withdraw", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -235,9 +347,19 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
       if (!response.ok) {
         throw new Error(payload.message || "Withdrawal failed.");
       }
-      setWithdrawAmount("");
       await load();
-      setNote("Commission sent to your Phantom wallet as SOL.");
+      setModalOpen(false);
+      if (isAirdrop) {
+        setNote("Airdrop SOL sent to Phantom.");
+      } else {
+        const solOut = Number(payload.withdrawal?.solAmount || 0);
+        const rate = Number(payload.withdrawal?.solUsdRate || 0);
+        setNote(
+          solOut > 0 && rate > 0
+            ? `Referral withdrawal sent: ${money(amount)} -> ${solAmt(solOut)} SOL at $${rate.toFixed(2)}.`
+            : "Referral commission sent to Phantom."
+        );
+      }
     } catch (err) {
       setError(err.message || "Withdrawal failed.");
     } finally {
@@ -247,7 +369,6 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
 
   const tabs = [
     { id: "overview", label: "Overview", Icon: LayoutDashboard },
-    { id: "income", label: "Income", Icon: Banknote },
     { id: "activity", label: "Transactions", Icon: Receipt },
   ];
 
@@ -259,13 +380,18 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
           <small>
             Total WLT <Info size={12} />
           </small>
-          <strong>{totalWlt.toFixed(7)}</strong>
+          <strong>{wlt(totalWlt)}</strong>
           <em>≈ {money(usdValue)} USD</em>
-          <span>Ledger: {Number(data.balances.ledger || 0).toFixed(7)}</span>
+          <span>Locked WLT: {wlt(data.balances.lockedWlt)}</span>
           <div className={styles.usdcRow}>
             <span className={styles.coin} />
-            <b>{money(data.presale.commission.available)}</b>
-            <i>SOL available</i>
+            <b>{money(commissionAvailable)}</b>
+            <i>Referral available</i>
+          </div>
+          <div className={styles.usdcRow}>
+            <span className={styles.coin} />
+            <b>{solAmt(airdropAvailable)} SOL</b>
+            <i>Airdrop available</i>
           </div>
         </aside>
 
@@ -300,8 +426,8 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
             </p>
             <h1>Your WLT Vault</h1>
             <p className={styles.lead}>
-              Phantom settles purchases and withdrawals in SOL. Mined, scratch, mining-referral, and
-              presale WLT stay locked until trade opens. Only SOL commission can leave the vault.
+              All balances live here. WLT from mining, purchases, scratch, and mining referrals stays locked until trade
+              opens. Direct referral commission and released airdrop SOL withdraw from this page only.
             </p>
 
             <div className={styles.statusGrid}>
@@ -352,11 +478,69 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
             </div>
           </div>
         </div>
-
       </motion.section>
 
-      {error ? <p className={styles.error}>{error}</p> : null}
+      {error && !modalOpen ? <p className={styles.error}>{error}</p> : null}
       {note ? <p className={styles.ok}>{note}</p> : null}
+
+      <section className={styles.statement}>
+        <div className={styles.statementHead}>
+          <p className={styles.kicker}>Token statement</p>
+          <h2>Your balances, in numbers</h2>
+        </div>
+        <div className={styles.statementGrid}>
+          {statement.map((item) => (
+            <article key={item.key} className={styles.statementCard}>
+              <small>{item.label}</small>
+              <b>{item.amount}</b>
+              <em>{item.unit}</em>
+              <p>{item.note}</p>
+              <span>{item.state}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.cashDesk}>
+        <div>
+          <p className={styles.kicker}>Withdrawable</p>
+          <h2>Ready to send</h2>
+          <p className={styles.copy}>
+            Only released airdrop SOL and qualified direct-referral commission can leave the vault. Enter the amount in
+            the popup after you tap Withdraw.
+          </p>
+        </div>
+        <ul className={styles.cashStats}>
+          <li>
+            <small>Direct referral available</small>
+            <b>{money(commissionAvailable)}</b>
+            <em>
+              of {money(commissionEarned)} earned · {solAmt(commissionAvailableSol)} SOL est.
+            </em>
+          </li>
+          <li>
+            <small>Airdrop available</small>
+            <b>{solAmt(airdropAvailable)} SOL</b>
+            <em>of {solAmt(airdropEarned)} SOL earned</em>
+          </li>
+          <li>
+            <small>Locked WLT</small>
+            <b>{wlt(data.balances.lockedWlt)}</b>
+            <em>WLT · {locked ? "until trade" : "held"}</em>
+          </li>
+        </ul>
+        <button
+          className={styles.withdrawCta}
+          type="button"
+          disabled={!canWithdraw || Boolean(busy)}
+          onClick={() => {
+            setError("");
+            setModalOpen(true);
+          }}
+        >
+          Withdraw
+        </button>
+      </section>
 
       <nav className={styles.tabs}>
         {tabs.map((item) => (
@@ -377,28 +561,13 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
           <div className={styles.cardHead}>
             <div>
               <p className={styles.kicker}>
-                <Coins size={12} /> Token mix
+                <Coins size={12} /> Current balances
               </p>
-              <h2>How this vault is built</h2>
+              <h2>Everything in this vault</h2>
               <p className={styles.lead}>
-                Your WLT comes from multiple sources. Each serves a different purpose and unlocks at the right time.
+                Mined, purchased, mining-referral, and scratch WLT stay locked. Commission and airdrop SOL are withdrawable from the button above.
               </p>
             </div>
-            <p className={styles.sideNote}>
-              Same people.
-              <span>Bigger tomorrow.</span>
-            </p>
-          </div>
-
-          <div className={styles.mixTrack}>
-            <div className={styles.mixBar}>
-              {holdings.map((item) => (
-                <span key={item.key} style={{ width: `${item.pct}%`, background: item.tone }} title={item.label} />
-              ))}
-            </div>
-            <button type="button" className={styles.viewLink} onClick={() => setTab("activity")}>
-              View details <ArrowRight size={14} />
-            </button>
           </div>
 
           <div className={styles.holdings}>
@@ -413,14 +582,12 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
                       <Lock size={11} /> Locked
                     </span>
                   ) : (
-                    <span className={styles.openPill}>
-                      <ShoppingBag size={11} /> Available
-                    </span>
+                    <span className={styles.openPill}>Withdrawable</span>
                   )}
                 </div>
                 <small>{item.label}</small>
-                <b>{item.value.toFixed(7)}</b>
-                <em>WLT</em>
+                <b>{item.amount}</b>
+                <em>{item.unit}</em>
                 <p>{item.note}</p>
               </article>
             ))}
@@ -429,13 +596,13 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
           <div className={styles.flow}>
             <Link className={styles.flowItem} href={miningHref}>
               <span className={styles.iconTile}>
-                <Clock3 size={16} />
+                <Pickaxe size={16} />
               </span>
               <div>
-                <b>Mine 24h</b>
-                <small>Locked</small>
+                <b>Mining</b>
+                <small>Mined WLT</small>
               </div>
-              <strong>2.8756990 WLT</strong>
+              <strong>{wlt(data.balances.mined)}</strong>
               <ChevronRight size={16} />
             </Link>
             <Link className={styles.flowItem} href={presaleHref}>
@@ -443,10 +610,10 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
                 <ShoppingBag size={16} />
               </span>
               <div>
-                <b>Buy presale</b>
-                <small>{locked ? "Locked until trade" : "Allocation"}</small>
+                <b>Presale</b>
+                <small>Purchased WLT</small>
               </div>
-              <strong>$0.50</strong>
+              <strong>{wlt(data.balances.presale)}</strong>
               <ChevronRight size={16} />
             </Link>
             <Link className={styles.flowItem} href={referralHref}>
@@ -454,135 +621,30 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
                 <Users size={16} />
               </span>
               <div>
-                <b>Refer miners</b>
-                <small>Pool funded</small>
+                <b>Referral</b>
+                <small>Commission earned</small>
               </div>
-              <strong>10 / 5 / 3 WLT</strong>
+              <strong>{money(commissionEarned)}</strong>
               <ChevronRight size={16} />
             </Link>
-            <button type="button" className={styles.flowItem} onClick={() => setTab("income")}>
+            <Link className={styles.flowItem} href={airdropHref}>
               <span className={styles.iconTile}>
-                <Banknote size={16} />
+                <Sparkles size={16} />
               </span>
               <div>
-                <b>Earn SOL</b>
-                <small>After $1,000</small>
+                <b>Airdrops</b>
+                <small>SOL earned</small>
               </div>
-              <strong>5%</strong>
+              <strong>{solAmt(airdropEarned)}</strong>
               <ChevronRight size={16} />
-            </button>
+            </Link>
           </div>
 
           <section className={styles.noteRow}>
             <p>
               <Lock size={14} /> {data.lock?.message || "WLT is locked. Withdraw and send stay closed until trade opens."}
             </p>
-            <div className={styles.actions}>
-              <Link className={styles.noteActionPrimary} href={miningHref}>
-                <Coins size={14} /> Open mining <ArrowRight size={14} />
-              </Link>
-              <Link className={styles.noteActionSecondary} href={referralHref}>
-                <Users size={14} /> Referral network <ArrowRight size={14} />
-              </Link>
-            </div>
           </section>
-        </section>
-      ) : null}
-
-      {tab === "income" ? (
-        <section className={styles.desk}>
-          <article className={styles.card}>
-            <div className={styles.cardHead}>
-              <div>
-                <p className={styles.kicker}>
-                  <Pickaxe size={12} /> Mining economy
-                </p>
-                <h2>WLT referral income</h2>
-              </div>
-              <Lock size={16} />
-            </div>
-            <p className={styles.copy}>
-              10% / 5% / 3% from completed mines, paid from the referral pool. Miner keeps 100%.
-              These tokens stay locked with mined WLT.
-            </p>
-            <ul className={styles.levelList}>
-              {(data.referral.earnings?.byLevel || []).map((tier) => (
-                <li key={tier.level}>
-                  <span>Level {tier.level}</span>
-                  <b>{tokens(tier.total)}</b>
-                </li>
-              ))}
-            </ul>
-            <dl className={styles.quote}>
-              <div>
-                <dt>Lifetime</dt>
-                <dd>{tokens(data.referral.earnings?.total)}</dd>
-              </div>
-              <div>
-                <dt>Today</dt>
-                <dd>{tokens(data.referral.earnings?.today)}</dd>
-              </div>
-              <div>
-                <dt>Network</dt>
-                <dd>{data.referral.counts?.total || 0} members</dd>
-              </div>
-            </dl>
-          </article>
-
-          <article className={styles.card}>
-            <div className={styles.cardHead}>
-              <div>
-                <p className={styles.kicker}>
-                  <Banknote size={12} /> Presale economy
-                </p>
-                <h2>SOL commission</h2>
-              </div>
-              <Wallet size={16} />
-            </div>
-            <p className={styles.copy}>
-              {qualified
-                ? "Qualified. Direct referred buys pay 5% in SOL to Phantom."
-                : `Buy ${money(data.presale.qualify?.remaining)} more in presale to unlock 5% SOL.`}
-            </p>
-            <ul className={styles.miniStats}>
-              <li>
-                <span>Earned</span>
-                <b>{money(data.presale.commission.earned)}</b>
-              </li>
-              <li>
-                <span>Available</span>
-                <b>{money(data.presale.commission.available)}</b>
-              </li>
-              <li>
-                <span>Withdrawn</span>
-                <b>{money(data.presale.commission.withdrawn)}</b>
-              </li>
-            </ul>
-            <label className={styles.field} htmlFor="wd">
-              <span>Withdraw SOL to Phantom</span>
-              <div className={styles.inputWrap}>
-                <b>$</b>
-                <input
-                  id="wd"
-                  type="number"
-                  min="1"
-                  step="0.01"
-                  placeholder={Number(data.presale.commission.available || 0).toFixed(2)}
-                  value={withdrawAmount}
-                  onChange={(event) => setWithdrawAmount(event.target.value)}
-                />
-              </div>
-            </label>
-            <button
-              className={styles.primaryWide}
-              type="button"
-              onClick={withdraw}
-              disabled={Boolean(busy) || data.presale.commission.available < 1}
-            >
-              <ArrowDownToLine size={15} />
-              {busy === "withdraw" ? "Sending..." : "Withdraw SOL to Phantom"}
-            </button>
-          </article>
         </section>
       ) : null}
 
@@ -637,6 +699,22 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
           )}
         </article>
       ) : null}
+
+      <WithdrawModal
+        open={modalOpen}
+        sources={sources}
+        connected={Boolean(data.wallet.connected)}
+        walletShort={data.wallet.short}
+        busy={busy === "withdraw"}
+        error={modalOpen ? error : ""}
+        onClose={() => {
+          if (!busy) {
+            setModalOpen(false);
+            setError("");
+          }
+        }}
+        onConfirm={confirmWithdraw}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import getPool from "@/lib/db";
 import { ensureReferralSchema } from "@/lib/referral";
+import { getSolUsdRate, roundSol, usdToSol } from "@/lib/sol-price";
 
 export const TOKEN_SYMBOL = "WLT";
 export const WLT_PRICE_USD = 0.5;
@@ -11,6 +12,7 @@ export const PRESALE_STAGE = "Presale Stage 1";
 export const SETTLEMENT_ASSET = "SOL";
 export const STABLECOIN = SETTLEMENT_ASSET;
 export const NETWORK_FEE_USD = 0;
+export const COMMISSION_UNIT = "USD";
 
 export const CLASS = {
   MINING_USER: "MINING_USER",
@@ -75,18 +77,24 @@ export function classifyInvestor(presaleUsd) {
   };
 }
 
-export function quotePurchase(usdAmount) {
+export function quotePurchase(usdAmount, solUsdRate) {
   const usd = roundUsd(usdAmount);
   const wlt = roundToken(usd / WLT_PRICE_USD);
   const fee = roundUsd(NETWORK_FEE_USD);
+  const rate = Number(solUsdRate) > 0 ? Number(solUsdRate) : 0;
+  const sol = rate > 0 ? usdToSol(usd + fee, rate) : 0;
   return {
     usd,
     price: WLT_PRICE_USD,
     wlt,
     fee,
     total: roundUsd(usd + fee),
+    sol,
+    solUsdRate: rate,
     stage: PRESALE_STAGE,
     token: TOKEN_SYMBOL,
+    settlement: SETTLEMENT_ASSET,
+    commissionUnit: COMMISSION_UNIT,
   };
 }
 
@@ -129,6 +137,8 @@ export async function ensurePresaleSchema() {
       usd_amount DECIMAL(18,2) NOT NULL,
       wlt_amount DECIMAL(18,7) NOT NULL,
       price DECIMAL(18,4) NOT NULL DEFAULT 0.5000,
+      sol_amount DECIMAL(18,8) NOT NULL DEFAULT 0,
+      sol_usd_rate DECIMAL(18,4) NOT NULL DEFAULT 0,
       wallet_address VARCHAR(64) NOT NULL,
       tx_hash VARCHAR(128) NOT NULL,
       signature VARCHAR(256) NULL,
@@ -170,6 +180,8 @@ export async function ensurePresaleSchema() {
       id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
       user_id BIGINT UNSIGNED NOT NULL,
       amount DECIMAL(18,2) NOT NULL,
+      sol_amount DECIMAL(18,8) NOT NULL DEFAULT 0,
+      sol_usd_rate DECIMAL(18,4) NOT NULL DEFAULT 0,
       wallet_address VARCHAR(64) NOT NULL,
       asset VARCHAR(16) NOT NULL DEFAULT 'SOL',
       tx_hash VARCHAR(128) NOT NULL,
@@ -183,6 +195,10 @@ export async function ensurePresaleSchema() {
 
   await db.query("UPDATE commission_withdrawals SET asset = 'SOL' WHERE UPPER(asset) = 'USDC'");
   await db.query("ALTER TABLE commission_withdrawals MODIFY asset VARCHAR(16) NOT NULL DEFAULT 'SOL'");
+  await addColumn(db, "presale_purchases", "sol_amount", "sol_amount DECIMAL(18,8) NOT NULL DEFAULT 0");
+  await addColumn(db, "presale_purchases", "sol_usd_rate", "sol_usd_rate DECIMAL(18,4) NOT NULL DEFAULT 0");
+  await addColumn(db, "commission_withdrawals", "sol_amount", "sol_amount DECIMAL(18,8) NOT NULL DEFAULT 0");
+  await addColumn(db, "commission_withdrawals", "sol_usd_rate", "sol_usd_rate DECIMAL(18,4) NOT NULL DEFAULT 0");
 
   await db.query(`
     CREATE TABLE IF NOT EXISTS referral_tiers (
@@ -260,9 +276,13 @@ async function creditDirectCommission(db, { sponsorCheckUsd, buyerId, purchaseId
 
 export async function recordPresalePurchase(userId, { usdAmount, walletAddress, signature }) {
   await ensurePresaleSchema();
-  const quote = quotePurchase(usdAmount);
+  const solUsdRate = await getSolUsdRate();
+  const quote = quotePurchase(usdAmount, solUsdRate);
   if (quote.usd < 1) {
     return { ok: false, code: 400, message: "Enter a purchase amount of at least $1." };
+  }
+  if (quote.sol <= 0) {
+    return { ok: false, code: 503, message: "SOL price is unavailable. Try again in a moment." };
   }
 
   const wallet = String(walletAddress || "").trim();
@@ -300,9 +320,9 @@ export async function recordPresalePurchase(userId, { usdAmount, walletAddress, 
 
     const [result] = await conn.query(
       `INSERT INTO presale_purchases
-        (user_id, usd_amount, wlt_amount, price, wallet_address, tx_hash, signature, status)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'confirmed')`,
-      [userId, quote.usd, quote.wlt, quote.price, wallet, txHash, signature || null]
+        (user_id, usd_amount, wlt_amount, price, sol_amount, sol_usd_rate, wallet_address, tx_hash, signature, status)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed')`,
+      [userId, quote.usd, quote.wlt, quote.price, quote.sol, quote.solUsdRate, wallet, txHash, signature || null]
     );
 
     await conn.query(
@@ -338,9 +358,14 @@ export async function withdrawCommission(userId, { amount, walletAddress, signat
   await ensurePresaleSchema();
   const usd = roundUsd(amount);
   const wallet = String(walletAddress || "").trim();
+  const solUsdRate = await getSolUsdRate();
+  const solAmount = usdToSol(usd, solUsdRate);
 
   if (usd < 1) {
     return { ok: false, code: 400, message: "Enter at least $1.00 to withdraw." };
+  }
+  if (solAmount <= 0 || solUsdRate <= 0) {
+    return { ok: false, code: 503, message: "SOL price is unavailable. Try again in a moment." };
   }
   if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
     return { ok: false, code: 400, message: "Connect Phantom Wallet to withdraw commission." };
@@ -376,9 +401,9 @@ export async function withdrawCommission(userId, { amount, walletAddress, signat
 
     await conn.query(
       `INSERT INTO commission_withdrawals
-        (user_id, amount, wallet_address, asset, tx_hash, status)
-       VALUES (?, ?, ?, ?, ?, 'completed')`,
-      [userId, usd, wallet, STABLECOIN, txHash]
+        (user_id, amount, sol_amount, sol_usd_rate, wallet_address, asset, tx_hash, status)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'completed')`,
+      [userId, usd, solAmount, solUsdRate, wallet, SETTLEMENT_ASSET, txHash]
     );
     await conn.query(
       `UPDATE users
@@ -395,12 +420,22 @@ export async function withdrawCommission(userId, { amount, walletAddress, signat
     conn.release();
   }
 
-  return { ok: true, ...(await getPresaleStatus(userId)) };
+  return {
+    ok: true,
+    withdrawal: {
+      usd,
+      solAmount,
+      solUsdRate,
+      asset: SETTLEMENT_ASSET,
+    },
+    ...(await getPresaleStatus(userId)),
+  };
 }
 
 export async function getPresaleStatus(userId) {
   await ensurePresaleSchema();
   const db = getPool();
+  const solUsdRate = await getSolUsdRate();
   const [userRows] = await db.query(
     `SELECT phantom_wallet, presale_usd, presale_wlt,
             commission_earned, commission_available, commission_withdrawn, commission_pending
@@ -409,6 +444,10 @@ export async function getPresaleStatus(userId) {
   );
   const user = userRows[0] || {};
   const spent = roundUsd(user.presale_usd);
+  const earned = roundUsd(user.commission_earned);
+  const available = roundUsd(user.commission_available);
+  const withdrawn = roundUsd(user.commission_withdrawn);
+  const pending = roundUsd(user.commission_pending);
   const investor = classifyInvestor(spent);
   const remaining = roundUsd(Math.max(0, QUALIFY_USD - spent));
   const progress = Math.min(100, Math.round((spent / QUALIFY_USD) * 100));
@@ -446,7 +485,7 @@ export async function getPresaleStatus(userId) {
   const qualifiedDirect = l1Rows.filter((row) => roundUsd(row.presale_usd) > 0).length;
 
   const [purchaseRows] = await db.query(
-    `SELECT id, usd_amount, wlt_amount, price, wallet_address, tx_hash, status, created_at
+    `SELECT id, usd_amount, wlt_amount, price, sol_amount, sol_usd_rate, wallet_address, tx_hash, status, created_at
      FROM presale_purchases WHERE user_id = ? ORDER BY id DESC LIMIT 20`,
     [userId]
   );
@@ -463,7 +502,7 @@ export async function getPresaleStatus(userId) {
   );
 
   const [withdrawRows] = await db.query(
-    `SELECT id, amount, wallet_address, asset, tx_hash, status, created_at
+    `SELECT id, amount, sol_amount, sol_usd_rate, wallet_address, asset, tx_hash, status, created_at
      FROM commission_withdrawals WHERE user_id = ? ORDER BY id DESC LIMIT 20`,
     [userId]
   );
@@ -472,8 +511,10 @@ export async function getPresaleStatus(userId) {
     token: TOKEN_SYMBOL,
     settlement: SETTLEMENT_ASSET,
     stablecoin: SETTLEMENT_ASSET,
+    commissionUnit: COMMISSION_UNIT,
     stage: PRESALE_STAGE,
     price: WLT_PRICE_USD,
+    solPrice: solUsdRate,
     qualifyUsd: QUALIFY_USD,
     qualifyWlt: QUALIFY_WLT,
     commissionRate: PRESALE_COMMISSION_RATE,
@@ -496,10 +537,14 @@ export async function getPresaleStatus(userId) {
       unlocked: investor.eligiblePresaleReferral,
     },
     commission: {
-      earned: roundUsd(user.commission_earned),
-      available: roundUsd(user.commission_available),
-      withdrawn: roundUsd(user.commission_withdrawn),
-      pending: roundUsd(user.commission_pending),
+      earned,
+      available,
+      withdrawn,
+      pending,
+      unit: COMMISSION_UNIT,
+      payoutAsset: SETTLEMENT_ASSET,
+      availableSol: usdToSol(available, solUsdRate),
+      earnedSol: usdToSol(earned, solUsdRate),
     },
     network: {
       total: tree.length,
@@ -520,6 +565,8 @@ export async function getPresaleStatus(userId) {
       usd: roundUsd(row.usd_amount),
       wlt: roundToken(row.wlt_amount),
       price: Number(row.price),
+      sol: roundSol(row.sol_amount),
+      solUsdRate: Number(row.sol_usd_rate || 0),
       wallet: shortWallet(row.wallet_address),
       txHash: row.tx_hash,
       status: row.status,
@@ -532,6 +579,7 @@ export async function getPresaleStatus(userId) {
       purchaseUsd: roundUsd(row.purchase_usd),
       rate: Number(row.rate),
       commission: roundUsd(row.commission_usd),
+      unit: COMMISSION_UNIT,
       status: row.status,
       buyerName: row.buyer_name,
       txHash: row.tx_hash,
@@ -540,8 +588,11 @@ export async function getPresaleStatus(userId) {
     withdrawals: withdrawRows.map((row) => ({
       id: Number(row.id),
       amount: roundUsd(row.amount),
+      usd: roundUsd(row.amount),
+      solAmount: roundSol(row.sol_amount),
+      solUsdRate: Number(row.sol_usd_rate || 0),
       wallet: shortWallet(row.wallet_address),
-      asset: row.asset,
+      asset: row.asset || SETTLEMENT_ASSET,
       txHash: row.tx_hash,
       status: row.status,
       createdAt: row.created_at,

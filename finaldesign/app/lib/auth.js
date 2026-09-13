@@ -46,6 +46,10 @@ function hashToken(token) {
   return crypto.createHash("sha256").update(token).digest("hex");
 }
 
+export function hashSessionToken(token) {
+  return hashToken(token);
+}
+
 export async function createSession(userId, remember = true) {
   const db = getPool();
   const token = crypto.randomBytes(32).toString("hex");
@@ -96,4 +100,33 @@ export async function deleteSessionByToken(token) {
   const db = getPool();
   const tokenHash = hashToken(token);
   await db.query("DELETE FROM sessions WHERE token_hash = ?", [tokenHash]);
+}
+
+export async function listUserSessions(userId, currentToken) {
+  const db = getPool();
+  const currentHash = currentToken ? hashToken(currentToken) : "";
+  const [rows] = await db.query(
+    `SELECT id, created_at, expires_at, token_hash
+     FROM sessions
+     WHERE user_id = ?
+     ORDER BY created_at DESC`,
+    [userId]
+  );
+  return rows.map((row) => ({
+    id: Number(row.id),
+    createdAt: row.created_at,
+    expiresAt: row.expires_at,
+    current: row.token_hash === currentHash,
+  }));
+}
+
+export async function deleteSessionById(userId, sessionId) {
+  const db = getPool();
+  await db.query("DELETE FROM sessions WHERE id = ? AND user_id = ?", [Number(sessionId), userId]);
+}
+
+export async function deleteOtherSessions(userId, currentToken) {
+  const db = getPool();
+  const currentHash = hashToken(currentToken);
+  await db.query("DELETE FROM sessions WHERE user_id = ? AND token_hash <> ?", [userId, currentHash]);
 }

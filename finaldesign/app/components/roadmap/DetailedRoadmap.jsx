@@ -56,7 +56,7 @@ const PHASES = [
       "Website release",
       "Whitepaper publish",
       "Phantom presale at $0.50 / WLT",
-      "Qualified investor referral: $1,000 unlock · 5% SOL",
+      "Qualified investor referral: $1,000 unlock · 5% USD (SOL payout)",
     ],
   },
   {

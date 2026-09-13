@@ -182,7 +182,7 @@ export default function ReferralStudio({ panel = "user" }) {
           <h1>Mine. Invest. Refer. Earn.</h1>
           <p className={styles.copy}>
             One invite URL. Two reward economies. Mining pays 10% / 5% / 3% in WLT.
-            Qualified presale investors earn a separate 5% SOL commission.
+            Qualified presale investors earn a separate 5% USD commission (paid out in SOL).
           </p>
           <div className={styles.statusRow}>
             <span className={`${styles.chip} ${styles.chipLive}`}>
@@ -323,7 +323,7 @@ export default function ReferralStudio({ panel = "user" }) {
           <p className={styles.kicker}>
             <Banknote size={12} /> Presale Economy
           </p>
-          <h2>Earn in SOL</h2>
+          <h2>Earn in USD</h2>
           <div className={styles.flow}>
             <div className={`${styles.step} ${styles.arrow}`}>
               <ShoppingBag size={16} />
@@ -339,7 +339,7 @@ export default function ReferralStudio({ panel = "user" }) {
             </div>
             <div className={styles.step}>
               <ArrowDownToLine size={16} />
-              SOL out
+              SOL payout
             </div>
           </div>
           <p className={styles.meterLabel}>
@@ -440,7 +440,7 @@ export default function ReferralStudio({ panel = "user" }) {
                 <div>
                   <strong>{row.label}</strong>
                   <small>
-                    Direct 5% · {row.buyerName} bought {money(row.purchaseUsd)} · {row.status}
+                    Direct 5% USD · {row.buyerName} bought {money(row.purchaseUsd)} · {row.status}
                   </small>
                   <small className={styles.hash}>{row.txHash}</small>
                   <time>{formatWhen(row.createdAt)}</time>
@@ -502,7 +502,7 @@ export default function ReferralStudio({ panel = "user" }) {
                 <Banknote size={18} />
               </span>
               <div>
-                <small>SOL Commissions</small>
+                <small>USD Commissions</small>
                 <b>{money(data.adminPresale?.commissionPaid)}</b>
               </div>
             </article>

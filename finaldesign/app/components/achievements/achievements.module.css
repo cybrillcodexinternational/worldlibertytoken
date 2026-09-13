@@ -1,0 +1,666 @@
+.studio {
+  display: grid;
+  gap: 16px;
+  font-family: var(--font-primary), "Raleway", sans-serif;
+}
+
+.hero,
+.kpis article,
+.nextCard,
+.chartCard,
+.card,
+.cardOn,
+.adminCard,
+.tabs {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201, 245, 58, 0.14);
+  background:
+    radial-gradient(circle at 88% 0%, rgba(201, 245, 58, 0.08), transparent 38%),
+    #0b0e0a;
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 40px -28px rgba(0, 0, 0, 0.7);
+}
+
+.hero,
+.nextCard,
+.chartCard,
+.adminCard {
+  padding: 24px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  min-height: 240px;
+  padding: 28px 30px;
+  background:
+    radial-gradient(circle at 86% 18%, rgba(201, 245, 58, 0.2), transparent 32%),
+    linear-gradient(180deg, #0c1209 0%, #070a06 100%);
+}
+
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+  animation: drift 10s linear infinite;
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 1;
+  max-width: 62ch;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  color: #c9f53a;
+  letter-spacing: 0.16em;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero h1,
+.nextCard h2,
+.chartCard h2,
+.adminCard h2 {
+  margin: 0;
+  color: #f3f6ea;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.nextCard h2,
+.chartCard h2 {
+  font-size: clamp(20px, 2vw, 26px);
+}
+
+.lead {
+  margin: 10px 0 0;
+  color: #9aa18c;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.heroFacts {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.heroFacts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  background: #10150c;
+  color: #cfd6c0;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.heroFacts svg {
+  color: #c9f53a;
+}
+
+.seal {
+  position: relative;
+  z-index: 1;
+  width: 188px;
+  height: 188px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.orbitA,
+.orbitB {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 245, 58, 0.18);
+}
+
+.orbitA {
+  border-top-color: #c9f53a;
+  animation: spin 10s linear infinite;
+}
+
+.orbitB {
+  inset: 16px;
+  border-right-color: #c9f53a;
+  animation: spin 7s linear infinite reverse;
+}
+
+.ringWrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ringSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ringTrack,
+.ringFill {
+  fill: none;
+}
+
+.ringTrack {
+  stroke: #161b12;
+}
+
+.ringFill {
+  stroke: #c9f53a;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(201, 245, 58, 0.45));
+}
+
+.ringCore {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: #080b07;
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.ringCore b {
+  color: #c9f53a;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.ringCore small,
+.ringCore em,
+.kpis small,
+.kpis em,
+.meterHead em,
+.pctNote,
+.card footer span,
+.card footer small,
+.card em,
+.chartRow small,
+.chartRowOn small {
+  color: #8b927c;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.ringCore em {
+  font-size: 9px;
+  color: #6f7664;
+  letter-spacing: 0.04em;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  padding: 6px;
+  background: #080b07;
+}
+
+.tab,
+.tabOn {
+  min-height: 72px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 4px;
+  text-align: center;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.tab {
+  background: transparent;
+  color: #cfd6c0;
+}
+
+.tab:hover {
+  background: rgba(201, 245, 58, 0.08);
+  color: #f3f6ea;
+}
+
+.tabOn {
+  background: #c9f53a;
+  color: #111806;
+  box-shadow: 0 8px 22px -10px rgba(201, 245, 58, 0.7);
+}
+
+.tab strong,
+.tabOn strong {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tab small,
+.tabOn small {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.tab small {
+  color: #6f7664;
+}
+
+.tabOn small {
+  color: #3d4a12;
+}
+
+.tabOn svg {
+  color: #111806;
+  stroke: #111806;
+}
+
+.kpis,
+.infoRow {
+  display: grid;
+  gap: 16px;
+}
+
+.kpis {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.infoRow {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: stretch;
+}
+
+.kpis article {
+  padding: 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.kpis b {
+  color: #eef6c8;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.iconTile {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #c9f53a;
+  border: 1px solid #c9f53a;
+  color: #000000;
+  box-shadow: 0 6px 14px rgba(201, 245, 58, 0.18);
+}
+
+.iconTile svg {
+  color: #000000;
+  stroke: #000000;
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cardHead svg {
+  color: #c9f53a;
+  flex-shrink: 0;
+}
+
+.nextBody {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.nextCopy {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.nextCopy p {
+  margin: 0;
+  color: #9aa18c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.meterHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.meterHead span {
+  color: #eef6c8;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #161b12;
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6d8a16, #c9f53a);
+}
+
+.pctNote {
+  margin: 0;
+}
+
+.chart {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.chartRow,
+.chartRowOn {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr) 48px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 245, 58, 0.08);
+  background: #11160d;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chartRowOn {
+  border-color: rgba(201, 245, 58, 0.32);
+  background: rgba(201, 245, 58, 0.08);
+}
+
+.chartRow b,
+.chartRowOn b {
+  color: #eef6c8;
+  font-size: 12px;
+  text-align: right;
+}
+
+.chartTrack {
+  height: 8px;
+  border-radius: 999px;
+  background: #161b12;
+  overflow: hidden;
+}
+
+.chartTrack i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6d8a16, #c9f53a);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card,
+.cardOn {
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.cardOn {
+  border-color: rgba(201, 245, 58, 0.35);
+  box-shadow: 0 0 28px rgba(201, 245, 58, 0.08);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon,
+.iconOn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(201, 245, 58, 0.12);
+  color: #c9f53a;
+}
+
+.iconOn {
+  background: #c9f53a;
+  color: #111806;
+}
+
+.iconOn svg {
+  color: #111806;
+  stroke: #111806;
+}
+
+.card h3,
+.cardOn h3 {
+  margin: 0;
+  color: #f3f6ea;
+  font-size: 16px;
+}
+
+.card p,
+.cardOn p {
+  margin: 0;
+  color: #8d9578;
+  font-size: 12px;
+  line-height: 1.45;
+  min-height: 34px;
+}
+
+.card footer,
+.cardOn footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8d9578;
+}
+
+.cardOn em {
+  color: #c9f53a;
+}
+
+.primary,
+.ghost,
+.tab,
+.tabOn {
+  font-weight: 700;
+}
+
+.primary,
+.ghost {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ghost {
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  background: transparent;
+  color: #dce6c4;
+}
+
+.primary {
+  border: 0;
+  background: #c9f53a;
+  color: #000000;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.form input,
+.form select,
+.form textarea {
+  min-height: 42px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 245, 58, 0.16);
+  background: #11160d;
+  color: #f3f6ea;
+}
+
+.form textarea {
+  grid-column: 1 / -1;
+  min-height: 72px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  grid-column: 1 / -1;
+}
+
+.error {
+  color: #e7b4b4;
+  font-size: 13px;
+}
+
+.ok {
+  color: #c9f53a;
+  font-size: 13px;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.list article {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #11160d;
+  color: #eef6c8;
+}
+
+@keyframes drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 48px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .kpis,
+  .grid,
+  .form,
+  .tabs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .infoRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero,
+  .kpis,
+  .grid,
+  .form,
+  .list article,
+  .tabs,
+  .nextBody,
+  .chartRow,
+  .chartRowOn {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .seal {
+    align-self: center;
+  }
+
+  .tab,
+  .tabOn {
+    min-height: 58px;
+  }
+}

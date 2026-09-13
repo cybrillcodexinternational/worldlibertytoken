@@ -384,6 +384,8 @@
   border-radius: 12px;
   padding: 8px;
   z-index: 8;
+  display: grid;
+  gap: 6px;
 }
 
 .logoutBtn {
@@ -395,6 +397,10 @@
   color: #000;
   font-size: 12px;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .hero {
