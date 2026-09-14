@@ -1,13 +1,41 @@
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
+const path = require("path");
+
+function loadEnv() {
+  const envPath = path.join(__dirname, "..", ".env.local");
+  if (!fs.existsSync(envPath)) {
+    return;
+  }
+  for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) {
+      continue;
+    }
+    const eq = trimmed.indexOf("=");
+    const key = trimmed.slice(0, eq).trim();
+    const value = trimmed.slice(eq + 1).trim();
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
 
 async function main() {
-  const email = process.argv[2];
-  const password = process.argv[3];
-  const fullName = process.argv[4] || "Main Admin";
+  loadEnv();
+
+  const email = String(process.argv[2] || "admin@worldlibertytoken.com").trim().toLowerCase();
+  const password = String(process.argv[3] || "WLTAdmin2026!");
+  const fullName = process.argv[4] || "WLT Admin";
 
   if (!email || !password) {
     console.error("Usage: node scripts/create-admin.js <email> <password> [fullName]");
+    process.exit(1);
+  }
+
+  if (password.length < 8) {
+    console.error("Password must be at least 8 characters.");
     process.exit(1);
   }
 
@@ -38,12 +66,12 @@ async function main() {
   );
 
   const [rows] = await db.query(
-    "SELECT email, role FROM users WHERE email = ? LIMIT 1",
+    "SELECT id, email, full_name, role FROM users WHERE email = ? LIMIT 1",
     [email]
   );
 
   await db.end();
-  console.log(JSON.stringify(rows[0]));
+  console.log(JSON.stringify({ ...rows[0], login: "/login" }, null, 2));
 }
 
 main().catch((error) => {

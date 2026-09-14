@@ -33,6 +33,13 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: "Invalid email or password." }, { status: 401 });
     }
 
+    if (user.status === "blocked") {
+      return NextResponse.json(
+        { success: false, message: "This account is blocked. Contact support." },
+        { status: 403 }
+      );
+    }
+
     const passwordOk = await verifyPassword(password, user.password_hash);
     if (!passwordOk) {
       return NextResponse.json({ success: false, message: "Invalid email or password." }, { status: 401 });

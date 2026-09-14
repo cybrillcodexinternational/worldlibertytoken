@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   ArrowDownToLine,
   ArrowLeftRight,
@@ -29,6 +30,7 @@ import {
   ShieldCheck,
   ShoppingBag,
   Sparkles,
+  UserRound,
   Users,
   Wallet,
 } from "lucide-react";
@@ -94,6 +96,7 @@ const QUICK_ACTIONS = [
 
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard", Icon: House },
+  { key: "users", label: "Users", Icon: UserRound, adminOnly: true },
   { key: "wallet", label: "Wallet", Icon: Wallet },
   { key: "presale", label: "Presale", Icon: ShoppingBag },
   { key: "airdrops", label: "Airdrops", Icon: Sparkles },
@@ -103,7 +106,7 @@ const NAV_ITEMS = [
   { key: "referral", label: "Referral Program", Icon: Users, chevron: true },
   { key: "transactions", label: "Transactions", Icon: Receipt },
   { key: "market", label: "Market & Charts", Icon: ChartNoAxesCombined },
-  { key: "kyc", label: "KYC Verification", Icon: ShieldCheck },
+  { key: "kyc", label: "KYC Verification", Icon: ShieldCheck, locked: true },
   { key: "settings", label: "Settings", Icon: Settings },
   { key: "support", label: "Support", Icon: Headphones },
 ];
@@ -111,6 +114,9 @@ const NAV_ITEMS = [
 function navHref(key, panel) {
   if (key === "dashboard") {
     return panel === "admin" ? "/admin" : "/user";
+  }
+  if (key === "users") {
+    return "/admin/users";
   }
   if (key === "mining") {
     return panel === "admin" ? "/admin/mining" : "/user/mining";
@@ -136,8 +142,14 @@ function navHref(key, panel) {
   if (key === "transactions") {
     return panel === "admin" ? "/admin/transactions" : "/user/transactions";
   }
+  if (key === "market") {
+    return panel === "admin" ? "/admin/market" : "/user/market";
+  }
   if (key === "settings") {
     return panel === "admin" ? "/admin/settings" : "/user/settings";
+  }
+  if (key === "support") {
+    return panel === "admin" ? "/admin/support" : "/user/support";
   }
   return "#";
 }
@@ -147,9 +159,16 @@ function NavIcon({ Icon }) {
 }
 
 export default function DashboardSurface({ user, panel, activeNav = "dashboard", children }) {
+  const router = useRouter();
   const displayName = user?.full_name || "User";
-  const roleLabel = panel === "admin" ? "Administrator" : "Verified User";
+  const impersonator = user?.impersonator || null;
+  const roleLabel = impersonator
+    ? `Viewing as ${displayName}`
+    : panel === "admin"
+      ? "Administrator"
+      : "Verified User";
   const initial = displayName.trim().charAt(0).toUpperCase() || "U";
+  const [leaving, setLeaving] = useState(false);
 
   const [period, setPeriod] = useState("1M");
   const [copied, setCopied] = useState(false);
@@ -206,6 +225,18 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
     }
   }
 
+  async function stopImpersonation() {
+    setLeaving(true);
+    try {
+      const response = await fetch("/api/auth/stop-impersonation", { method: "POST" });
+      const payload = await response.json();
+      router.push(payload.redirectTo || "/admin/users");
+      router.refresh();
+    } finally {
+      setLeaving(false);
+    }
+  }
+
   return (
     <div className={styles.pageWrap}>
       <aside className={styles.sidebar}>
@@ -219,17 +250,25 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
         </Link>
 
         <nav className={styles.sideNav}>
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.filter((item) => !item.adminOnly || panel === "admin").map((item) => {
             const active = item.key === activeNav;
+            const locked = Boolean(item.locked);
             return (
               <Link
                 key={item.key}
-                href={navHref(item.key, panel)}
-                className={active ? styles.navActive : styles.navItem}
+                href={locked ? "#" : navHref(item.key, panel)}
+                className={`${active ? styles.navActive : styles.navItem}${locked ? ` ${styles.navLocked}` : ""}`}
+                aria-disabled={locked}
+                onClick={locked ? (event) => event.preventDefault() : undefined}
               >
                 <NavIcon Icon={item.Icon} />
                 <span>{item.label}</span>
-                {item.chevron ? (
+                {locked ? (
+                  <em className={styles.navLockBadge}>
+                    <Lock size={10} strokeWidth={2.4} />
+                    Locked
+                  </em>
+                ) : item.chevron ? (
                   <ChevronRight size={14} strokeWidth={2} className={styles.navChevron} />
                 ) : null}
               </Link>
@@ -253,6 +292,16 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
       </aside>
 
       <div className={styles.main}>
+        {impersonator ? (
+          <div className={styles.impersonateBar}>
+            <span>
+              Impersonating <b>{displayName}</b> as {impersonator.full_name}
+            </span>
+            <button type="button" onClick={stopImpersonation} disabled={leaving}>
+              {leaving ? "Returning…" : "Return to admin"}
+            </button>
+          </div>
+        ) : null}
         <header className={styles.topbar}>
           <label className={styles.searchBox}>
             <Search size={16} strokeWidth={1.8} />
@@ -303,6 +352,28 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
           children
         ) : (
         <>
+        {impersonator ? (
+          <div className={styles.returnBanner}>
+            <p>
+              Returning to your account as{" "}
+              <strong>{displayName}</strong>
+              <button
+                type="button"
+                className={styles.returnBtn}
+                onClick={() => {
+                  setLeaving(true);
+                  setTimeout(() => {
+                    router.push("/user");
+                  }, 300);
+                }}
+              >
+                <ChevronRight size={14} />
+                Return to Account
+              </button>
+            </p>
+          </div>
+        ) : null}
+
         <section className={styles.hero}>
           <div className={styles.heroCopy}>
             <p className={styles.heroEyebrow}>WELCOME BACK,</p>
