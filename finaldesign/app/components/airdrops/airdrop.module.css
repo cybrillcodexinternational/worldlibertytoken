@@ -60,6 +60,17 @@
   max-width: 62ch;
 }
 
+.heroMeta {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.heroMeta .kicker {
+  transform: translateY(8px);
+}
+
 .kicker {
   margin: 0 0 6px;
   color: #c9f53a;
@@ -95,16 +106,22 @@
   line-height: 1.55;
 }
 
+.presaleRequiredNote {
+  margin-top: 0;
+  padding-bottom: 14px;
+}
+
 .heroActions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
-  margin-top: 18px;
+  margin-top: 22px;
 }
 
 .statusLive,
 .statusIdle,
+.statusRequired,
 .pill,
 .slotChip {
   min-height: 28px;
@@ -126,6 +143,12 @@
   background: #c9f53a;
 }
 
+.statusRequired {
+  color: #000;
+  background: #c9f53a;
+  border: 1px solid #c9f53a;
+}
+
 .statusIdle,
 .slotChip {
   color: #c9f53a;
@@ -134,7 +157,8 @@
 }
 
 .statusLive i,
-.statusIdle i {
+.statusIdle i,
+.statusRequired i {
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -225,8 +249,14 @@
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(201, 245, 58, 0.12);
-  color: #c9f53a;
+  background: #c9f53a;
+  color: #000;
+}
+
+.ico svg,
+.stepIco svg {
+  color: #000;
+  stroke: #000;
 }
 
 .stats small,
@@ -274,6 +304,10 @@
   margin-bottom: 16px;
 }
 
+.nextCard .cardHead {
+  margin-bottom: 4px;
+}
+
 .clock {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -310,12 +344,12 @@
 }
 
 .progressLabel {
-  margin: 22px 0 10px;
+  margin: 22px 0 16px;
 }
 
 .pips {
   list-style: none;
-  margin: 0;
+  margin: 12px 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -330,31 +364,48 @@
   min-height: 58px;
   padding: 10px 12px;
   border-radius: 14px;
-  border: 1px solid rgba(201, 245, 58, 0.1);
-  color: #8d9578;
-  background: #10150c;
+  border: 1px solid #c9f53a;
+  color: #0b0e0a;
+  background: #c9f53a;
+  box-shadow: 0 8px 18px rgba(201, 245, 58, 0.1);
+}
+
+.pips li svg {
+  align-self: start;
+  margin-top: 2px;
+  color: #000;
+  stroke: #000;
 }
 
 .pips b {
   display: block;
-  color: #eef6c8;
+  color: #0b0e0a;
   font-size: 13px;
 }
 
 .pipOn {
-  color: #c9f53a;
-  border-color: rgba(201, 245, 58, 0.3);
-  background: rgba(201, 245, 58, 0.08);
+  border-color: #a5d52a;
+  background: #a5d52a;
 }
 
 .pipLive {
-  color: #c9f53a;
-  border-color: rgba(201, 245, 58, 0.45);
-  box-shadow: 0 0 18px rgba(201, 245, 58, 0.12);
+  border-color: #e2ff7d;
+  background: #e2ff7d;
+  box-shadow: 0 8px 20px rgba(201, 245, 58, 0.2);
 }
 
-.pipOff {
-  color: #8d9578;
+.pips li.pipOff {
+  color: #000;
+  border-color: #dce8a8;
+  background: #eef4d2;
+}
+
+.pips li.pipOff b {
+  color: #000;
+}
+
+.pips li.pipOff small {
+  color: #000;
 }
 
 .mystery {
@@ -444,7 +495,12 @@
   margin-top: 14px;
   border: 0;
   background: linear-gradient(180deg, #e2ff7d, #c9f53a);
-  color: #0d1207;
+  color: #000 !important;
+}
+
+.primary svg {
+  color: #000 !important;
+  stroke: #000 !important;
 }
 
 .primary:disabled {
@@ -457,6 +513,20 @@
   border: 1px solid rgba(201, 245, 58, 0.22);
   background: transparent;
   color: #c9f53a;
+}
+
+.ghostInline {
+  min-height: 48px;
+  padding: 0 28px;
+  border-color: #c9f53a;
+  background: transparent;
+  color: #c9f53a !important;
+  box-shadow: none;
+}
+
+.ghostInline svg {
+  color: #c9f53a !important;
+  stroke: #c9f53a !important;
 }
 
 .ghost {
@@ -476,7 +546,7 @@
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
   gap: 12px;
-  align-items: start;
+  align-items: center;
   padding: 14px;
   border-radius: 14px;
   background: #11160d;

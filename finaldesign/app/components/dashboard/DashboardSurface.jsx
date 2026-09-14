@@ -396,25 +396,6 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               </Link>
             </div>
           </div>
-
-          <div className={styles.heroVisual}>
-            <span className={`${styles.orbit} ${styles.orbitA}`} />
-            <span className={`${styles.orbit} ${styles.orbitB}`} />
-            <span className={`${styles.orbit} ${styles.orbitC}`} />
-            <span className={styles.orbitSpark} />
-            <Image src={coinImage} alt="World Liberty Token coin" className={styles.heroCoin} />
-          </div>
-
-          <div className={styles.heroEarth}>
-            <Image src={heroGlow} alt="" />
-            <div className={styles.vertCopy}>
-              <span>PEOPLE</span>
-              <span>UTILITY</span>
-              <span>FREEDOM</span>
-              <span>A BRIGHTER</span>
-              <span>TOMORROW</span>
-            </div>
-          </div>
         </section>
 
         <section className={styles.statsGrid}>

@@ -142,21 +142,23 @@ export default function AirdropStudio({ panel = "user" }) {
       <motion.header className={styles.hero} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <div className={styles.scanlines} aria-hidden="true" />
         <div className={styles.heroCopy}>
-          <p className={styles.kicker}>
-            <MoonStar size={12} /> Saturday-night vault
-          </p>
+          <div className={styles.heroMeta}>
+            <span className={data.eligible ? styles.statusLive : styles.statusRequired}>
+              <i />
+              {data.eligible ? "Presale qualified" : "Purchase required"}
+            </span>
+            <p className={styles.kicker}>
+              <MoonStar size={12} /> Saturday-night vault
+            </p>
+          </div>
           <h1>My Airdrops</h1>
           <p className={styles.lead}>
             Confirmed presale purchases only. Four sealed SOL drops each month. The amount stays hidden until a cycle is
             actually released — never estimated, never previewed.
           </p>
           <div className={styles.heroActions}>
-            <span className={data.eligible ? styles.statusLive : styles.statusIdle}>
-              <i />
-              {data.eligible ? "Presale qualified" : "Purchase required"}
-            </span>
             <Link className={styles.ghostInline} href={presaleHref}>
-              <ShoppingBag size={14} /> Buy presale
+              <ShoppingBag size={14} /> Purchase
             </Link>
           </div>
         </div>
@@ -230,7 +232,9 @@ export default function AirdropStudio({ panel = "user" }) {
           {data.next.state === "preparing" ? (
             <p className={styles.clockNote}>The distribution window is open. The SOL amount stays sealed until release.</p>
           ) : data.next.state === "ineligible" ? (
-            <p className={styles.clockNote}>Buy confirmed presale WLT to join the next Saturday-night cycle.</p>
+            <p className={`${styles.clockNote} ${styles.presaleRequiredNote}`}>
+              Buy confirmed presale WLT to join the next Saturday-night cycle.
+            </p>
           ) : data.next.at ? (
             <div className={styles.clock}>
               <span>

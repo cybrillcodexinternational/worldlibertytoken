@@ -254,18 +254,32 @@
 }
 
 .tab:hover {
-  background: rgba(201, 245, 58, 0.08);
+  background: rgba(201, 245, 58, 0.12);
   color: #f3f6ea;
+  box-shadow: inset 0 0 0 1px rgba(201, 245, 58, 0.18);
 }
 
 .tabOn {
-  background: #c9f53a;
-  color: #111806;
-  box-shadow: 0 8px 22px -10px rgba(201, 245, 58, 0.7);
+  background: #c9f53a !important;
+  color: #000 !important;
+  box-shadow: 0 8px 22px -10px rgba(201, 245, 58, 0.7), inset 0 -2px 0 rgba(58, 78, 0, 0.32);
 }
 
-.tab strong,
+.tabOn:hover,
+.tabOn:focus-visible {
+  background: #c9f53a !important;
+  color: #000 !important;
+}
+
+.tab strong {
+  color: #f3f6ea;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
 .tabOn strong {
+  color: #000 !important;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -280,16 +294,16 @@
 }
 
 .tab small {
-  color: #6f7664;
+  color: #aeb89b;
 }
 
 .tabOn small {
-  color: #3d4a12;
+  color: #000 !important;
 }
 
 .tabOn svg {
-  color: #111806;
-  stroke: #111806;
+  color: #000 !important;
+  stroke: #000 !important;
 }
 
 .kpis,
