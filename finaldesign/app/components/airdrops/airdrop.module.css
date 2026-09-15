@@ -357,55 +357,157 @@
 }
 
 .pips li {
+  position: relative;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
+  grid-template-columns: 54px minmax(0, 1fr);
   align-items: center;
+  gap: 12px;
+  min-height: 92px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(171, 185, 154, 0.24);
+  color: #f3f6ea;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0 8%, transparent 8% 50%, rgba(255, 255, 255, 0.025) 50% 58%, transparent 58%),
+    #171c15;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.dropCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0 42%, rgba(201, 245, 58, 0.08) 42% 45%, transparent 45%);
+  opacity: 0.65;
+}
+
+.dropBadge,
+.dropContent {
+  position: relative;
+  z-index: 1;
+}
+
+.dropBadge {
+  min-height: 66px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1px;
+  border: 1px solid rgba(201, 245, 58, 0.42);
+  border-radius: 7px;
+  background: #252d20;
+  color: #c9f53a;
+  box-shadow: inset 0 0 0 3px rgba(8, 11, 7, 0.28);
+}
+
+.dropBadge svg {
+  margin-bottom: 1px;
+  color: #c9f53a;
+  stroke: #c9f53a;
+}
+
+.dropBadge span {
+  color: #9aa18c;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.dropBadge b {
+  color: #f3f6ea;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.dropContent {
+  display: grid;
+  gap: 7px;
+}
+
+.dropTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  min-height: 58px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid #c9f53a;
-  color: #0b0e0a;
-  background: #c9f53a;
-  box-shadow: 0 8px 18px rgba(201, 245, 58, 0.1);
 }
 
-.pips li svg {
-  align-self: start;
-  margin-top: 2px;
-  color: #000;
-  stroke: #000;
-}
-
-.pips b {
+.dropTop b {
   display: block;
-  color: #0b0e0a;
-  font-size: 13px;
+  color: #f3f6ea;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dropTop svg {
+  flex-shrink: 0;
+  color: #8b927c;
+  stroke: #8b927c;
+}
+
+.dropContent small {
+  color: #aeb89d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dropContent i {
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background: #3b4435;
 }
 
 .pipOn {
-  border-color: #a5d52a;
-  background: #a5d52a;
+  border-color: rgba(201, 245, 58, 0.64) !important;
+}
+
+.pipOn .dropBadge,
+.pipLive .dropBadge {
+  background: #c9f53a;
+  color: #111806;
+}
+
+.pipOn .dropBadge svg,
+.pipLive .dropBadge svg {
+  color: #111806;
+  stroke: #111806;
+}
+
+.pipOn .dropBadge span,
+.pipOn .dropBadge b,
+.pipLive .dropBadge span,
+.pipLive .dropBadge b {
+  color: #111806;
+}
+
+.pipOn .dropContent i {
+  background: #c9f53a;
 }
 
 .pipLive {
-  border-color: #e2ff7d;
-  background: #e2ff7d;
-  box-shadow: 0 8px 20px rgba(201, 245, 58, 0.2);
+  border-color: #c9f53a !important;
+  background:
+    linear-gradient(135deg, rgba(201, 245, 58, 0.16) 0 8%, transparent 8% 50%, rgba(201, 245, 58, 0.08) 50% 58%, transparent 58%),
+    #1c2714 !important;
 }
 
-.pips li.pipOff {
-  color: #000;
-  border-color: #dce8a8;
-  background: #eef4d2;
+.pipLive .dropTop svg {
+  color: #c9f53a;
+  stroke: #c9f53a;
 }
 
-.pips li.pipOff b {
-  color: #000;
+.pipLive .dropContent i {
+  background: linear-gradient(90deg, #c9f53a 70%, #3b4435 70%);
 }
 
-.pips li.pipOff small {
-  color: #000;
+.pipOff {
+  opacity: 0.72;
 }
 
 .mystery {

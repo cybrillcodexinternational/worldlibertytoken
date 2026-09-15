@@ -214,6 +214,67 @@
   stroke: #111806;
 }
 
+.solidTab {
+  background: #151d10;
+  color: #fff;
+  border: 1px solid rgba(201, 245, 58, 0.26);
+  box-shadow: none;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.solidTab small {
+  color: #fff;
+}
+
+.solidTab svg {
+  color: #fff;
+  stroke: #fff;
+}
+
+.solidTab:hover,
+.solidTab:focus-visible,
+.solidTab:active {
+  background: rgba(201, 245, 58, 0.14);
+  border-color: rgba(201, 245, 58, 0.5);
+  color: #fff;
+  box-shadow: none;
+}
+
+.solidTab:hover small,
+.solidTab:focus-visible small,
+.solidTab.tabOn small {
+  color: #fff;
+}
+
+.solidTab:hover svg,
+.solidTab:focus-visible svg,
+.solidTab.tabOn svg {
+  color: #fff;
+  stroke: #fff;
+}
+
+.solidTab.tabOn,
+.solidTab.tabOn:hover,
+.solidTab.tabOn:focus-visible,
+.solidTab.tabOn:active {
+  background: #c9f53a;
+  border-color: #c9f53a;
+  color: #111806;
+  box-shadow: none;
+}
+
+.solidTab.tabOn small,
+.solidTab.tabOn:hover small,
+.solidTab.tabOn:focus-visible small,
+.solidTab.tabOn:active small,
+.solidTab.tabOn svg,
+.solidTab.tabOn:hover svg,
+.solidTab.tabOn:focus-visible svg,
+.solidTab.tabOn:active svg {
+  color: #111806;
+  stroke: #111806;
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;

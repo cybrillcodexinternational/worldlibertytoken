@@ -63,7 +63,7 @@ const NOTIFY = [
   { key: "airdrop", label: "Saturday airdrops", copy: "When a drop is released to Wallet.", Icon: Sparkles },
   { key: "presale", label: "Presale desk", copy: "Purchase confirmations and qualify updates.", Icon: ShoppingBag },
   { key: "referral", label: "Network", copy: "New members and USD commission credits.", Icon: Users },
-  { key: "rewards", label: "Scratch & Win", copy: "Daily ticket reminders.", Icon: Gift },
+  { key: "rewards", label: "Daily Rewards", copy: "Daily reward reminders.", Icon: Gift },
   { key: "marketing", label: "Product news", copy: "Occasional WLT announcements.", Icon: Bell },
 ];
 
@@ -252,7 +252,7 @@ export default function SettingsStudio({ panel = "user" }) {
             <button
               key={item.key}
               type="button"
-              className={on ? styles.tabOn : styles.tab}
+              className={`${on ? styles.tabOn : styles.tab} ${styles.solidTab}`}
               onClick={() => {
                 setTab(item.key);
                 setError("");

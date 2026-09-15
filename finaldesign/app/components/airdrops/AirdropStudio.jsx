@@ -17,6 +17,7 @@ import {
   Landmark,
   Lock,
   MoonStar,
+  PackageOpen,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
@@ -39,7 +40,7 @@ const EMPTY = {
 
 const STEPS = [
   { Icon: ShoppingBag, title: "Buy presale WLT", copy: "Only confirmed purchases open the cycle." },
-  { Icon: BadgeCheck, title: "Confirmed capital", copy: "Mined, scratch, and referral WLT never qualify." },
+  { Icon: BadgeCheck, title: "Confirmed capital", copy: "Mined, Daily Rewards, and referral WLT never qualify." },
   { Icon: Wallet, title: "Keep Phantom ready", copy: "Released SOL is withdrawn from Wallet." },
   { Icon: CalendarClock, title: "Four Saturdays", copy: "One drop each Saturday night. A fifth is ignored." },
   { Icon: EyeOff, title: "Amount stays sealed", copy: "No rate or estimate is shown before release." },
@@ -264,17 +265,27 @@ export default function AirdropStudio({ panel = "user" }) {
               <li
                 key={item.slot}
                 className={
-                  item.state === "completed"
-                    ? styles.pipOn
-                    : item.state === "preparing"
-                      ? styles.pipLive
-                      : styles.pipOff
+                  `${styles.dropCard} ${
+                    item.state === "completed"
+                      ? styles.pipOn
+                      : item.state === "preparing"
+                        ? styles.pipLive
+                        : styles.pipOff
+                  }`
                 }
               >
-                <SlotIcon state={item.state} />
-                <div>
-                  <b>Drop {item.slot}</b>
+                <div className={styles.dropBadge}>
+                  <PackageOpen size={20} />
+                  <span>DROP</span>
+                  <b>0{item.slot}</b>
+                </div>
+                <div className={styles.dropContent}>
+                  <div className={styles.dropTop}>
+                    <b>Supply crate</b>
+                    <SlotIcon state={item.state} />
+                  </div>
                   <small>{slotLabel(item.state)}</small>
+                  <i aria-hidden="true" />
                 </div>
               </li>
             ))}

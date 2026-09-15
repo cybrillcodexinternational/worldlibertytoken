@@ -203,10 +203,10 @@ export default function ReferralStudio({ panel = "user" }) {
             </button>
           </div>
           <div className={styles.actions}>
-            <button className={styles.primary} type="button" onClick={copyLink}>
+            <button className={`${styles.primary} ${styles.inviteButton}`} type="button" onClick={copyLink}>
               <Share2 size={15} /> {copied ? "Copied" : "Copy Invite URL"}
             </button>
-            <Link className={styles.ghost} href={presaleHref}>
+            <Link className={`${styles.ghost} ${styles.presaleButton}`} href={presaleHref}>
               <ShoppingBag size={15} /> Open Presale
             </Link>
           </div>

@@ -62,131 +62,145 @@ function tierForAmount(amount, odds = []) {
   return match?.label || null;
 }
 
-function FoilLayer({ active, onBegin, onClear }) {
-  const canvasRef = useRef(null);
-  const wrappingRef = useRef(null);
-  const drawing = useRef(false);
-  const cleared = useRef(false);
-  const begun = useRef(false);
-  const moves = useRef(0);
-
-  const paintFoil = useCallback(() => {
-    const canvas = canvasRef.current;
-    const wrap = wrappingRef.current;
-    if (!canvas || !wrap || cleared.current) {
-      return;
-    }
-    const rect = wrap.getBoundingClientRect();
-    if (rect.width < 8 || rect.height < 8) {
-      return;
-    }
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
-
-    const ctx = canvas.getContext("2d");
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-    gradient.addColorStop(0, "#e7ff7a");
-    gradient.addColorStop(0.28, "#c9f53a");
-    gradient.addColorStop(0.55, "#8fa53a");
-    gradient.addColorStop(0.78, "#d6e86a");
-    gradient.addColorStop(1, "#5d6828");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, rect.width, rect.height);
-
-    ctx.globalAlpha = 0.16;
-    for (let i = 0; i < 22; i += 1) {
-      ctx.fillStyle = i % 2 ? "#ffffff" : "#111806";
-      ctx.fillRect(i * (rect.width / 14) - 50, -30, 16, rect.height + 60);
-    }
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = "rgba(16, 20, 12, 0.62)";
-    ctx.font = "800 15px Segoe UI";
-    ctx.textAlign = "center";
-    ctx.fillText("SCRATCH TO REVEAL", rect.width / 2, rect.height / 2 - 8);
-    ctx.font = "700 11px Segoe UI";
-    ctx.fillText("MATCH 3  ·  DAILY WLT TICKET", rect.width / 2, rect.height / 2 + 16);
-  }, []);
+function CoinDropGame({ active, disabled, onComplete }) {
+  const completed = useRef(false);
+  const [coins, setCoins] = useState([]);
+  const [caught, setCaught] = useState(0);
 
   useEffect(() => {
     if (!active) {
       return undefined;
     }
-    begun.current = false;
-    cleared.current = false;
-    paintFoil();
-    const onResize = () => paintFoil();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [active, paintFoil]);
+    completed.current = false;
+    setCaught(0);
+    setCoins(Array.from({ length: 12 }, (_, index) => ({ id: index, collected: false })));
+    return undefined;
+  }, [active]);
 
-  function measureClear(ctx, canvas) {
-    const sample = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let transparent = 0;
-    for (let i = 3; i < sample.length; i += 32) {
-      if (sample[i] < 40) {
-        transparent += 1;
+  function collectCoin(id) {
+    if (disabled || completed.current) {
+      return;
+    }
+    setCoins((current) => current.map((coin) => (coin.id === id ? { ...coin, collected: true } : coin)));
+    setCaught((value) => {
+      const next = value + 1;
+      if (next >= 7 && !completed.current) {
+        completed.current = true;
+        onComplete();
       }
-    }
-    return transparent / (sample.length / 32);
+      return Math.min(7, next);
+    });
   }
 
-  function scratchAt(event) {
-    const canvas = canvasRef.current;
-    if (!canvas || !active || cleared.current) {
-      return;
-    }
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(x, y, 26, 0, Math.PI * 2);
-    ctx.fill();
+  if (!active) return null;
 
-    moves.current += 1;
-    if (moves.current % 4 !== 0) {
-      return;
+  return (
+    <div className={styles.coinArena} role="application" aria-label="Daily Rewards coin collection game">
+      <div className={styles.coinInstructions}>Tap 7 WLT coins to unlock your daily reward</div>
+      <div className={styles.tapCoinGrid}>
+        {coins.map((coin) => (
+          <button
+            key={coin.id}
+            type="button"
+            className={`${styles.dropCoin} ${coin.collected ? styles.coinCollected : ""}`}
+            onClick={() => collectCoin(coin.id)}
+            disabled={coin.collected || disabled}
+            aria-label={coin.collected ? "WLT coin collected" : "Collect WLT coin"}
+          >
+            <Coins size={22} />
+          </button>
+        ))}
+      </div>
+      <div className={styles.catchProgress}><span style={{ width: `${(caught / 7) * 100}%` }} /><b>{caught} / 7 collected</b></div>
+    </div>
+  );
+
+  useEffect(() => {
+    if (!active || disabled) {
+      return undefined;
     }
-    if (measureClear(ctx, canvas) > 0.5) {
-      cleared.current = true;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      onClear();
-    }
+    coinsRef.current = [];
+    nextId.current = 0;
+    lastFrame.current = performance.now();
+    spawnTimer.current = 0;
+    completed.current = false;
+    setCoins([]);
+    setCaught(0);
+    setCatcher(50);
+
+    let frame;
+    const tick = (time) => {
+      const delta = Math.min(40, time - lastFrame.current);
+      lastFrame.current = time;
+      spawnTimer.current += delta;
+      if (spawnTimer.current > 620) {
+        spawnTimer.current = 0;
+        coinsRef.current.push({ id: nextId.current++, left: 8 + Math.random() * 84, top: -10, speed: 0.045 + Math.random() * 0.035 });
+      }
+      const arena = arenaRef.current;
+      const catcherBox = catcherRef.current?.getBoundingClientRect();
+      const arenaBox = arena?.getBoundingClientRect();
+      const nextCoins = [];
+      let caughtNow = 0;
+      coinsRef.current.forEach((coin) => {
+        const nextTop = coin.top + coin.speed * delta;
+        const isCatchHeight = nextTop > 78 && nextTop < 90;
+        const isCaught = isCatchHeight && catcherBox && arenaBox && Math.abs((coin.left / 100) * arenaBox.width - (catcherBox.left - arenaBox.left + catcherBox.width / 2)) < 42;
+        if (isCaught) {
+          caughtNow += 1;
+        } else if (nextTop < 104) {
+          nextCoins.push({ ...coin, top: nextTop });
+        }
+      });
+      coinsRef.current = nextCoins;
+      if (caughtNow) {
+        setCaught((value) => {
+          const next = value + caughtNow;
+          if (next >= 7 && !completed.current) {
+            completed.current = true;
+            onComplete();
+          }
+          return Math.min(7, next);
+        });
+      }
+      setCoins(nextCoins);
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active, disabled, onComplete]);
+
+  function moveCatcher(clientX) {
+    const arena = arenaRef.current;
+    if (!arena) return;
+    const rect = arena.getBoundingClientRect();
+    setCatcher(Math.min(90, Math.max(10, ((clientX - rect.left) / rect.width) * 100)));
   }
 
-  if (!active) {
-    return null;
-  }
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (!active || disabled) return;
+      setCatcher((value) => Math.min(90, Math.max(10, value + (event.key === "ArrowRight" ? 5 : event.key === "ArrowLeft" ? -5 : 0))));
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [active, disabled]);
+
+  if (!active) return null;
 
   return (
     <div
-      ref={wrappingRef}
-      className={styles.foilWrap}
-      onPointerDown={async (event) => {
-        drawing.current = true;
-        event.currentTarget.setPointerCapture(event.pointerId);
-        if (onBegin && !begun.current) {
-          begun.current = true;
-          await onBegin();
-        }
-        scratchAt(event);
-      }}
-      onPointerMove={(event) => {
-        if (drawing.current) {
-          scratchAt(event);
-        }
-      }}
-      onPointerUp={() => {
-        drawing.current = false;
-      }}
+      ref={arenaRef}
+      className={styles.coinArena}
+      onPointerMove={(event) => event.buttons && moveCatcher(event.clientX)}
+      onPointerDown={(event) => moveCatcher(event.clientX)}
+      role="application"
+      aria-label="Daily Rewards game"
     >
-      <canvas ref={canvasRef} className={styles.foil} />
+      <div className={styles.coinInstructions}>Catch 7 WLT coins to unlock your daily reward</div>
+      {coins.map((coin) => <span key={coin.id} className={styles.dropCoin} style={{ left: `${coin.left}%`, top: `${coin.top}%` }}><Coins size={22} /></span>)}
+      <div ref={catcherRef} className={styles.coinCatcher} style={{ left: `${catcher}%` }}><Wallet size={22} /><span>WLT</span></div>
+      <div className={styles.catchProgress}><span style={{ width: `${(caught / 7) * 100}%` }} /><b>{caught} / 7 caught</b></div>
     </div>
   );
 }
@@ -204,21 +218,21 @@ export default function RewardsStudio() {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
-  const [foilOn, setFoilOn] = useState(false);
+  const [gameOn, setGameOn] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
   const loadStatus = useCallback(async () => {
     const response = await fetch("/api/rewards/status", { cache: "no-store" });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Failed to load scratch card.");
+      throw new Error(data.message || "Failed to load Daily Rewards.");
     }
     setPayload(data);
     if (data.today) {
-      setFoilOn(false);
+      setGameOn(false);
       setRevealed(true);
     } else {
-      setFoilOn(true);
+      setGameOn(true);
       setRevealed(false);
     }
     return data;
@@ -257,7 +271,7 @@ export default function RewardsStudio() {
     return Math.min(100, Math.max(0, ((dayMs - resetMs) / dayMs) * 100));
   }, [resetMs]);
 
-  async function dealCard() {
+  const completeGame = useCallback(async () => {
     setStarting(true);
     setError("");
     setNotice("");
@@ -265,63 +279,63 @@ export default function RewardsStudio() {
       const response = await fetch("/api/rewards/complete", { method: "POST" });
       const data = await response.json();
       if (!response.ok && !data.today) {
-        throw new Error(data.message || "Could not deal today's card.");
+        throw new Error(data.message || "Could not start Daily Rewards.");
       }
       setPayload(data);
       if (data.today && data.ok === false) {
-        setFoilOn(false);
+        setGameOn(false);
         setRevealed(true);
         setNotice(data.message);
         return;
       }
-      setFoilOn(true);
+      setGameOn(false);
       setRevealed(false);
     } catch (err) {
       setError(err.message);
     } finally {
       setStarting(false);
     }
-  }
+  }, []);
 
   if (loading) {
-    return <div className={styles.studio}>Loading scratch ticket…</div>;
+    return <div className={styles.studio}>Loading Daily Rewards…</div>;
   }
 
   if (!payload) {
-    return <div className={styles.studio}>{error || "Scratch & Win is unavailable."}</div>;
+    return <div className={styles.studio}>{error || "Daily Rewards is unavailable."}</div>;
   }
 
   const grid = payload.today?.grid || Array(9).fill(null);
   const winAmount = payload.today?.prize;
   const showWin = revealed && payload.today;
-  const scratching = foilOn && !revealed;
+  const playing = gameOn && !revealed;
   const clock = splitClock(resetMs);
   const sealed = Boolean(payload.today) && revealed;
 
   return (
     <div className={styles.studio}>
       <section className={styles.heroRow}>
-        <article className={`${styles.ticket} ${scratching ? styles.ticketLive : ""} ${showWin ? styles.ticketWon : ""}`}>
+        <article className={`${styles.ticket} ${playing ? styles.ticketLive : ""} ${showWin ? styles.ticketWon : ""}`}>
           <div className={styles.scanlines} />
           <div className={styles.ticketHead}>
             <div>
-              <p className={styles.kicker}>SCRATCH PROTOCOL</p>
-              <h1>Daily WLT ticket</h1>
+              <p className={styles.kicker}>DAILY REWARDS PROTOCOL</p>
+              <h1>Catch your WLT reward</h1>
             </div>
             <span className={sealed ? styles.statusIdle : styles.statusLive}>
               <i />
-              {sealed ? "SEALED" : scratching ? "LIVE FOIL" : "READY"}
+              {sealed ? "CLAIMED" : playing ? "DROP LIVE" : "READY"}
             </span>
           </div>
 
           <ul className={styles.process}>
-            <li className={!payload.today || scratching ? styles.stepActive : styles.stepDone}>
-              <Ticket size={16} />
-              Deal
+            <li className={!payload.today || playing ? styles.stepActive : styles.stepDone}>
+              <Coins size={16} />
+              Drop
             </li>
-            <li className={scratching ? styles.stepActive : sealed ? styles.stepDone : ""}>
+            <li className={playing ? styles.stepActive : sealed ? styles.stepDone : ""}>
               <Fingerprint size={16} />
-              Scratch
+              Catch
             </li>
             <li className={showWin ? styles.stepActive : ""}>
               <Layers size={16} />
@@ -339,7 +353,7 @@ export default function RewardsStudio() {
               <span />
               <span />
             </div>
-            <div className={styles.grid}>
+            {showWin ? <div className={styles.grid}>
               {grid.map((amount, index) => {
                 const label = amount === null ? null : tierForAmount(amount, payload.odds);
                 const win = Boolean(winAmount && amount === winAmount && revealed);
@@ -365,20 +379,7 @@ export default function RewardsStudio() {
                   </motion.div>
                 );
               })}
-            </div>
-            <FoilLayer
-              active={scratching}
-              onBegin={async () => {
-                if (payload.canPlay && !starting) {
-                  await dealCard();
-                }
-              }}
-              onClear={() => {
-                setRevealed(true);
-                setFoilOn(false);
-                setNotice(payload.message || `You won ${formatToken(payload.todayPrize)} WLT.`);
-              }}
-            />
+            </div> : <CoinDropGame active={playing} disabled={starting} onComplete={completeGame} />}
             {showWin ? (
               <div className={styles.confetti} aria-hidden>
                 {Array.from({ length: 14 }, (_, i) => (
@@ -404,17 +405,17 @@ export default function RewardsStudio() {
               <Fingerprint size={16} />
               <p>
                 {starting
-                  ? "Sealing today's ticket…"
-                  : scratching
-                    ? "Drag across the foil. Three matching icons bank the prize."
-                    : `Ticket sealed. Next draw in ${formatClock(resetMs)}.`}
+                  ? "Counting your WLT reward…"
+                  : playing
+                    ? "Tap the coins to collect 7 WLT pieces."
+                    : `Reward claimed. Next drop in ${formatClock(resetMs)}.`}
               </p>
             </div>
           )}
         </article>
       </section>
 
-      <section className={`${styles.vault} ${scratching ? styles.controlLive : ""}`}>
+      <section className={`${styles.vault} ${playing ? styles.controlLive : ""}`}>
         <div className={styles.vaultAura} />
         <div className={styles.controlHead}>
           <div>
@@ -532,7 +533,7 @@ export default function RewardsStudio() {
               7 TIERS
             </span>
           </div>
-          <p className={styles.lede}>Scratch the foil. Three identical icons credit that tier to your wallet.</p>
+          <p className={styles.lede}>Catch 7 WLT coins to unlock one server-generated daily reward.</p>
           <div className={styles.ladder}>
             {payload.odds.map((tier, index) => {
               const width = Number(String(tier.chance).replace("%", ""));
@@ -596,7 +597,7 @@ export default function RewardsStudio() {
             <div className={styles.emptyLog}>
               <Ticket size={22} />
               <strong>No tickets yet</strong>
-              <p>Scratch today’s foil to open the seven-day log.</p>
+              <p>Catch today’s coins to open the seven-day log.</p>
             </div>
           )}
           <div className={styles.legend}>

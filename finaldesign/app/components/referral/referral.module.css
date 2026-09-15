@@ -252,16 +252,40 @@
   color: #000 !important;
 }
 
+.inviteButton,
+.inviteButton:hover,
+.inviteButton:focus,
+.inviteButton:active,
+.inviteButton:visited {
+  color: #fff !important;
+}
+
+.inviteButton {
+  margin-top: 10px;
+}
+
 .ghost {
   border: 0;
   background: var(--primary-color, #c9f53a);
   color: #000 !important;
 }
 
+.presaleButton {
+  margin-top: 10px;
+  padding-left: 28px;
+  padding-right: 28px;
+  border-radius: 8px;
+}
+
 .primary svg,
 .ghost svg {
   color: #000 !important;
   stroke: #000 !important;
+}
+
+.inviteButton svg {
+  color: #fff !important;
+  stroke: #fff !important;
 }
 
 .primary:hover,
@@ -273,6 +297,21 @@
 .ghost:active,
 .ghost:visited {
   color: #000 !important;
+}
+
+.inviteButton:hover,
+.inviteButton:focus,
+.inviteButton:active,
+.inviteButton:visited {
+  color: #fff !important;
+}
+
+.inviteButton:hover svg,
+.inviteButton:focus svg,
+.inviteButton:active svg,
+.inviteButton:visited svg {
+  color: #fff !important;
+  stroke: #fff !important;
 }
 
 .statsRow {
