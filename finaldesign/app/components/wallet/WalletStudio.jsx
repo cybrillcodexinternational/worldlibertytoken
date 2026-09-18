@@ -56,7 +56,7 @@ const EMPTY = {
   },
   presale: {
     stage: "Presale Stage 1",
-    price: 0.5,
+    price: 0.35,
     qualify: { current: 0, target: 1000, remaining: 1000, progress: 0, unlocked: false },
     commission: { earned: 0, available: 0, withdrawn: 0, pending: 0 },
     stablecoin: "SOL",
@@ -169,7 +169,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
   const openShare = 100 - lockedShare;
   const usdValue = locked
     ? Number(data.balances.presaleUsd || 0)
-    : totalWlt * Number(data.presale.price || 0.5);
+    : totalWlt * Number(data.presale.price || 0.35);
 
   const commissionEarned = Number(data.balances.commissionEarned || data.presale.commission.earned || 0);
   const commissionAvailable = Number(data.withdrawable?.commissionUsd ?? data.presale.commission.available ?? 0);
@@ -184,7 +184,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
       label: "Purchased in presale",
       amount: wlt(data.balances.presale),
       unit: "WLT",
-      note: `Paid ${money(data.balances.presaleUsd)} at $0.50`,
+      note: data.balances.presale > 0 ? `Paid ${money(data.balances.presaleUsd)} at $0.35` : "No confirmed presale purchase yet.",
       state: locked ? "Locked" : "Held",
     },
     {
@@ -255,7 +255,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
         label: "Purchased tokens",
         amount: wlt(data.balances.presale),
         unit: "WLT",
-        note: `Paid ${money(data.balances.presaleUsd)} at $0.50`,
+        note: `Paid ${money(data.balances.presaleUsd)} at $0.35`,
         Icon: ShoppingBag,
         lock: locked,
       },
@@ -270,7 +270,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
       },
       {
         key: "scratch",
-        label: "Scratch & Win",
+        label: "Daily Rewards",
         amount: wlt(data.balances.scratch),
         unit: "WLT",
         note: `${data.rewards?.plays || 0} plays`,
@@ -426,7 +426,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
             </p>
             <h1>Your WLT Vault</h1>
             <p className={styles.lead}>
-              All balances live here. WLT from mining, purchases, scratch, and mining referrals stays locked until trade
+              All balances live here. WLT from mining, purchases, Daily Rewards, and mining referrals stays locked until trade
               opens. Direct referral commission and released airdrop SOL withdraw from this page only.
             </p>
 
@@ -542,6 +542,38 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
         </button>
       </section>
 
+      <section className={styles.nextSteps}>
+        <div className={styles.nextStepsHead}>
+          <div>
+            <p className={styles.kicker}>Build your balance</p>
+            <h2>What would you like to do next?</h2>
+          </div>
+          <p className={styles.copy}>Your wallet collects every WLT and SOL reward in one place.</p>
+        </div>
+        <div className={styles.nextStepsGrid}>
+          <button className={styles.nextStep} type="button" onClick={connectWallet} disabled={Boolean(busy)}>
+            <span className={styles.iconTile}><Wallet size={16} /></span>
+            <span><b>{data.wallet.connected ? "Reconnect Phantom" : "Connect Phantom"}</b><small>Secure your wallet</small></span>
+            <ChevronRight size={15} />
+          </button>
+          <Link className={styles.nextStep} href={miningHref}>
+            <span className={styles.iconTile}><Pickaxe size={16} /></span>
+            <span><b>Start mining</b><small>Earn WLT every cycle</small></span>
+            <ChevronRight size={15} />
+          </Link>
+          <Link className={styles.nextStep} href={presaleHref}>
+            <span className={styles.iconTile}><ShoppingBag size={16} /></span>
+            <span><b>Buy presale WLT</b><small>View your allocation</small></span>
+            <ChevronRight size={15} />
+          </Link>
+          <Link className={styles.nextStep} href={referralHref}>
+            <span className={styles.iconTile}><Users size={16} /></span>
+            <span><b>Invite your network</b><small>Grow referral rewards</small></span>
+            <ChevronRight size={15} />
+          </Link>
+        </div>
+      </section>
+
       <nav className={styles.tabs}>
         {tabs.map((item) => (
           <button
@@ -565,7 +597,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
               </p>
               <h2>Everything in this vault</h2>
               <p className={styles.lead}>
-                Mined, purchased, mining-referral, and scratch WLT stay locked. Commission and airdrop SOL are withdrawable from the button above.
+                Presale WLT, mined WLT, and mining-referral WLT stay locked until trade opens. Direct investor commission and released airdrop SOL are withdrawable from the button above.
               </p>
             </div>
           </div>
@@ -695,7 +727,7 @@ export default function WalletStudio({ panel = "user", defaultTab = "overview" }
               </tbody>
             </table>
           ) : (
-            <p className={styles.empty}>No credits yet. Mine, scratch, or buy presale to open the ledger.</p>
+            <p className={styles.empty}>No credits yet. Play Daily Rewards, mine, or buy presale to open the ledger.</p>
           )}
         </article>
       ) : null}

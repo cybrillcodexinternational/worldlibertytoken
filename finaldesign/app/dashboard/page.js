@@ -1,8 +1,10 @@
+import DashboardSurface from "../components/dashboard/DashboardSurface";
 import { getCurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Dashboard Redirect — World Liberty Token",
+  title: "Dashboard — World Liberty Token",
+  description: "Main dashboard overview for World Liberty Token members.",
 };
 
 export default async function DashboardPage() {
@@ -12,9 +14,7 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  if (user.role === "admin") {
-    redirect("/admin");
-  }
+  const panel = user.role === "admin" ? "admin" : "user";
 
-  redirect("/user");
+  return <DashboardSurface user={user} panel={panel} />;
 }

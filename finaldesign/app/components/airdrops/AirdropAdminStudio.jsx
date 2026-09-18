@@ -84,9 +84,7 @@ export default function AirdropAdminStudio() {
           <p className={styles.kicker}>Private control</p>
           <h1>Airdrop engine</h1>
           <p className={styles.lead}>
-            Airdrop is a Saturday percent of the buyer’s own confirmed presale USD. That USD is converted to SOL at the
-            live SOL/USD price when you distribute. Users never see these percentages before a drop is released.
-            Four Saturday-night events per month. A fifth Saturday is ignored.
+            Airdrop is a Saturday-night distribution based on each buyer’s confirmed presale USD. It is converted to SOL at the live SOL/USD rate when you release the drop. Users never see the rate or amount before distribution. Only four Saturday-night drops are scheduled per month; a fifth Saturday is ignored.
           </p>
         </div>
       </header>

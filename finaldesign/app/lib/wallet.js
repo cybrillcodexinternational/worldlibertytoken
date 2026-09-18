@@ -70,7 +70,7 @@ export async function getWalletStatus(userId) {
       at: row.createdAt,
       source: "Presale",
       title: "WLT purchase",
-      detail: `Paid $${Number(row.usd || 0).toFixed(2)} at $0.50 · ${row.txHash || ""}`,
+      detail: `Paid $${Number(row.usd || 0).toFixed(2)} at $0.35 · ${row.txHash || ""}`,
       amount: `+${roundToken(row.wlt)} WLT`,
       status: row.status,
       lock: tokensLocked,

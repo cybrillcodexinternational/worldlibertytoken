@@ -4,8 +4,8 @@ import { getCurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Scratch & Win — World Liberty Token",
-  description: "Scratch a daily ticket to win WLT.",
+  title: "Daily Rewards — World Liberty Token",
+  description: "Catch seven WLT coins to claim your daily reward.",
 };
 
 export default async function UserRewardsPage() {

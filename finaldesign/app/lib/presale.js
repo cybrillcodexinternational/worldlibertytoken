@@ -4,7 +4,7 @@ import { ensureReferralSchema } from "@/lib/referral";
 import { getSolUsdRate, roundSol, usdToSol } from "@/lib/sol-price";
 
 export const TOKEN_SYMBOL = "WLT";
-export const WLT_PRICE_USD = 0.5;
+export const WLT_PRICE_USD = 0.35;
 export const QUALIFY_USD = 1000;
 export const QUALIFY_WLT = QUALIFY_USD / WLT_PRICE_USD;
 export const PRESALE_COMMISSION_RATE = 0.05;
@@ -136,7 +136,7 @@ export async function ensurePresaleSchema() {
       user_id BIGINT UNSIGNED NOT NULL,
       usd_amount DECIMAL(18,2) NOT NULL,
       wlt_amount DECIMAL(18,7) NOT NULL,
-      price DECIMAL(18,4) NOT NULL DEFAULT 0.5000,
+      price DECIMAL(18,4) NOT NULL DEFAULT 0.3500,
       sol_amount DECIMAL(18,8) NOT NULL DEFAULT 0,
       sol_usd_rate DECIMAL(18,4) NOT NULL DEFAULT 0,
       wallet_address VARCHAR(64) NOT NULL,

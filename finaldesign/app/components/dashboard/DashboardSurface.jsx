@@ -101,7 +101,7 @@ const NAV_ITEMS = [
   { key: "presale", label: "Presale", Icon: ShoppingBag },
   { key: "airdrops", label: "Airdrops", Icon: Sparkles },
   { key: "mining", label: "Mining", Icon: Pickaxe },
-  { key: "rewards", label: "Scratch & Win", Icon: Gift },
+  { key: "rewards", label: "Daily Rewards", Icon: Gift },
   { key: "achievements", label: "Achievements", Icon: Medal },
   { key: "referral", label: "Referral Program", Icon: Users, chevron: true },
   { key: "transactions", label: "Transactions", Icon: Receipt },
@@ -381,8 +381,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               {displayName} <span className={styles.wave}>👋</span>
             </h1>
             <p className={styles.heroLead}>
-              Be part of a more open, inclusive and financial future with World
-              Liberty Token.
+              Presale, mining, referrals, achievements, and airdrops all live here in one secured dashboard for World Liberty Token.
             </p>
             <p className={styles.heroQuote}>
               &ldquo;FREEDOM . INNOVATION . COMMUNITY&rdquo;
@@ -404,11 +403,11 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               <Coins size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>WLT Balance</p>
+              <p>Presale WLT Locked</p>
               <h3>12,450.85 WLT</h3>
               <div className={styles.statMeta}>
                 <small className={styles.lockMeta}>
-                  <Lock size={11} strokeWidth={2.2} /> Tokens locked
+                  <Lock size={11} strokeWidth={2.2} /> Presale WLT stays locked until trade opens
                 </small>
               </div>
             </div>
@@ -422,12 +421,11 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               <ChartNoAxesCombined size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>WLT Price</p>
-              <h3>$0.3204</h3>
+              <p>Price</p>
+              <h3>$0.30</h3>
               <div className={styles.statMeta}>
                 <b>
-                  <ArrowUpRight size={12} strokeWidth={2.4} /> +12.4%{" "}
-                  <em>(24h)</em>
+                  <ArrowUpRight size={12} strokeWidth={2.4} /> Presale target $0.35 · Launch $0.50
                 </b>
               </div>
             </div>
@@ -441,12 +439,12 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
               <Gift size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>Daily Reward</p>
-              <h3>Scratch & Win</h3>
+              <p>Reward Center</p>
+              <h3>Daily Rewards</h3>
               <div className={styles.statMeta}>
-                <small>Up to 1.0000000 WLT</small>
+                <small>Separate from mining and presale. 7 WLT coins unlock one daily reward.</small>
                 <Link href={panel === "admin" ? "/admin/rewards" : "/user/rewards"} className={styles.claimBtn}>
-                  Play Now
+                  Open Reward Center
                 </Link>
               </div>
             </div>
@@ -620,7 +618,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             </div>
             {TOKEN_LOCK.minedLocked ? (
               <p className={styles.lockNote}>
-                <Lock size={13} /> WLT cannot be withdrawn or sent until trade opens, including presale purchases.
+                <Lock size={13} /> Presale WLT, mined WLT, and mining-referral WLT stay locked until trade opens.
               </p>
             ) : null}
           </article>
@@ -631,7 +629,7 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             <div className={styles.cardHead}>
               <div>
                 <h3>Referral Program</h3>
-                <p className={styles.subHead}>Mining 10/5/3 WLT · Presale 5% USD (SOL payout)</p>
+                <p className={styles.subHead}>Mining Referral 10% / 5% / 3% WLT · Qualified Investor 5% direct USD commission</p>
               </div>
               <button className={styles.copyLink} type="button" onClick={copyReferral}>
                 {copied ? "Copied" : "Copy Link"}
@@ -676,20 +674,12 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
             </div>
             <ul className={styles.txList}>
               <li>
-                <i className={styles.txIn}>↓</i>
+                <i className={styles.txBuy}>$</i>
                 <div>
-                  <strong>Received</strong>
-                  <small>From: Muhammad Khan</small>
+                  <strong>Presale Purchase</strong>
+                  <small>Confirmed WLT purchase</small>
                 </div>
-                <time>Apr 16, 2024  10:24 AM</time>
-              </li>
-              <li>
-                <i className={styles.txOut}>↑</i>
-                <div>
-                  <strong>Withdraw</strong>
-                  <small>To: External Wallet</small>
-                </div>
-                <time>Apr 14, 2024  04:18 PM</time>
+                <time>Latest cycle</time>
               </li>
               <li>
                 <i className={styles.txMine}>
@@ -697,17 +687,25 @@ export default function DashboardSurface({ user, panel, activeNav = "dashboard",
                 </i>
                 <div>
                   <strong>Mining Reward</strong>
-                  <small>Daily Mining</small>
+                  <small>24h cycle credit</small>
                 </div>
-                <time>Apr 14, 2024  12:00 AM</time>
+                <time>Latest mining window</time>
               </li>
               <li>
-                <i className={styles.txBuy}>$</i>
+                <i className={styles.txIn}>↓</i>
                 <div>
-                  <strong>Purchase</strong>
-                  <small>From: USDT</small>
+                  <strong>Referral Commission</strong>
+                  <small>Investor or mining referral</small>
                 </div>
-                <time>Apr 12, 2024  02:36 PM</time>
+                <time>Available in vault</time>
+              </li>
+              <li>
+                <i className={styles.txOut}>↑</i>
+                <div>
+                  <strong>SOL Airdrop</strong>
+                  <small>Saturday-night distribution</small>
+                </div>
+                <time>Released after drop</time>
               </li>
             </ul>
           </article>

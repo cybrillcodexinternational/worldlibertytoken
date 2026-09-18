@@ -6,9 +6,12 @@ import {
   Activity,
   Banknote,
   BatteryCharging,
+  Bitcoin,
   CalendarClock,
   Coins,
   Crown,
+  CircleDollarSign,
+  Gem,
   Fingerprint,
   Flame,
   History,
@@ -24,6 +27,7 @@ import {
   WandSparkles,
   Zap,
 } from "lucide-react";
+import gameCoin from "../../../assets/images/gamecoin.png";
 import styles from "./rewards.module.css";
 
 const TIER_META = {
@@ -62,6 +66,26 @@ function tierForAmount(amount, odds = []) {
   return match?.label || null;
 }
 
+const GAME_COIN_TYPES = [
+  { kind: "wlt", label: "Collect WLT coin" },
+  { kind: "bitcoin", label: "Bitcoin coin" },
+  { kind: "ethereum", label: "Ethereum coin" },
+  { kind: "silver", label: "Silver coin" },
+];
+
+function GameCoinIcon({ kind }) {
+  if (kind === "wlt") {
+    return <img src={gameCoin.src} alt="WLT coin" />;
+  }
+  if (kind === "bitcoin") {
+    return <Bitcoin size={24} strokeWidth={2.2} />;
+  }
+  if (kind === "ethereum") {
+    return <Gem size={24} strokeWidth={2.2} />;
+  }
+  return <CircleDollarSign size={24} strokeWidth={2.2} />;
+}
+
 function CoinDropGame({ active, disabled, onComplete }) {
   const completed = useRef(false);
   const [coins, setCoins] = useState([]);
@@ -73,12 +97,25 @@ function CoinDropGame({ active, disabled, onComplete }) {
     }
     completed.current = false;
     setCaught(0);
-    setCoins(Array.from({ length: 12 }, (_, index) => ({ id: index, collected: false })));
+    const boardTypes = [
+      "wlt", "bitcoin", "wlt", "ethereum", "wlt", "silver",
+      "wlt", "bitcoin", "wlt", "ethereum", "wlt", "wlt",
+    ];
+    setCoins(boardTypes.map((kind, index) => ({
+      id: index,
+      kind,
+      label: GAME_COIN_TYPES.find((coin) => coin.kind === kind)?.label || "Coin",
+      collected: false,
+    })));
     return undefined;
   }, [active]);
 
   function collectCoin(id) {
     if (disabled || completed.current) {
+      return;
+    }
+    const selected = coins.find((coin) => coin.id === id);
+    if (!selected || selected.kind !== "wlt") {
       return;
     }
     setCoins((current) => current.map((coin) => (coin.id === id ? { ...coin, collected: true } : coin)));
@@ -96,18 +133,18 @@ function CoinDropGame({ active, disabled, onComplete }) {
 
   return (
     <div className={styles.coinArena} role="application" aria-label="Daily Rewards coin collection game">
-      <div className={styles.coinInstructions}>Tap 7 WLT coins to unlock your daily reward</div>
+      <div className={styles.coinInstructions}>Tap 7 WLT coins to unlock one daily reward</div>
       <div className={styles.tapCoinGrid}>
         {coins.map((coin) => (
           <button
             key={coin.id}
             type="button"
-            className={`${styles.dropCoin} ${coin.collected ? styles.coinCollected : ""}`}
+            className={`${styles.dropCoin} ${styles[`coin-${coin.kind}`]} ${coin.collected ? styles.coinCollected : ""}`}
             onClick={() => collectCoin(coin.id)}
             disabled={coin.collected || disabled}
-            aria-label={coin.collected ? "WLT coin collected" : "Collect WLT coin"}
+            aria-label={coin.collected ? "WLT coin collected" : coin.label}
           >
-            <Coins size={22} />
+            <GameCoinIcon kind={coin.kind} />
           </button>
         ))}
       </div>
@@ -197,7 +234,7 @@ function CoinDropGame({ active, disabled, onComplete }) {
       role="application"
       aria-label="Daily Rewards game"
     >
-      <div className={styles.coinInstructions}>Catch 7 WLT coins to unlock your daily reward</div>
+      <div className={styles.coinInstructions}>Catch 7 WLT coins to unlock one daily reward</div>
       {coins.map((coin) => <span key={coin.id} className={styles.dropCoin} style={{ left: `${coin.left}%`, top: `${coin.top}%` }}><Coins size={22} /></span>)}
       <div ref={catcherRef} className={styles.coinCatcher} style={{ left: `${catcher}%` }}><Wallet size={22} /><span>WLT</span></div>
       <div className={styles.catchProgress}><span style={{ width: `${(caught / 7) * 100}%` }} /><b>{caught} / 7 caught</b></div>

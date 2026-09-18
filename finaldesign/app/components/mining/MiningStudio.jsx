@@ -187,6 +187,9 @@ export default function MiningStudio() {
                 {mining ? "CYCLE ONLINE" : completed ? "CYCLE COMPLETE" : "MINER STANDBY"}
               </p>
               <h1>WLT Quantum Miner</h1>
+              <p className={styles.reactorDescription}>
+                Mine WLT through a secure 24-hour automated cycle.
+              </p>
             </div>
             <span className={mining ? styles.statusLive : styles.statusIdle}>
               <i />
@@ -243,14 +246,14 @@ export default function MiningStudio() {
                   <span className={styles.metricIcon}>
                     <Coins size={16} />
                   </span>
-                  <p>Cycle cap</p>
+                  <p>Cycle Reward</p>
                   <h3>2.8756990 <em>WLT</em></h3>
                 </article>
                 <article>
                   <span className={styles.metricIcon}>
                     <Hourglass size={16} />
                   </span>
-                  <p>Locked window</p>
+                  <p>Mining session</p>
                   <h3>24 <em>hours</em></h3>
                 </article>
                 <article>

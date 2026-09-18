@@ -2473,6 +2473,32 @@ footer {
         grid-column: auto;
         justify-self: center;
     }
+
+    .echo-video,
+    video,
+    iframe {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-text-area,
+    .ecosystem-content,
+    .mission-content,
+    .roadmap-content,
+    .tokenomics-content {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
 }
 
 @media (min-width: 1600px) {

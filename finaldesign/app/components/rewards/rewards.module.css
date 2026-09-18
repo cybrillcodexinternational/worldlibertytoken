@@ -247,6 +247,40 @@
   transition: transform 160ms ease, opacity 160ms ease, filter 160ms ease;
 }
 
+.dropCoin img {
+  width: 74%;
+  height: 74%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.coin-wlt {
+  border-color: #f3f6ea;
+  background: #10150c;
+}
+
+.coin-wlt img {
+  filter: drop-shadow(0 0 8px rgba(201, 245, 58, 0.5));
+}
+
+.coin-bitcoin {
+  border-color: #e89b3d;
+  color: #fff0c6;
+  background: radial-gradient(circle at 35% 28%, #fff0c6, #e89b3d 46%, #8b4d16 100%);
+}
+
+.coin-ethereum {
+  border-color: #9aa9d7;
+  color: #202a4d;
+  background: radial-gradient(circle at 35% 28%, #eef2ff, #9aa9d7 46%, #4d5985 100%);
+}
+
+.coin-silver {
+  border-color: #e3e8e1;
+  color: #263028;
+  background: radial-gradient(circle at 35% 28%, #ffffff, #b8c1b8 46%, #667267 100%);
+}
+
 .dropCoin:hover:not(:disabled),
 .dropCoin:focus-visible:not(:disabled) {
   transform: scale(1.12) rotate(-6deg);

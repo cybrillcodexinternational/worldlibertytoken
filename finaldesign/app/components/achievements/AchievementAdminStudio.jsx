@@ -77,8 +77,7 @@ export default function AchievementAdminStudio() {
           <p className={styles.kicker}>Admin</p>
           <h1>Achievement badges</h1>
           <p className={styles.lead}>
-            Configure names, thresholds, icons, descriptions, and optional reward notes. Thresholds for personal and
-            network badges are confirmed presale USD only.
+            Configure badge names, icons, and admin thresholds for presale and network achievements. The official Qualified Investor threshold is a confirmed $1,000 personal presale purchase; other badge thresholds remain admin-configurable.
           </p>
         </div>
       </header>

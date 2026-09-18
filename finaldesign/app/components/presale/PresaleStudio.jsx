@@ -22,7 +22,7 @@ import styles from "./presale.module.css";
 import { TOKEN_LOCK } from "@/lib/token-lock";
 
 const EMPTY = {
-  price: 0.5,
+  price: 0.35,
   stage: "Presale Stage 1",
   qualifyUsd: 1000,
   commissionRate: 0.05,
@@ -39,7 +39,7 @@ const EMPTY = {
 
 const FLOW = [
   { n: "01", title: "Connect", copy: "Link Phantom once. Settlement stays on Solana." },
-  { n: "02", title: "Quote", copy: "Enter USD. WLT is always priced at $0.50." },
+  { n: "02", title: "Quote", copy: "Enter USD. WLT is always priced at $0.35." },
   { n: "03", title: "Sign", copy: "Confirm in Phantom and pay the matching SOL." },
   { n: "04", title: "Vault", copy: "Tokens credit instantly and stay locked until trade." },
 ];
@@ -160,7 +160,7 @@ export default function PresaleStudio({ panel = "user" }) {
 
   const quote = useMemo(() => {
     const amount = Math.max(0, Number(usd) || 0);
-    const wlt = amount / Number(data.price || 0.5);
+    const wlt = amount / Number(data.price || 0.35);
     return { amount, wlt, total: amount };
   }, [usd, data.price]);
 
@@ -221,7 +221,7 @@ export default function PresaleStudio({ panel = "user" }) {
     setBusy("buy");
     try {
       const signed = await connectAndSign(
-        `WLT Presale: pay $${quote.amount.toFixed(2)} in SOL for ${quote.wlt.toFixed(7)} WLT at $0.50.`
+        `WLT Presale: pay $${quote.amount.toFixed(2)} in SOL for ${quote.wlt.toFixed(7)} WLT at $0.35.`
       );
       const response = await fetch("/api/presale/buy", {
         method: "POST",
@@ -246,10 +246,10 @@ export default function PresaleStudio({ panel = "user" }) {
   }
 
   const kpis = [
-    { label: "This ticket", value: quote.wlt.toFixed(4), unit: "WLT you receive", Icon: Sparkles },
+    { label: "This ticket", value: (quote.amount / (data.price || 0.35)).toFixed(4), unit: "WLT you receive", Icon: Sparkles },
     { label: "Vaulted", value: vaultWlt.toFixed(4), unit: "Locked WLT", Icon: Vault },
     { label: "Deployed", value: money(capital), unit: "USD capital", Icon: Banknote },
-    { label: "Qualify", value: money(data.qualify.current), unit: qualified ? "Unlocked" : "of $1,000", Icon: Trophy },
+    { label: "Qualify", value: money(data.qualify.current), unit: qualified ? "Qualified Investor" : "of $1,000", Icon: Trophy },
   ];
 
   return (
@@ -267,7 +267,7 @@ export default function PresaleStudio({ panel = "user" }) {
               <p className={styles.kicker}>{data.stage || "Presale Stage 1"}</p>
               <h1>Allocation engine</h1>
               <p className={styles.lead}>
-                Fixed $0.50 WLT. Pay in SOL through Phantom. Purchased tokens credit to your vault and stay locked until
+                Fixed $0.35 WLT. Pay in SOL through Phantom. Purchased tokens credit to your vault and stay locked until
                 trade opens.
               </p>
             </div>
@@ -282,7 +282,7 @@ export default function PresaleStudio({ panel = "user" }) {
               <Ring value={progress} size={176} stroke={11} label="qualify" sub="to $1,000" />
               <ul className={styles.gaugeLegend}>
                 <li>
-                  <Banknote size={12} /> $0.50 / WLT
+                  <Banknote size={12} /> $0.35 / WLT
                 </li>
                 <li>
                   <Coins size={12} /> Pay in SOL
@@ -305,7 +305,7 @@ export default function PresaleStudio({ panel = "user" }) {
                 <em>÷</em>
                 <span>
                   <small>Fixed price</small>
-                  <b>$0.50</b>
+                  <b>$0.35</b>
                 </span>
                 <em>=</em>
                 <span className={styles.formulaOut}>
@@ -364,7 +364,7 @@ export default function PresaleStudio({ panel = "user" }) {
               <p className={styles.kicker}>Order ticket</p>
               <h2>Buy WLT</h2>
             </div>
-            <span className={styles.pill}>Fixed $0.50</span>
+            <span className={styles.pill}>Fixed $0.35</span>
           </div>
 
           <div className={styles.walletChip}>
@@ -413,7 +413,7 @@ export default function PresaleStudio({ panel = "user" }) {
           <dl className={styles.quote}>
             <div>
               <dt>Price</dt>
-              <dd>$0.50 / WLT</dd>
+              <dd>$0.35 / WLT</dd>
             </div>
             <div>
               <dt>You receive</dt>
@@ -628,7 +628,7 @@ export default function PresaleStudio({ panel = "user" }) {
         <ol className={styles.rules}>
           <li>
             <span>A</span>
-            USD amount converts at a hard $0.50 peg. No slippage.
+            USD amount converts at a hard $0.35 peg. No slippage.
           </li>
           <li>
             <span>B</span>

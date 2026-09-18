@@ -228,9 +228,9 @@ export default function MarketStudio() {
             Live markets
             <span className={styles.pulse} />
           </p>
-          <h1>Top 30 coins, real-time charts</h1>
+          <h1>Track WLT, tokenomics &amp; market board.</h1>
           <p className={styles.lead}>
-            Ranked by market cap. Tap any asset to open its USD trade view. Prices refresh every 30 seconds.
+            WLT view includes presale pricing, launch targets, total supply, and historical purchase price information to keep the market board informative and clear.
           </p>
         </div>
         <div className={styles.heroMeta}>

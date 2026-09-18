@@ -55,7 +55,7 @@ const PHASES = [
       "Token launch",
       "Website release",
       "Whitepaper publish",
-      "Phantom presale at $0.50 / WLT",
+      "Phantom presale at $0.35 / WLT",
       "Qualified investor referral: $1,000 unlock · 5% USD (SOL payout)",
     ],
   },

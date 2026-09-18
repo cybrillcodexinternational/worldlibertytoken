@@ -154,8 +154,7 @@ export default function AirdropStudio({ panel = "user" }) {
           </div>
           <h1>My Airdrops</h1>
           <p className={styles.lead}>
-            Confirmed presale purchases only. Four sealed SOL drops each month. The amount stays hidden until a cycle is
-            actually released — never estimated, never previewed.
+            Only confirmed presale purchases qualify. Four Saturday-night drops each month; a fifth Saturday is ignored. The SOL amount stays hidden until distribution, and mined WLT, daily rewards, and referral WLT never qualify.
           </p>
           <div className={styles.heroActions}>
             <Link className={styles.ghostInline} href={presaleHref}>

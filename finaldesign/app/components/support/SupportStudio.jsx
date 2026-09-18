@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   CircleDot,
@@ -34,6 +35,13 @@ const STATUS_TABS = [
   { key: "pending", label: "Waiting" },
   { key: "answered", label: "Answered" },
   { key: "closed", label: "Closed" },
+];
+
+const SUPPORT_GUIDE = [
+  { title: "Account access", copy: "Login, profile, password, and verification help.", href: "/user/settings", Icon: ShieldCheck },
+  { title: "Wallet & withdrawals", copy: "Phantom connection, wallet address, and withdrawal questions.", href: "/user/wallet", Icon: Lock },
+  { title: "Mining & rewards", copy: "Mining cycles, daily rewards, airdrops, and balances.", href: "/user/mining", Icon: LifeBuoy },
+  { title: "Referral program", copy: "Invite codes, network activity, and commission support.", href: "/user/referral", Icon: Ticket },
 ];
 
 const fadeUp = {
@@ -233,13 +241,13 @@ export default function SupportStudio({ panel = "user" }) {
         <div className={styles.scanlines} />
         <div className={styles.heroCopy}>
           <p className={styles.kicker}>
-            <Headphones size={12} /> Support desk
+            <Headphones size={12} /> WLT Support Center
           </p>
-          <h1>{isAdmin ? "Member tickets" : "Need a hand?"}</h1>
+          <h1>{isAdmin ? "Member tickets" : "Need Help?"}</h1>
           <p className={styles.lead}>
             {isAdmin
-              ? "Triage open cases, reply in-thread, and close when resolved. Waiting tickets need a staff answer."
-              : "Open a ticket for wallet, presale, mining, airdrops, or account help. Support replies here — keep Phantom and withdrawals in Wallet."}
+              ? "Knowledge Base, FAQs, support tickets, account issues, transaction questions, reward help, and referral assistance all live here."
+              : "Get support for account access, transactions, rewards, referrals, wallet connections, and withdrawal questions. Wallet withdrawals remain in Wallet and follow the project unlock rules."}
           </p>
           <div className={styles.heroActions}>
             {isAdmin ? null : (
@@ -253,11 +261,11 @@ export default function SupportStudio({ panel = "user" }) {
                   setNote("");
                 }}
               >
-                <MessageSquarePlus size={16} /> New ticket
+                <MessageSquarePlus size={16} /> Submit Ticket
               </button>
             )}
             <button type="button" className={styles.ghost} onClick={() => changeTab("all")}>
-              View all tickets
+              Help Home
             </button>
           </div>
         </div>
@@ -279,6 +287,25 @@ export default function SupportStudio({ panel = "user" }) {
             <em>{item.unit}</em>
           </article>
         ))}
+      </section>
+
+      <section className={styles.supportGuide} aria-label="Support topics">
+        <div className={styles.guideIntro}>
+          <p className={styles.kicker}><LifeBuoy size={12} /> Start here</p>
+          <h2>What can we help with?</h2>
+          <p>Choose the closest topic before opening a ticket so the right details reach support.</p>
+        </div>
+        <div className={styles.guideGrid}>
+          {SUPPORT_GUIDE.map(({ title, copy, href, Icon }) => (
+            <Link key={title} href={href} className={styles.guideCard}>
+              <span className={styles.guideIcon}><Icon size={16} /></span>
+              <div>
+                <b>{title}</b>
+                <p>{copy}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <nav className={styles.tabs} aria-label="Ticket status">

@@ -8,7 +8,7 @@ export const TICKET_CATEGORIES = [
   { key: "mining", label: "Mining" },
   { key: "airdrop", label: "Airdrops" },
   { key: "referral", label: "Referral" },
-  { key: "rewards", label: "Scratch & Win" },
+  { key: "rewards", label: "Daily Rewards" },
   { key: "other", label: "Other" },
 ];
 

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Buy / Presale — World Liberty Token",
-  description: "Connect Phantom and buy WLT at $0.50 during presale.",
+  description: "Connect Phantom and buy WLT at $0.35 during presale.",
 };
 
 export default async function UserPresalePage() {

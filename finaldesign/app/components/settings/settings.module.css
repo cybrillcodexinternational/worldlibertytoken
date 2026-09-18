@@ -275,6 +275,60 @@
   stroke: #111806;
 }
 
+.snapshot {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.snapshot article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(201, 245, 58, 0.12);
+  border-radius: 14px;
+  background: #0b0e0a;
+}
+
+.snapshotIcon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(201, 245, 58, 0.12);
+  color: #c9f53a;
+}
+
+.snapshot article div {
+  min-width: 0;
+}
+
+.snapshot small,
+.snapshot em {
+  display: block;
+  color: #8b927c;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.snapshot b {
+  display: block;
+  overflow: hidden;
+  color: #eef6c8;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshot em {
+  margin-top: 2px;
+  color: #6f7664;
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -535,6 +589,10 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .snapshot {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .split,
   .form,
   .meta {
@@ -555,6 +613,10 @@
   .hero {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .snapshot {
+    grid-template-columns: 1fr;
   }
 
   .tab,

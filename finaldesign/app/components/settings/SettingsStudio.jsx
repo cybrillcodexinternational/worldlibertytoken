@@ -270,6 +270,41 @@ export default function SettingsStudio({ panel = "user" }) {
       {error ? <p className={styles.error}>{error}</p> : null}
       {note ? <p className={styles.ok}>{note}</p> : null}
 
+      <section className={styles.snapshot} aria-label="Account snapshot">
+        <article>
+          <span className={styles.snapshotIcon}><ShieldCheck size={16} /></span>
+          <div>
+            <small>Account status</small>
+            <b>{data.profile.role === "admin" ? "Administrator" : "Verified user"}</b>
+            <em>Profile active</em>
+          </div>
+        </article>
+        <article>
+          <span className={styles.snapshotIcon}><Wallet size={16} /></span>
+          <div>
+            <small>Phantom wallet</small>
+            <b>{data.wallet.connected ? data.wallet.short : "Not connected"}</b>
+            <em>{data.wallet.connected ? "Ready for withdrawals" : "Connect from Wallet"}</em>
+          </div>
+        </article>
+        <article>
+          <span className={styles.snapshotIcon}><Bell size={16} /></span>
+          <div>
+            <small>Active alerts</small>
+            <b>{Object.values(data.notifications).filter(Boolean).length} modules on</b>
+            <em>Email preferences enabled</em>
+          </div>
+        </article>
+        <article>
+          <span className={styles.snapshotIcon}><Users size={16} /></span>
+          <div>
+            <small>Referral code</small>
+            <b>{data.referral.code || "Not assigned"}</b>
+            <em>Invite friends and earn</em>
+          </div>
+        </article>
+      </section>
+
       {tab === "profile" ? (
         <section className={styles.panel}>
           <div className={styles.cardHead}>

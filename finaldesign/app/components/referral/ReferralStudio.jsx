@@ -181,8 +181,7 @@ export default function ReferralStudio({ panel = "user" }) {
           </p>
           <h1>Mine. Invest. Refer. Earn.</h1>
           <p className={styles.copy}>
-            One invite URL. Two reward economies. Mining pays 10% / 5% / 3% in WLT.
-            Qualified presale investors earn a separate 5% USD commission (paid out in SOL).
+            One invite URL. Two reward economies. Mining referral rewards are paid from the mining reward pool at 10% / 5% / 3% in WLT, while Qualified Investor referrals earn a separate 5% USD commission paid in SOL.
           </p>
           <div className={styles.statusRow}>
             <span className={`${styles.chip} ${styles.chipLive}`}>
