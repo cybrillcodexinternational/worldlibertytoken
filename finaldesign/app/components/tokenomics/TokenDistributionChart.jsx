@@ -65,7 +65,7 @@ export default function TokenDistributionChart() {
           transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className={styles.donutCenterValue}>1B</span>
-          <span className={styles.donutCenterUnit}>WLT</span>
+          <span className={styles.donutCenterUnit}>RNR</span>
           <span className={styles.donutCenterCaption}>Total Supply</span>
         </motion.div>
       </div>

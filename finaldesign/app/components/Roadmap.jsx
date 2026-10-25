@@ -1,22 +1,22 @@
 const PHASES = [
   {
     tag: "Phase 02",
-    title: "Launch",
-    items: ["Token Launch", "Ecosystem Modules", "Exchange Listings"],
+    title: "Learning",
+    items: ["Accessible Guides", "Research Library", "Topic Collections"],
   },
   {
     tag: "Phase 03",
-    title: "Expansion",
+    title: "Exploration",
     items: [
-      "Strategic Partnerships",
-      "Cross-Chain Integration",
-      "Global Growth",
+      "Robotics & Automation",
+      "Artificial Intelligence",
+      "Connected Systems",
     ],
   },
   {
     tag: "Phase 04",
-    title: "Evolution",
-    items: ["DAO Governance", "Advanced Utilities", "Mass Adoption"],
+    title: "Responsible Progress",
+    items: ["Human-Robot Interaction", "Safety & Ethics", "Emerging Ideas"],
   },
 ];
 
@@ -47,9 +47,9 @@ export default function Roadmap() {
           <p className="roadmap-phase-tag">Phase 01</p>
           <h2 className="roadmap-heading">Foundation</h2>
           <ul className="roadmap-lead-list">
-            <li>Project Development</li>
-            <li>Core Smart Contracts</li>
-            <li>Community Building</li>
+            <li>Build a clear research foundation</li>
+            <li>Explain core robotics concepts</li>
+            <li>Connect ideas across disciplines</li>
           </ul>
         </div>
         <div className="roadmap-timeline">
@@ -65,14 +65,17 @@ export default function Roadmap() {
             </div>
           </div>
           <div className="roadmap-emblem" aria-hidden="true">
-            <span className="roadmap-emblem-ring roadmap-emblem-ring-outer"></span>
-            <span className="roadmap-emblem-ring roadmap-emblem-ring-inner"></span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/circle.png"
-              alt=""
-              className="roadmap-emblem-logo"
-            />
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+              className="roadmap-emblem-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            >
+              <source src="/images/roadmap-video.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>

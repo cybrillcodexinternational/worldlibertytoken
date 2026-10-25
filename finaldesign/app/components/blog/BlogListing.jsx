@@ -5,10 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Eye, Search } from "lucide-react";
 import styles from "../../news/news.module.css";
-import coinImage from "../../../assets/images/novax-coin.png";
 import globeImage from "../../../assets/images/heroneon.png";
 import ecosystemImage from "../../../assets/images/echosystem.png";
-import tokenomicsImage from "../../../assets/images/tokenomics.png";
+import roboticsImage from "../../../assets/images/cube.png";
 import cityImage from "../../../assets/images/echosystem5.png";
 import partnershipImage from "../../../assets/images/patnershipfinal.jpeg";
 import communityImage from "../../../assets/images/moon.jpeg";
@@ -17,7 +16,7 @@ const FILTERS = [
   "All",
   "Insights",
   "Education",
-  "Tokenomics",
+  "Robotics",
   "Ecosystem",
   "Guides",
   "Community",
@@ -26,12 +25,12 @@ const FILTERS = [
 const FEATURED = {
   category: "Insights",
   date: "Sep 09, 2026",
-  title: "Why Utility Will Define The Next Era Of Digital Assets",
+  title: "How Robotics Is Changing The Way We Work",
   excerpt:
-    "Tokens that last are built on real use, not short-term hype. This article explores how World Liberty Token is designing utility, community, and long-term value into every part of the ecosystem.",
+    "An introduction to modern robotics, automation, and the questions shaping how people and machines work together.",
   readTime: "8 min read",
   views: "14.2K",
-  image: coinImage,
+  image: "/images/rnr-logo.png",
 };
 
 const ARTICLES = [
@@ -39,31 +38,31 @@ const ARTICLES = [
     id: "education",
     category: "Education",
     date: "Aug 30, 2026",
-    title: "A Beginner's Guide To Decentralized Finance",
+    title: "A Beginner's Guide To Robotics",
     excerpt:
-      "Understand the foundations of DeFi, wallets, and on-chain value — and how WLT fits into a more open financial future.",
+      "Explore the essential ideas behind robotic systems, sensors, actuators, and the software that coordinates them.",
     readTime: "6 min read",
     views: "9.4K",
     image: globeImage,
   },
   {
-    id: "tokenomics",
-    category: "Tokenomics",
+    id: "sensors",
+    category: "Robotics",
     date: "Aug 24, 2026",
-    title: "How Sustainable Token Design Builds Trust",
+    title: "How Sensors Help Robots Understand Their Environment",
     excerpt:
-      "A closer look at supply, allocation, and vesting — and why transparent tokenomics matter for long-term ecosystem growth.",
+      "Learn how cameras, distance sensors, and other inputs help robotic systems observe and respond to the world.",
     readTime: "7 min read",
     views: "11.6K",
-    image: tokenomicsImage,
+    image: roboticsImage,
   },
   {
     id: "guides",
     category: "Guides",
     date: "Aug 19, 2026",
-    title: "How To Get Started With WLT In 10 Minutes",
+    title: "Getting Started With Automation",
     excerpt:
-      "A practical walkthrough covering wallet setup, security basics, and the first steps to participate in the WLT ecosystem.",
+      "A practical introduction to automation concepts, common system components, and responsible design considerations.",
     readTime: "5 min read",
     views: "8.8K",
     image: cityImage,
@@ -72,9 +71,9 @@ const ARTICLES = [
     id: "ecosystem",
     category: "Ecosystem",
     date: "Aug 12, 2026",
-    title: "Inside The WLT Product Stack",
+    title: "Inside A Modern Robotics System",
     excerpt:
-      "From staking and mining to payments and dApps — how each product connects to create one unified ecosystem.",
+      "Discover how hardware, software, sensors, and networks combine to support robotic applications.",
     readTime: "6 min read",
     views: "7.1K",
     image: ecosystemImage,
@@ -83,9 +82,9 @@ const ARTICLES = [
     id: "community",
     category: "Community",
     date: "Aug 08, 2026",
-    title: "Builders, Believers, And The Power Of Shared Vision",
+    title: "Why Human-Robot Interaction Matters",
     excerpt:
-      "The people behind World Liberty Token are shaping a global movement. Here's how community participation drives real progress.",
+      "Explore the design choices that help people understand, trust, and work effectively with robotic systems.",
     readTime: "4 min read",
     views: "6.3K",
     image: communityImage,
@@ -94,9 +93,9 @@ const ARTICLES = [
     id: "insights",
     category: "Insights",
     date: "Aug 02, 2026",
-    title: "Partnerships That Expand Real-World Access",
+    title: "Connected Robots And The Future Of Networks",
     excerpt:
-      "Strategic collaboration is how utility scales. Explore how WLT is working with partners to bring digital freedom to more people.",
+      "A clear overview of the communication technologies that let distributed devices share information.",
     readTime: "5 min read",
     views: "10.5K",
     image: partnershipImage,
@@ -164,7 +163,7 @@ export default function BlogListing() {
               <span className={styles.featuredBadge}>Featured</span>
               <Image
                 src={FEATURED.image}
-                alt="World Liberty Token coin"
+                alt="Robotic network research illustration"
                 className={styles.featuredImage}
                 sizes="(max-width: 992px) 100vw, 46vw"
                 fill
@@ -267,11 +266,11 @@ export default function BlogListing() {
             <h2>
               Insights From
               <br />
-              World Liberty Token.
+              Robotic Networks Research.
             </h2>
             <p className={styles.subscribeText}>
               Subscribe for new articles, guides, and long-form thinking from
-              the WLT ecosystem.
+              robotics and intelligent systems.
             </p>
           </div>
           <form

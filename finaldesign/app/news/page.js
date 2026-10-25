@@ -1,13 +1,11 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Image from "next/image";
 import styles from "./news.module.css";
-import heroNeon from "../../assets/images/heroneon.png";
 import NewsListing from "../components/news/NewsListing";
 
 export const metadata = {
-  title: "News — World Liberty Token",
-  description: "Latest news, updates, and milestones from the World Liberty Token ecosystem.",
+  title: "News — Robotic Networks Research",
+  description: "Robotics, automation, and intelligent-systems news and research updates.",
 };
 
 export default function NewsPage() {
@@ -31,12 +29,11 @@ export default function NewsPage() {
                 <h1 className={styles.title}>
                   Latest Updates
                   <br />
-                  From The WLT Ecosystem.
+                  From The Robotics And Research Community.
                 </h1>
                 <p className={styles.description}>
-                  Stay informed with announcements, partnerships, product
-                  releases, and milestones from World Liberty Token - built for
-                  people, utility, and a brighter tomorrow.
+                  Explore developments in robotics, automation, artificial
+                  intelligence, and connected technologies.
                 </p>
               </div>
 
@@ -51,12 +48,17 @@ export default function NewsPage() {
               </div>
 
               <div className={styles.heroVisual}>
-                <Image
-                  src={heroNeon}
-                  alt="Neon globe network"
+                <video
                   className={styles.globe}
-                  priority
-                />
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Robotic arm animation"
+                >
+                  <source src="/images/mini-robot.mp4" type="video/mp4" />
+                </video>
                 <div className={styles.rightNote} aria-hidden="true">
                   <p>
                     Stay

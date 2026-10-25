@@ -35,8 +35,8 @@ export default function FaqHero() {
             Asked Questions
           </h1>
           <p className="faq-hero-text">
-            Find clear answers to common questions about World Liberty Token,
-            our ecosystem, and the future we are building together.
+            Find answers about robotics research, learning resources, and the
+            technologies explored by Robotic Networks Research.
           </p>
         </div>
 
@@ -50,7 +50,17 @@ export default function FaqHero() {
         </div>
       </div>
 
-      <div className="faq-planet" aria-hidden="true" />
+      <video
+        className="faq-planet"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      >
+        <source src="/images/mini-robot.mp4" type="video/mp4" />
+      </video>
 
       <div className="faq-strip">
         <div className="tp-inner faq-strip-inner">

@@ -9,12 +9,12 @@ import Principles from "../components/tokenomics/Principles";
 import styles from "./tokenomics.module.css";
 
 export const metadata = {
-  title: "Tokenomics — World Liberty Token",
+  title: "Tokenomics — Robotic Networks Research",
   description:
-    "A transparent look at WLT token supply, allocation, vesting schedule and utility across the ecosystem.",
+    "Explore Robotic Networks Research, its key areas, roadmap, and project resources.",
 };
 
-export default function TokenomicsPage() {
+export default function RnrOverviewPage() {
   return (
     <>
       <div className="cursor-dot" aria-hidden="true"></div>

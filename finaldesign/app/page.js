@@ -2,9 +2,8 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import EcosystemStrip from "./components/EcosystemStrip";
 import EcosystemShowcase from "./components/EcosystemShowcase";
-import WhyNovax from "./components/WhyNovax";
-import Tokenomics from "./components/Tokenomics";
-import Mission from "./components/Mission";
+import WhyRnr from "./components/WhyRnr";
+import ResearchFocus from "./components/ResearchFocus";
 import Roadmap from "./components/Roadmap";
 import LatestNews from "./components/LatestNews";
 import EcosystemCta from "./components/EcosystemCta";
@@ -20,9 +19,8 @@ export default function Home() {
       <Hero />
       <EcosystemStrip />
       <EcosystemShowcase />
-      <WhyNovax />
-      <Tokenomics />
-      <Mission />
+      <WhyRnr />
+      <ResearchFocus />
       <Roadmap />
       <LatestNews />
       <EcosystemCta />

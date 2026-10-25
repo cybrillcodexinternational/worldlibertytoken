@@ -15,7 +15,7 @@ import {
 import styles from "../../tokenomics/tokenomics.module.css";
 import { SUPPLY_CURVE } from "./data";
 
-const LINE_COLOR = "hsl(70.79deg 85% 62%)";
+const LINE_COLOR = "hsl(39.3deg 85% 62%)";
 
 function formatSupply(value) {
   if (value >= 1000000000) return "1.0B";
@@ -58,7 +58,7 @@ export default function SupplyCurveChart() {
       </div>
       <div className={styles.chartPlot}>
         <div className={styles.chartAnnotation}>
-          <strong>1,000,000,000 WLT</strong>
+          <strong>1,000,000,000 RNR</strong>
           <span>Total Supply Reached</span>
         </div>
         <ResponsiveContainer width="100%" height="100%">

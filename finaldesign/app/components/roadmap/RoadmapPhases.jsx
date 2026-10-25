@@ -27,7 +27,7 @@ const PHASES = [
 	{
 		num: "03",
 		title: "Launch",
-		copy: "Bring WLT to the world.",
+		copy: "Bring RNR to the world.",
 		Icon: Rocket,
 	},
 	{

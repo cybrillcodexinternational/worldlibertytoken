@@ -7,24 +7,24 @@ export default function EcosystemCta() {
         <div className="ecosystem-cta-visual">
           {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video autoPlay muted loop playsInline>
-            <source src="/images/coindd.mp4" type="video/mp4" />
+            <source src="/images/explore-network.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="ecosystem-cta-copy">
-          <h2>Unlock The Full WLT Ecosystem Experience.</h2>
+          <h2>Explore Robotic Networks Research.</h2>
           <p>
-            Join a global movement for digital liberty.
+            Explore robotics research and follow new ideas and developments.
             <br />
-            Create your account and start your journey today.
+            Create an account to access your network tools.
           </p>
         </div>
         <div className="ecosystem-cta-action">
           <Link className="ecosystem-cta-button" href="/register">
-            Create Account <span aria-hidden="true">&#8594;</span>
+          Create Research Account <span aria-hidden="true">&#8594;</span>
           </Link>
           <p>
-            Secure <span>&bull;</span> Decentralized <span>&bull;</span>{" "}
-            Future-Ready
+            Research <span>&bull;</span> Insights <span>&bull;</span>{" "}
+            Robotics <span>&bull;</span> Research
           </p>
         </div>
       </div>

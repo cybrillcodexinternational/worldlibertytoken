@@ -74,7 +74,7 @@ export default function Principles() {
           <div className={styles.principleBannerVisual}>
             <Image
               src="/images/novax-coin.png"
-              alt="World Liberty Token"
+              alt="Robotic Networks Research"
               width={220}
               height={220}
               className={styles.principleBannerCoin}

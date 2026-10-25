@@ -29,7 +29,7 @@ export default function RoadmapHero() {
             Roadmap
           </motion.h1>
           <motion.p variants={fadeUpItem} className={styles.breadcrumbDescription}>
-            A clear, phased growth plan for World Liberty Token (WLT) —
+            A clear, phased growth plan for Robotic Networks Research (RNR) —
             building real utility, global adoption, and a more open financial
             future.
           </motion.p>

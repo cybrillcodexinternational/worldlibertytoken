@@ -2,8 +2,8 @@ import AuthShell from "../components/auth/AuthShell";
 import RegisterForm from "../components/auth/RegisterForm";
 
 export const metadata = {
-  title: "Register — World Liberty Token",
-  description: "Create your World Liberty Token account and join the ecosystem.",
+  title: "Register — Robotic Networks Research",
+  description: "Create an account to follow robotics research and save learning resources.",
 };
 
 export default function RegisterPage() {
@@ -15,11 +15,11 @@ export default function RegisterPage() {
         <>
           Create Your
           <br />
-          WLT Account.
+          Research Account.
         </>
       }
-      description="Join World Liberty Token to participate in the ecosystem — built for people, utility, and a brighter tomorrow."
-      highlights={["Free To Join", "Global Community", "Real Utility"]}
+      description="Create an account to follow research topics, save resources, and keep up with robotics and intelligent systems."
+      highlights={["Research Library", "Topic Updates", "Community"]}
     >
       <RegisterForm />
     </AuthShell>

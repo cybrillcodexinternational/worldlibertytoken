@@ -8,8 +8,8 @@
   border-top: 1px solid var(--panel-border);
   border-bottom: 1px solid var(--panel-border);
   background:
-    radial-gradient(circle at 77% 30%, rgba(195, 220, 80, 0.17), transparent 44%),
-    radial-gradient(circle at 12% 38%, rgba(195, 220, 80, 0.07), transparent 34%),
+    radial-gradient(circle at 77% 30%, rgba(224, 184, 105, 0.17), transparent 44%),
+    radial-gradient(circle at 12% 38%, rgba(224, 184, 105, 0.07), transparent 34%),
     #050505;
   overflow: hidden;
 }
@@ -93,7 +93,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 18px;
-  border-left: 1px solid rgba(195, 220, 80, 0.24);
+  border-left: 1px solid rgba(224, 184, 105, 0.24);
   padding-left: 22px;
   z-index: 4;
 }
@@ -115,7 +115,7 @@
   height: 3px;
   border-radius: 8px;
   background: var(--primary-color);
-  box-shadow: 0 0 10px rgba(195, 220, 80, 0.55);
+  box-shadow: 0 0 10px rgba(224, 184, 105, 0.55);
 }
 
 .heroVisual {
@@ -132,11 +132,12 @@
 }
 
 .globe {
+  display: block;
   object-fit: contain;
-  filter: drop-shadow(0 0 26px #c3dc503d);
+  filter: drop-shadow(0 0 26px #e0b8693d);
   width: 100%;
-  height: auto;
-  margin-top: 429px;
+  height: 100%;
+  margin-top: 0;
 }
 
 .rightNote {
@@ -153,7 +154,7 @@
 .overviewSection {
   position: relative;
   background:
-    radial-gradient(ellipse at 50% -10%, rgba(195, 220, 80, 0.12), transparent 42%),
+    radial-gradient(ellipse at 50% -10%, rgba(224, 184, 105, 0.12), transparent 42%),
     #050505;
   padding-block: clamp(36px, 4.6vw, 64px) clamp(56px, 6vw, 88px);
   overflow: hidden;
@@ -171,15 +172,15 @@
 }
 
 .highlightCard {
-  background: radial-gradient(circle at 14%, #c3dc5014, #0000 46%), #0a0a0a;
-  border: 1px solid #c3dc5047;
+  background: radial-gradient(circle at 14%, #e0b86914, #0000 46%), #0a0a0a;
+  border: 1px solid #e0b86947;
   border-radius: 12px;
   align-items: center;
   gap: 16px;
   min-height: 108px;
   padding: 22px 20px;
   display: flex;
-  box-shadow: inset 0 0 4px #c3dc50;
+  box-shadow: inset 0 0 4px #e0b869;
 }
 
 .highlightIcon {
@@ -190,14 +191,14 @@
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  background: #c3dc500a;
+  background: #e0b8690a;
   border-radius: 10px;
 }
 
 .highlightIcon svg {
   width: 32px;
   height: 32px;
-  filter: drop-shadow(0 0 10px rgba(195, 220, 80, 0.55));
+  filter: drop-shadow(0 0 10px rgba(224, 184, 105, 0.55));
 }
 
 .highlightCopy h3 {
@@ -290,10 +291,10 @@
   position: relative;
   min-height: 128px;
   padding: 20px 22px 18px;
-  border: 1px solid rgba(195, 220, 80, 0.26);
+  border: 1px solid rgba(224, 184, 105, 0.26);
   border-radius: 12px;
   background:
-    radial-gradient(circle at 12% 18%, rgba(195, 220, 80, 0.1), transparent 42%),
+    radial-gradient(circle at 12% 18%, rgba(224, 184, 105, 0.1), transparent 42%),
     #0a0a0a;
 }
 
@@ -304,14 +305,14 @@
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  background: #c3dc500d;
+  background: #e0b8690d;
   border-radius: 50%;
 }
 
 .moduleIcon svg {
   width: 24px;
   height: 24px;
-  filter: drop-shadow(0 0 8px rgba(195, 220, 80, 0.5));
+  filter: drop-shadow(0 0 8px rgba(224, 184, 105, 0.5));
 }
 
 .moduleArrow {
@@ -349,7 +350,7 @@
   position: relative;
   padding-block: clamp(20px, 3vw, 40px) clamp(28px, 4vw, 48px);
   background:
-    radial-gradient(ellipse at 72% 18%, rgba(195, 220, 80, 0.1), transparent 42%),
+    radial-gradient(ellipse at 72% 18%, rgba(224, 184, 105, 0.1), transparent 42%),
     #050505;
   overflow: hidden;
 }
@@ -453,10 +454,10 @@
   gap: 14px;
   min-height: 92px;
   padding: 16px 18px;
-  border: 1px solid rgba(195, 220, 80, 0.26);
+  border: 1px solid rgba(224, 184, 105, 0.26);
   border-radius: 12px;
   background:
-    radial-gradient(circle at 14% 50%, rgba(195, 220, 80, 0.08), transparent 50%),
+    radial-gradient(circle at 14% 50%, rgba(224, 184, 105, 0.08), transparent 50%),
     #0a0a0a;
 }
 
@@ -472,7 +473,7 @@
 .numbersIcon svg {
   width: 28px;
   height: 28px;
-  filter: drop-shadow(0 0 8px rgba(195, 220, 80, 0.5));
+  filter: drop-shadow(0 0 8px rgba(224, 184, 105, 0.5));
 }
 
 .numbersValue {
@@ -551,14 +552,14 @@
 }
 
 .joinFrame {
-  background: radial-gradient(at 78% 52%, #c3dc5029, #0000 46%), #050505;
-  border: 1px solid #c3dc508c;
+  background: radial-gradient(at 78% 52%, #e0b86929, #0000 46%), #050505;
+  border: 1px solid #e0b8698c;
   border-radius: 31px;
   min-height: 248px;
   padding: clamp(28px, 3.4vw, 46px) clamp(24px, 3vw, 48px);
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 0 10px #c3dc50;
+  box-shadow: inset 0 0 10px #e0b869;
 }
 
 .joinCopy {
@@ -625,7 +626,7 @@
 }
 
 .joinSecondary {
-  border: 1px solid rgba(195, 220, 80, 0.28);
+  border: 1px solid rgba(224, 184, 105, 0.28);
   background: #0a0a0a;
   color: #f2f2f2;
 }
@@ -642,7 +643,7 @@
 
 .joinGlobe {
   object-fit: contain;
-  filter: drop-shadow(0 0 28px #c3dc5047);
+  filter: drop-shadow(0 0 28px #e0b86947);
   width: 100%;
   height: auto;
   margin-top: 216px;
@@ -744,7 +745,7 @@
     position: static;
     width: 100%;
     border-left: 0;
-    border-top: 1px solid rgba(195, 220, 80, 0.24);
+    border-top: 1px solid rgba(224, 184, 105, 0.24);
     margin-top: 18px;
     padding-left: 0;
     padding-top: 16px;
@@ -763,6 +764,7 @@
 
   .globe {
     width: min(92vw, 640px);
+    height: min(72vw, 420px);
   }
 
   .rightNote {

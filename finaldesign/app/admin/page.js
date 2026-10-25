@@ -3,8 +3,8 @@ import { getCurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Admin Panel — World Liberty Token",
-  description: "Administration panel for World Liberty Token.",
+  title: "Admin Panel — Robotic Networks Research",
+  description: "Administration panel for Robotic Networks Research.",
 };
 
 export default async function AdminPage() {

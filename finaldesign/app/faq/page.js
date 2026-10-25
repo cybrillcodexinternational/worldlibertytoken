@@ -6,9 +6,9 @@ import FaqHelp from "../components/faq/FaqHelp";
 import styles from "./faq.module.css";
 
 export const metadata = {
-  title: "FAQ — World Liberty Token",
+  title: "FAQ — Robotic Networks Research",
   description:
-    "Frequently asked questions about World Liberty Token, the ecosystem, and how WLT works.",
+    "Answers to common questions about Robotic Networks Research, its research areas, and learning resources.",
 };
 
 export default function FaqPage() {

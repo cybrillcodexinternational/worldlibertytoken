@@ -1,14 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Image from "next/image";
 import styles from "../news/news.module.css";
-import heroNeon from "../../assets/images/heroneon.png";
 import BlogListing from "../components/blog/BlogListing";
 
 export const metadata = {
-  title: "Blog — World Liberty Token",
+  title: "Blog — Robotic Networks Research",
   description:
-    "Insights, guides, and long-form thinking from the World Liberty Token ecosystem.",
+    "Accessible guides and research articles about robotics, automation, and intelligent systems.",
 };
 
 export default function BlogPage() {
@@ -30,14 +28,14 @@ export default function BlogPage() {
 
                 <p className={styles.kicker}>Blog</p>
                 <h1 className={styles.title}>
-                  Insights, Ideas
+                  Robotics, Ideas
                   <br />
-                  And A Brighter Tomorrow.
+                  And Intelligent Systems.
                 </h1>
                 <p className={styles.description}>
-                  Explore guides, education, and long-form thinking from World
-                  Liberty Token — built to help you understand utility,
-                  community, and the future of open finance.
+                  Explore guides and research that make robotics, automation,
+                  artificial intelligence, and connected systems easier to
+                  understand.
                 </p>
               </div>
 
@@ -45,19 +43,24 @@ export default function BlogPage() {
                 <div className={styles.noteBlock}>
                   <p>People</p>
                   <p>Utility</p>
-                  <p>Freedom</p>
-                  <p>A Brighter Tomorrow</p>
+                  <p>Robotics</p>
+                  <p>Intelligent Systems</p>
                 </div>
                 <span className={styles.noteAccent}></span>
               </div>
 
               <div className={styles.heroVisual}>
-                <Image
-                  src={heroNeon}
-                  alt="Neon globe network"
+                <video
                   className={styles.globe}
-                  priority
-                />
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Robotic arm animation"
+                >
+                  <source src="/images/mini-robot.mp4" type="video/mp4" />
+                </video>
                 <div className={styles.rightNote} aria-hidden="true">
                   <p>
                     Learn

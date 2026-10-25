@@ -18,7 +18,7 @@ export default function SupplyEmission() {
               For A Stronger Future.
             </h2>
             <p className={styles.supplyText}>
-              WLT has a fixed supply of 1,000,000,000 tokens with a
+              RNR has a fixed supply of 1,000,000,000 tokens with a
               deflationary approach, ensuring long-term value and
               stability in the ecosystem.
             </p>

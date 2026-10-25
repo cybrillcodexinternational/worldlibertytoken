@@ -2,7 +2,7 @@ import { getCurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Dashboard Redirect — World Liberty Token",
+  title: "Dashboard Redirect — Robotic Networks Research",
 };
 
 export default async function DashboardPage() {

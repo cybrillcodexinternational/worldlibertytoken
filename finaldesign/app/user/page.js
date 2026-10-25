@@ -3,8 +3,8 @@ import { getCurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "User Panel — World Liberty Token",
-  description: "User dashboard for World Liberty Token.",
+  title: "User Panel — Robotic Networks Research",
+  description: "User dashboard for Robotic Networks Research.",
 };
 
 export default async function UserPage() {

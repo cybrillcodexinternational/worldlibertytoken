@@ -2,8 +2,8 @@ import AuthShell from "../components/auth/AuthShell";
 import LoginForm from "../components/auth/LoginForm";
 
 export const metadata = {
-  title: "Login — World Liberty Token",
-  description: "Sign in to your World Liberty Token account.",
+  title: "Login — Robotic Networks Research",
+  description: "Sign in to your Robotic Networks Research account.",
 };
 
 export default function LoginPage() {
@@ -18,8 +18,8 @@ export default function LoginPage() {
           To The Ecosystem.
         </>
       }
-      description="Sign in to access your WLT account, follow ecosystem updates, and stay connected with the community."
-      highlights={["Secure Access", "Community", "Ecosystem Tools"]}
+      description="Sign in to access your research library, saved resources, and the latest robotics insights."
+      highlights={["Research Library", "Saved Resources", "Project Updates"]}
     >
       <LoginForm />
     </AuthShell>
