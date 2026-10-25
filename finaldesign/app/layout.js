@@ -1,25 +1,21 @@
 import "./globals.css";
 import Script from "next/script";
-import { Raleway, Rajdhani } from "next/font/google";
+import { Aldrich } from "next/font/google";
 
-const raleway = Raleway({
+const aldrich = Aldrich({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-primary",
-  display: "swap",
-});
-
-const rajdhani = Rajdhani({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-stats",
+  weight: "400",
+  variable: "--font-aldrich",
   display: "swap",
 });
 
 export const metadata = {
-  title: "World Liberty Token",
+  title: "Robert Network Research | WLT Research & Insights",
   description:
-    "World Liberty Token powers a modular ecosystem of decentralized tools, real utility, and a global community.",
+    "Robert Network Research brings WLT research, ecosystem insights, and digital asset education together in one place.",
+  icons: {
+    icon: "/images/robert-network-research-coin.png",
+  },
 };
 
 export const viewport = {
@@ -29,7 +25,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${raleway.variable} ${rajdhani.variable}`}>
+    <html lang="en" className={aldrich.variable}>
       <head>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"

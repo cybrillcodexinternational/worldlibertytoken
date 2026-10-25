@@ -1,7 +1,7 @@
 const FEATURES = [
   {
-    title: "Utility-First Design",
-    text: "Every module delivers real utility and long-term value.",
+    title: "Research-Led Insights",
+    text: "Explore clear summaries of WLT token information and project updates.",
     glyph: (
       <>
         <path d="M4 8.5L12 4L20 8.5V15.5L12 20L4 15.5V8.5Z" />
@@ -11,8 +11,8 @@ const FEATURES = [
     ),
   },
   {
-    title: "Secure & Transparent",
-    text: "Built on audit-ready smart contracts with full transparency.",
+    title: "Token & Ecosystem",
+    text: "Understand the token model, ecosystem tools, and how the pieces fit together.",
     glyph: (
       <>
         <circle cx="8" cy="8" r="1.4" />
@@ -28,8 +28,8 @@ const FEATURES = [
     ),
   },
   {
-    title: "Community Driven",
-    text: "Governance, growth, and development powered by the community.",
+    title: "Community Research",
+    text: "Follow project news and network developments in one place.",
     glyph: (
       <>
         <path d="M8.5 10C10.16 10 11.5 8.66 11.5 7C11.5 5.34 10.16 4 8.5 4C6.84 4 5.5 5.34 5.5 7C5.5 8.66 6.84 10 8.5 10Z" />
@@ -40,8 +40,8 @@ const FEATURES = [
     ),
   },
   {
-    title: "Scalable Infrastructure",
-    text: "Engineered for performance, interoperability, and real-world adoption.",
+    title: "Research & Network Tools",
+    text: "Navigate tokenomics, roadmap, updates, and WLT ecosystem resources.",
     glyph: (
       <>
         <path d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2L12 3Z" />
@@ -74,14 +74,19 @@ export default function WhyNovax() {
     <section className="why-novax">
       <div className="why-novax-inner">
         <div className="why-novax-left">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/cube.png"
-            alt="World Liberty Token cube"
-            className="why-novax-cube-image"
-          />
+          <video
+            className="why-robot-image"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Robert Network Research animation"
+          >
+            <source src="/images/why-network.mp4" type="video/mp4" />
+          </video>
           <div className="why-novax-copy">
-            <p className="why-novax-kicker">Why Novax</p>
+            <p className="why-novax-kicker">Why Robert Network Research</p>
             <h2 className="why-novax-heading">
               Built On Purpose.
               <br />

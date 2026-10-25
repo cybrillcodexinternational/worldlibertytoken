@@ -22,9 +22,16 @@ export default function Tokenomics() {
           </h2>
         </div>
         <div className="tokenomics-visual">
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video muted loop autoPlay playsInline className="tokenomics-video">
-            <source src="/images/tokenomics.mp4" type="video/mp4" />
+          <video
+            className="tokenomics-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Tokenomics overview video"
+          >
+            <source src="/images/tokenomics-section.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="tokenomics-list">

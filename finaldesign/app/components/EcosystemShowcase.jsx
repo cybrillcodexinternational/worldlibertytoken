@@ -13,17 +13,25 @@ export default function EcosystemShowcase() {
             Participant.
           </h2>
           <p className="ecosystem-description">
-            From early access to real-world utility, NovaX
+            Robert Network Research brings WLT research,
             <br />
-            brings together the essential modules that
+            ecosystem tools, and project updates together
             <br />
-            drive participation, growth, and adoption.
+            in one connected place.
           </p>
         </div>
-        <div className="ecosystem-visual">
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video className="echo-video" muted autoPlay loop playsInline>
-            <source src="/images/echosystem.mp4" type="video/mp4" />
+
+        <div className="ecosystem-video-wrap" aria-label="Ecosystem overview video">
+          <video
+            className="ecosystem-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Ecosystem overview video"
+          >
+            <source src="/images/ecosystem-video.mp4" type="video/mp4" />
           </video>
         </div>
       </div>

@@ -4,7 +4,6 @@ import EcosystemStrip from "./components/EcosystemStrip";
 import EcosystemShowcase from "./components/EcosystemShowcase";
 import WhyNovax from "./components/WhyNovax";
 import Tokenomics from "./components/Tokenomics";
-import Mission from "./components/Mission";
 import Roadmap from "./components/Roadmap";
 import LatestNews from "./components/LatestNews";
 import EcosystemCta from "./components/EcosystemCta";
@@ -22,7 +21,6 @@ export default function Home() {
       <EcosystemShowcase />
       <WhyNovax />
       <Tokenomics />
-      <Mission />
       <Roadmap />
       <LatestNews />
       <EcosystemCta />

@@ -9,7 +9,7 @@ const PHASES = [
     title: "Expansion",
     items: [
       "Strategic Partnerships",
-      "Cross-Chain Integration",
+      "Mining Referral Network 10/5/3",
       "Global Growth",
     ],
   },
@@ -49,7 +49,7 @@ export default function Roadmap() {
           <ul className="roadmap-lead-list">
             <li>Project Development</li>
             <li>Core Smart Contracts</li>
-            <li>Community Building</li>
+            <li>3-Level Mining Referral (10% / 5% / 3%)</li>
           </ul>
         </div>
         <div className="roadmap-timeline">
@@ -65,14 +65,17 @@ export default function Roadmap() {
             </div>
           </div>
           <div className="roadmap-emblem" aria-hidden="true">
-            <span className="roadmap-emblem-ring roadmap-emblem-ring-outer"></span>
-            <span className="roadmap-emblem-ring roadmap-emblem-ring-inner"></span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/circle.png"
-              alt=""
-              className="roadmap-emblem-logo"
-            />
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+              className="roadmap-emblem-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            >
+              <source src="/images/roadmap-video.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
