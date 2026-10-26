@@ -40,16 +40,6 @@ export default function EchosystemPage() {
                 </p>
               </div>
 
-              <div className={styles.centerRail} aria-hidden="true">
-                <div className={styles.noteBlock}>
-                  <p>People</p>
-                  <p>Utility</p>
-                  <p>Robotics</p>
-                  <p>Automation</p>
-                </div>
-                <span className={styles.noteAccent}></span>
-              </div>
-
               <div className={styles.heroVisual}>
                 <video
                   className={styles.globe}
@@ -58,20 +48,10 @@ export default function EchosystemPage() {
                   loop
                   playsInline
                   preload="metadata"
-                  aria-label="Research ecosystem animation"
+                  aria-label="Ecosystem hero animation"
                 >
-                  <source src="/images/ecosystem-video.mp4" type="video/mp4" />
+                  <source src="/images/ecosystem-hero-holographic-robot.mp4" type="video/mp4" />
                 </video>
-                <div className={styles.rightNote} aria-hidden="true">
-                  <p>
-                    Research
-                    <br />
-                    Explore
-                    <br />
-                    Understand
-                  </p>
-                  <span className={styles.noteAccent}></span>
-                </div>
               </div>
             </div>
           </div>

@@ -40,27 +40,18 @@ export default function FaqHero() {
           </p>
         </div>
 
-        <div className="faq-hero-quote">
-          <span className="faq-hero-quote-bar" />
-          <p>
-            Know More
-            <br />
-            Build Together
-          </p>
-        </div>
+        <video
+          className="faq-planet"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="FAQ hero animation"
+        >
+          <source src="/images/faq-hero-black-background.mp4" type="video/mp4" />
+        </video>
       </div>
-
-      <video
-        className="faq-planet"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      >
-        <source src="/images/mini-robot.mp4" type="video/mp4" />
-      </video>
 
       <div className="faq-strip">
         <div className="tp-inner faq-strip-inner">

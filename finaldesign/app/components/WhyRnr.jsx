@@ -74,17 +74,6 @@ export default function WhyRnr() {
     <section className="why-novax">
       <div className="why-novax-inner">
         <div className="why-novax-left">
-          <video
-            className="why-robot-image"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label="Robot holding a weight animation"
-          >
-            <source src="/images/robot-holding-weight.mp4" type="video/mp4" />
-          </video>
           <div className="why-novax-copy">
             <p className="why-novax-kicker">Why Robotic Networks Research</p>
             <h2 className="why-novax-heading">

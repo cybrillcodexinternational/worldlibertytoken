@@ -29,9 +29,9 @@ export default function ResearchFocus() {
             loop
             playsInline
             preload="metadata"
-            aria-label="Robotics research animation"
+            aria-label="Spinning gold coin animation"
           >
-            <source src="/images/mini-robot.mp4" type="video/mp4" />
+            <source src="/images/research-focus-spinning-coin.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="tokenomics-list">

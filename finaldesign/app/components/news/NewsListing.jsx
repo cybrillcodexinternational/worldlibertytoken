@@ -7,10 +7,11 @@ import { ArrowRight, Clock, Eye, Search } from "lucide-react";
 import styles from "../../news/news.module.css";
 import globeImage from "../../../assets/images/heroneon.png";
 import ecosystemImage from "../../../assets/images/echosystem.png";
-import roboticsImage from "../../../assets/images/cube.png";
 import cityImage from "../../../assets/images/echosystem5.png";
 import partnershipImage from "../../../assets/images/patnershipfinal.jpeg";
 import communityImage from "../../../assets/images/moon.jpeg";
+
+const roboticsImage = "/images/featured-robot-coin.png";
 
 const FILTERS = [
   "All",
@@ -30,7 +31,7 @@ const FEATURED = {
     "Explore current themes in robotics, automation, and connected technologies through clear research summaries and learning resources.",
   readTime: "5 min read",
   views: "12.4K",
-  image: "/images/rnr-logo.png",
+  image: "/images/featured-robot-coin.png",
 };
 
 const ARTICLES = [

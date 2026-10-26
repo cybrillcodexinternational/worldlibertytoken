@@ -54,7 +54,7 @@ export default function FaqHelp() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="faq-help-art"
-              src="/images/support.png"
+              src="/images/faq-still-questions.png"
               alt=""
             />
           </div>

@@ -7,7 +7,7 @@ export default function EcosystemCta() {
         <div className="ecosystem-cta-visual">
           {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video autoPlay muted loop playsInline>
-            <source src="/images/explore-network.mp4" type="video/mp4" />
+            <source src="/images/home-latest-updates-globe.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="ecosystem-cta-copy">

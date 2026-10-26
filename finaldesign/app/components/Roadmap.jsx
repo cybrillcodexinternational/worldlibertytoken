@@ -74,7 +74,7 @@ export default function Roadmap() {
               playsInline
               preload="metadata"
             >
-              <source src="/images/roadmap-video.mp4" type="video/mp4" />
+              <source src="/images/home-roadmap-checkpoint.mp4" type="video/mp4" />
             </video>
           </div>
         </div>

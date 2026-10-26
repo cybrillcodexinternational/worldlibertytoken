@@ -39,16 +39,6 @@ export default function BlogPage() {
                 </p>
               </div>
 
-              <div className={styles.centerRail} aria-hidden="true">
-                <div className={styles.noteBlock}>
-                  <p>People</p>
-                  <p>Utility</p>
-                  <p>Robotics</p>
-                  <p>Intelligent Systems</p>
-                </div>
-                <span className={styles.noteAccent}></span>
-              </div>
-
               <div className={styles.heroVisual}>
                 <video
                   className={styles.globe}
@@ -57,22 +47,10 @@ export default function BlogPage() {
                   loop
                   playsInline
                   preload="metadata"
-                  aria-label="Robotic arm animation"
+                  aria-label="Golden connected globe animation"
                 >
-                  <source src="/images/mini-robot.mp4" type="video/mp4" />
+                  <source src="/images/ecosystem-hero.mp4" type="video/mp4" />
                 </video>
-                <div className={styles.rightNote} aria-hidden="true">
-                  <p>
-                    Learn
-                    <br />
-                    Explore
-                    <br />
-                    Build
-                    <br />
-                    Together
-                  </p>
-                  <span className={styles.noteAccent}></span>
-                </div>
               </div>
             </div>
           </div>

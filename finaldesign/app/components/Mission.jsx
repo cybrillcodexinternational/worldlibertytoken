@@ -5,8 +5,8 @@ export default function Mission() {
         <div className="mission-visual">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/background.png"
-            alt="Robotic Networks Research geometric background"
+            src="/images/research-network-gold.jpg"
+            alt="Golden connected research network"
             className="mission-image"
           />
         </div>

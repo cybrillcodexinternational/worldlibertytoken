@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Zap, Lock, Leaf, Globe } from "lucide-react";
 import styles from "../../tokenomics/tokenomics.module.css";
@@ -72,12 +71,15 @@ export default function Principles() {
 
         <SectionReveal delay={0.12} className={styles.principleBanner}>
           <div className={styles.principleBannerVisual}>
-            <Image
-              src="/images/novax-coin.png"
-              alt="Robotic Networks Research"
-              width={220}
-              height={220}
+            <video
+              src="/images/tokenomics-coin-animation.mp4"
               className={styles.principleBannerCoin}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Golden robotic coin animation"
             />
           </div>
           <div className={styles.principleBannerCopy}>

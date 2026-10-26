@@ -527,7 +527,7 @@ export default function DashboardSurface({ user, panel }) {
               </li>
               <li>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/rnr-logo.png" alt="" />
+                <img src="/images/research-network-gold.jpg" alt="" />
                 <div>
                   <strong>Understanding connected systems</strong>
                   <small>Technology overview</small>
@@ -535,7 +535,7 @@ export default function DashboardSurface({ user, panel }) {
               </li>
               <li>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/rnr-logo.png" alt="" />
+                <img src="/images/research-dashboard-gold.jpg" alt="" />
                 <div>
                   <strong>New research topics added</strong>
                   <small>Platform update</small>

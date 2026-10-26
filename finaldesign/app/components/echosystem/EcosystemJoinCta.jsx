@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import styles from "../../echosystem/echosystem.module.css";
-import globeImage from "../../../assets/images/heroneon.png";
 
 export default function EcosystemJoinCta() {
   return (
@@ -29,25 +28,16 @@ export default function EcosystemJoinCta() {
 
           <div className={styles.joinVisual} aria-hidden="true">
             <Image
-              src={globeImage}
+              src="/images/ecosystem-explore-coins.png"
               alt=""
               className={styles.joinGlobe}
-              sizes="(max-width: 992px) 100vw, 58vw"
+              width={370}
+              height={370}
+              sizes="(max-width: 992px) 84vw, 480px"
+              unoptimized
             />
           </div>
 
-          <div className={styles.joinSideNote}>
-            <p>
-              People
-              <br />
-              Automation
-              <br />
-              Research
-              <br />
-              Discovery
-            </p>
-            <span className={styles.joinAccent}></span>
-          </div>
         </div>
       </div>
     </section>

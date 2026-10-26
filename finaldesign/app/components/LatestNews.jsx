@@ -104,7 +104,10 @@ export default function LatestNews() {
               const date = formatDate(item.publishedAt);
 
               return (
-                <article className="news-card" key={url}>
+                <article
+                  className="news-card"
+                  key={`${item.publishedAt}-${item.title}`}
+                >
                   <a
                     className="news-card-link"
                     href={url}

@@ -30,7 +30,7 @@ const FEATURED = {
     "An introduction to modern robotics, automation, and the questions shaping how people and machines work together.",
   readTime: "8 min read",
   views: "14.2K",
-  image: "/images/rnr-logo.png",
+  image: "/images/featured-robot-coin.png",
 };
 
 const ARTICLES = [
