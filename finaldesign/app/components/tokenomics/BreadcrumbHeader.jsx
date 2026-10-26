@@ -28,7 +28,7 @@ export default function BreadcrumbHeader() {
             Tokenomics
           </motion.h1>
           <motion.p variants={fadeUpItem} className={styles.breadcrumbDescription}>
-            A transparent look at how WLT supply, allocation and utility are
+            A transparent look at how RNR supply, allocation and utility are
             structured to support long-term ecosystem growth.
           </motion.p>
         </div>

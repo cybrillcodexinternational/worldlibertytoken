@@ -1,15 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Image from "next/image";
 import styles from "./echosystem.module.css";
-import heroNeon from "../../assets/images/heroneon.png";
 import EcosystemOverview from "../components/echosystem/EcosystemOverview";
 import EcosystemHowItWorks from "../components/echosystem/EcosystemHowItWorks";
 import EcosystemJoinCta from "../components/echosystem/EcosystemJoinCta";
 
 export const metadata = {
-  title: "Echosystem — World Liberty Token",
-  description: "Explore the World Liberty Token echosystem.",
+  title: "Research Ecosystem — Robotic Networks Research",
+  description: "Explore robotics, automation, artificial intelligence, and connected-systems research.",
 };
 
 export default function EchosystemPage() {
@@ -29,16 +27,16 @@ export default function EchosystemPage() {
                   <span>Ecosystem</span>
                 </p>
 
-                <p className={styles.kicker}>Ecosystem</p>
+                <p className={styles.kicker}>Research Ecosystem</p>
                 <h1 className={styles.title}>
-                  A Unified Ecosystem
+                  A Connected Research Ecosystem
                   <br />
-                  Built For Every Participant.
+                  For Intelligent Systems.
                 </h1>
                 <p className={styles.description}>
-                  Connecting utilities, community, and real-world opportunity -
-                  World Liberty Token brings together people, products, and
-                  possibilities to create a more open financial future.
+                  Robotic Networks Research connects ideas across robotics,
+                  automation, artificial intelligence, and networked
+                  technologies to make complex topics easier to explore.
                 </p>
               </div>
 
@@ -46,28 +44,31 @@ export default function EchosystemPage() {
                 <div className={styles.noteBlock}>
                   <p>People</p>
                   <p>Utility</p>
-                  <p>Freedom</p>
-                  <p>A Brighter Tomorrow</p>
+                  <p>Robotics</p>
+                  <p>Automation</p>
                 </div>
                 <span className={styles.noteAccent}></span>
               </div>
 
               <div className={styles.heroVisual}>
-                <Image
-                  src={heroNeon}
-                  alt="Neon globe network"
+                <video
                   className={styles.globe}
-                  priority
-                />
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Research ecosystem animation"
+                >
+                  <source src="/images/ecosystem-video.mp4" type="video/mp4" />
+                </video>
                 <div className={styles.rightNote} aria-hidden="true">
                   <p>
-                    A
+                    Research
                     <br />
-                    More Open
+                    Explore
                     <br />
-                    Financial
-                    <br />
-                    Tomorrow
+                    Understand
                   </p>
                   <span className={styles.noteAccent}></span>
                 </div>

@@ -5,10 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Eye, Search } from "lucide-react";
 import styles from "../../news/news.module.css";
-import coinImage from "../../../assets/images/novax-coin.png";
 import globeImage from "../../../assets/images/heroneon.png";
 import ecosystemImage from "../../../assets/images/echosystem.png";
-import tokenomicsImage from "../../../assets/images/tokenomics.png";
+import roboticsImage from "../../../assets/images/cube.png";
 import cityImage from "../../../assets/images/echosystem5.png";
 import partnershipImage from "../../../assets/images/patnershipfinal.jpeg";
 import communityImage from "../../../assets/images/moon.jpeg";
@@ -16,7 +15,7 @@ import communityImage from "../../../assets/images/moon.jpeg";
 const FILTERS = [
   "All",
   "Announcements",
-  "Tokenomics",
+  "Research",
   "Ecosystem",
   "Guides",
   "Industry",
@@ -26,12 +25,12 @@ const FILTERS = [
 const FEATURED = {
   category: "Announcements",
   date: "Sep 13, 2026",
-  title: "World Liberty Token Enters a New Phase of Global Expansion",
+  title: "Robotics Research: Ideas Shaping Intelligent Systems",
   excerpt:
-    "We are excited to share the next chapter in our journey. World Liberty Token is officially entering a new phase of global expansion, strengthening our ecosystem, partnerships, and real-world utility.",
+    "Explore current themes in robotics, automation, and connected technologies through clear research summaries and learning resources.",
   readTime: "5 min read",
   views: "12.4K",
-  image: coinImage,
+  image: "/images/rnr-logo.png",
 };
 
 const ARTICLES = [
@@ -39,31 +38,31 @@ const ARTICLES = [
     id: "ecosystem",
     category: "Ecosystem",
     date: "Aug 28, 2026",
-    title: "Building a More Inclusive Financial Future",
+    title: "How Robots Sense And Respond To The World",
     excerpt:
-      "Discover how WLT is creating real-world utility and empowering communities across the globe through decentralised innovation.",
+      "An introduction to sensing technologies and the systems that help robots interpret their surroundings.",
     readTime: "4 min read",
     views: "8.3K",
     image: globeImage,
   },
   {
-    id: "tokenomics",
-    category: "Tokenomics",
+    id: "research",
+    category: "Research",
     date: "Aug 22, 2026",
-    title: "Understanding the Tokenomics Behind WLT",
+    title: "Understanding Robotics And Automation",
     excerpt:
-      "A deep dive into our token distribution, supply model, and how it fuels a sustainable and growing ecosystem.",
+      "A practical guide to robotic platforms, automated workflows, and the technologies that connect them.",
     readTime: "6 min read",
     views: "10.1K",
-    image: tokenomicsImage,
+    image: roboticsImage,
   },
   {
     id: "guides",
     category: "Guides",
     date: "Aug 18, 2026",
-    title: "How To Buy WLT: A Step-by-Step Guide",
+    title: "A Guide To Human-Robot Interaction",
     excerpt:
-      "A simple guide to getting started with WLT, including wallet setup, exchange options, and security best practices.",
+      "Explore the principles behind safe, accessible, and effective collaboration between people and machines.",
     readTime: "5 min read",
     views: "9.7K",
     image: cityImage,
@@ -72,9 +71,9 @@ const ARTICLES = [
     id: "partnerships",
     category: "Partnerships",
     date: "Aug 14, 2026",
-    title: "Strategic Partnerships for a Stronger Tomorrow",
+    title: "Why Responsible Robotics Design Matters",
     excerpt:
-      "We're building strategic partnerships to expand utility, adoption, and global accessibility for World Liberty Token.",
+      "Consider safety, privacy, accessibility, and real-world impact when developing intelligent systems.",
     readTime: "3 min read",
     views: "6.8K",
     image: partnershipImage,
@@ -83,9 +82,9 @@ const ARTICLES = [
     id: "community",
     category: "Community",
     date: "Aug 10, 2026",
-    title: "Our Community, Our Strength",
+    title: "Robotics Research Starts With Good Questions",
     excerpt:
-      "The WLT community is at the heart of everything we do. Learn how our global community is shaping the future of digital freedom.",
+      "See how curiosity and clear research questions help explain complex technologies and their possible uses.",
     readTime: "4 min read",
     views: "5.9K",
     image: communityImage,
@@ -94,9 +93,9 @@ const ARTICLES = [
     id: "industry",
     category: "Industry",
     date: "Aug 05, 2026",
-    title: "The Future of Digital Assets in a Changing World",
+    title: "Connected Devices And Intelligent Networks",
     excerpt:
-      "Explore the opportunities and challenges shaping the next era of blockchain, and how WLT is positioned for long-term impact.",
+      "Learn how connected devices exchange information and what that means for modern robotic systems.",
     readTime: "7 min read",
     views: "11.3K",
     image: ecosystemImage,
@@ -165,7 +164,7 @@ export default function NewsListing() {
               <span className={styles.featuredBadge}>Featured</span>
               <Image
                 src={FEATURED.image}
-                alt="World Liberty Token coin"
+                alt="Robotic Networks Research emblem"
                 className={styles.featuredImage}
                 sizes="(max-width: 992px) 100vw, 46vw"
                 fill
@@ -268,7 +267,7 @@ export default function NewsListing() {
             <h2>
               Get The Latest
               <br />
-              From World Liberty Token.
+              From Robotic Networks Research.
             </h2>
             <p className={styles.subscribeText}>
               Subscribe to our newsletter and never miss an update, insight, or

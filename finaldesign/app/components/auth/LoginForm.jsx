@@ -68,10 +68,10 @@ export default function LoginForm() {
   return (
     <div className={styles.panel}>
       <p className={styles.panelKicker}>Welcome Back</p>
-      <h2 className={styles.panelTitle}>Sign in to WLT</h2>
+      <h2 className={styles.panelTitle}>Sign in to RNR</h2>
       <p className={styles.panelText}>
-        Access your World Liberty Token account and continue building with the
-        ecosystem.
+        Access your Robotic Networks Research account and continue exploring
+        robotics and intelligent systems.
       </p>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
@@ -144,7 +144,7 @@ export default function LoginForm() {
       </form>
 
       <p className={styles.switch}>
-        New to WLT?{" "}
+        New to RNR?{" "}
         <Link className={styles.link} href="/register">
           Create an account
         </Link>

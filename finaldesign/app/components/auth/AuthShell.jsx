@@ -1,8 +1,6 @@
 import Header from "../Header";
 import Footer from "../Footer";
-import Image from "next/image";
 import styles from "../../auth/auth.module.css";
-import heroNeon from "../../../assets/images/heroneon.png";
 
 export default function AuthShell({
   crumb,
@@ -41,12 +39,17 @@ export default function AuthShell({
               {children}
             </div>
           </div>
-          <Image
-            src={heroNeon}
-            alt=""
+          <video
             className={styles.globe}
-            sizes="(max-width: 992px) 90vw, 58vw"
-          />
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/images/mini-robot.mp4" type="video/mp4" />
+          </video>
         </section>
       </main>
       <Footer />

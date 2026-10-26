@@ -3,27 +3,27 @@ import { FileText, Gamepad2, Mail, Send } from "lucide-react";
 
 const CONTACTS = [
   {
-    label: "Email Support",
-    value: "support@worldlibertytoken.com",
-    href: "mailto:support@worldlibertytoken.com",
+    label: "Explore Research",
+    value: "Robotics, automation, intelligent systems",
+    href: "/tokenomics",
     Icon: Mail,
   },
   {
-    label: "Join Telegram",
-    value: "t.me/worldlibertytoken",
-    href: "https://t.me/worldlibertytoken",
+    label: "Read Articles",
+    value: "Guides and learning resources",
+    href: "/blog",
     Icon: Send,
   },
   {
-    label: "Join Discord",
-    value: "discord.gg/wlt",
-    href: "https://discord.gg/wlt",
+    label: "Latest News",
+    value: "Technology updates and research",
+    href: "/news",
     Icon: Gamepad2,
   },
   {
-    label: "Read Documentation",
-    value: "docs.worldlibertytoken.com",
-    href: "#",
+    label: "Explore The Ecosystem",
+    value: "Discover connected research topics",
+    href: "/echosystem",
     Icon: FileText,
   },
 ];
@@ -41,12 +41,12 @@ export default function FaqHelp() {
               To Help.
             </h2>
             <p className="faq-help-text">
-              Our team is always ready to assist you. Get in touch
+              Browse the research library, explore recent updates,
               <br />
-              and we&apos;ll be happy to answer your questions.
+              or find an answer in the frequently asked questions.
             </p>
-            <Link href="mailto:support@worldlibertytoken.com" className="faq-help-btn">
-              Contact Us <span aria-hidden="true">→</span>
+            <Link href="/blog" className="faq-help-btn">
+              Browse Articles <span aria-hidden="true">→</span>
             </Link>
           </div>
 

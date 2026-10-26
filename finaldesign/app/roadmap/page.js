@@ -10,9 +10,9 @@ import RoadmapCta from "../components/roadmap/RoadmapCta";
 import styles from "./roadmap.module.css";
 
 export const metadata = {
-  title: "Roadmap — World Liberty Token",
+  title: "Roadmap — Robotic Networks Research",
   description:
-    "The World Liberty Token roadmap from foundation and launch through expansion and long-term ecosystem evolution.",
+    "Explore the roadmap and planned milestones for Robotic Networks Research.",
 };
 
 export default function RoadmapPage() {

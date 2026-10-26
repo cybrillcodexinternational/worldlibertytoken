@@ -11,9 +11,9 @@ const CARDS = [
   {
     key: "symbol",
     icon: Layers,
-    value: "WLT",
+    value: "RNR",
     line1: "Token Symbol",
-    line2: "World Liberty Token",
+    line2: "Robotic Networks Research",
   },
   {
     key: "supply",
@@ -51,7 +51,7 @@ export default function TokenOverview() {
               Designed For People.
             </h2>
             <p className={styles.overviewText}>
-              World Liberty Token (WLT) has a fixed supply and a clear
+              Robotic Networks Research (RNR) has a fixed supply and a clear
               distribution model to ensure transparency, sustainability,
               and real-world utility.
             </p>

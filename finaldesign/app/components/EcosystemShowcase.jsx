@@ -13,9 +13,9 @@ export default function EcosystemShowcase() {
             Participant.
           </h2>
           <p className="ecosystem-description">
-            Robert Network Research brings WLT research,
+            Robotic Networks Research brings robotics, automation,
             <br />
-            ecosystem tools, and project updates together
+            intelligent systems, and emerging research together
             <br />
             in one connected place.
           </p>

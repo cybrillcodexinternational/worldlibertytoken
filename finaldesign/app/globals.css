@@ -114,7 +114,50 @@ body {
 }
 
 .logo-img {
-    width: 91%;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    color: #f1eee7;
+    text-decoration: none;
+}
+
+.header-brand-name {
+    display: grid;
+    gap: 4px;
+    font-family: var(--font-primary), sans-serif;
+    font-size: clamp(8px, 0.7vw, 11px);
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.header-brand-name strong {
+    color: #f1eee7;
+    font-weight: 600;
+}
+
+.header-brand-name > span {
+    color: var(--primary-color);
+    letter-spacing: 0.24em;
+}
+
+.footer-brand h2 {
+    margin: 0 0 12px;
+    color: var(--primary-color);
+    font-family: var(--font-primary), sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
 }
 
 .h-buttons {
@@ -1683,7 +1726,16 @@ video {
     }
 
     .logo-img {
-        width: min(180px, 100%);
+        width: 42px;
+        height: 42px;
+    }
+
+    .header-brand {
+        gap: 8px;
+    }
+
+    .header-brand-name {
+        font-size: 8px;
     }
 
     .main-header .buttons-header {
@@ -2788,8 +2840,8 @@ footer {
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(ellipse at 68% 58%, hsla(70.79deg, 42%, 22%, 0.7), transparent 58%),
-        radial-gradient(ellipse at 90% 12%, hsla(70.79deg, 67%, 40%, 0.16), transparent 42%);
+        radial-gradient(ellipse at 68% 58%, hsla(39.3deg, 42%, 22%, 0.7), transparent 58%),
+        radial-gradient(ellipse at 90% 12%, hsla(39.3deg, 67%, 40%, 0.16), transparent 42%);
 }
 
 .faq-hero-inner {
@@ -2888,10 +2940,9 @@ footer {
     z-index: 1;
     width: min(760px, 56vw);
     height: min(340px, 26vw);
+    object-fit: contain;
     pointer-events: none;
-    background:
-        radial-gradient(ellipse 90% 160% at 50% 118%, #3a3f14 0%, #1a1d0b 32%, #0b0c07 58%, transparent 72%);
-    filter: drop-shadow(0 0 40px hsla(70.79deg, 50%, 28%, 0.35));
+    filter: drop-shadow(0 0 40px hsla(39.3deg, 50%, 28%, 0.35));
 }
 
 .faq-strip {
@@ -3129,8 +3180,8 @@ footer {
 }
 
 .faq-item.is-open {
-    border-color: hsla(70.79deg, 67%, 59%, 0.72);
-    box-shadow: inset 0 0 0 1px hsla(70.79deg, 67%, 59%, 0.12);
+    border-color: hsla(39.3deg, 67%, 59%, 0.72);
+    box-shadow: inset 0 0 0 1px hsla(39.3deg, 67%, 59%, 0.12);
 }
 
 .faq-item-head {
@@ -3421,8 +3472,8 @@ footer {
 .hero-image-coin .hero-video-element {
     display: block;
     width: 100%;
-    height: clamp(360px, 65vh, 620px);
-    max-width: 720px;
+    height: clamp(480px, 72vh, 760px);
+    max-width: 900px;
     max-height: none;
     border-radius: 0;
     object-fit: cover;
@@ -3475,8 +3526,8 @@ footer {
 
 .why-robot-image {
     display: block;
-    width: min(100%, 280px);
-    height: 180px;
+    width: min(100%, 440px);
+    height: 280px;
     margin: -12px 0 0 18px;
     object-fit: contain;
     background: transparent;
@@ -3564,8 +3615,8 @@ footer {
     }
 
     .why-robot-image {
-        width: min(100%, 280px);
-        height: 180px;
+        width: min(100%, 360px);
+        height: 240px;
         margin: -10px 0 2px 12px;
     }
 

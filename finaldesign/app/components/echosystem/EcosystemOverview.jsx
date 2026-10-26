@@ -1,88 +1,87 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  Box,
-  CircleDot,
-  Eye,
-  Gem,
+  Bot,
+  BrainCircuit,
+  Cpu,
   Globe,
   Hexagon,
-  Rocket,
-  TrendingUp,
-  User,
-  Users,
-  Wallet,
+  Network,
+  Radio,
+  ScanFace,
+  Search,
+  ShieldCheck,
 } from "lucide-react";
 import styles from "../../echosystem/echosystem.module.css";
 
 const HIGHLIGHTS = [
   {
-    title: "Unified Ecosystem",
-    text: "All products and services connected through WLT.",
-    Icon: Box,
+    title: "Connected Research",
+    text: "Explore ideas across robotics, automation, and intelligent systems.",
+    Icon: Network,
   },
   {
-    title: "Real Utility",
-    text: "Designed for real-world use cases.",
-    Icon: Rocket,
+    title: "Accessible Learning",
+    text: "Clear explanations make complex technology easier to understand.",
+    Icon: Search,
   },
   {
-    title: "Global Access",
-    text: "Borderless opportunities for everyone.",
-    Icon: Globe,
+    title: "Emerging Technology",
+    text: "Follow developments in artificial intelligence and connected devices.",
+    Icon: BrainCircuit,
   },
   {
-    title: "Community First",
-    text: "Built by the community, for the community.",
-    Icon: Users,
+    title: "Responsible Design",
+    text: "Consider people, safety, and impact as technology advances.",
+    Icon: ShieldCheck,
   },
 ];
 
 const MODULES = [
   {
-    title: "WLT Token",
-    text: "The core of the ecosystem, powering all products and services.",
+    title: "Robotics",
+    text: "Discover robotic platforms and how they interact with the world.",
+    Icon: Bot,
+  },
+  {
+    title: "Automation",
+    text: "Explore machines and workflows designed to perform repeatable tasks.",
+    Icon: Cpu,
+  },
+  {
+    title: "Artificial Intelligence",
+    text: "Learn about perception, models, and machine decision-making.",
+    Icon: BrainCircuit,
+  },
+  {
+    title: "Human-Robot Interaction",
+    text: "Study how people and robotic systems communicate and collaborate.",
+    Icon: ScanFace,
+  },
+  {
+    title: "Sensors & Networks",
+    text: "Understand the devices and connections that help systems sense and share information.",
+    Icon: Radio,
+  },
+  {
+    title: "Research Library",
+    text: "Browse explainers, guides, and articles across emerging technology.",
+    Icon: Search,
+  },
+  {
+    title: "Responsible Technology",
+    text: "Consider safety, accessibility, privacy, and real-world impact.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Connected Systems",
+    text: "Explore how intelligent devices exchange information and work together.",
+    Icon: Network,
+  },
+  {
+    title: "Emerging Ideas",
+    text: "Keep up with new questions and developments across the field.",
     Icon: Globe,
-  },
-  {
-    title: "Presale Platform",
-    text: "Early access for a brighter future.",
-    Icon: Rocket,
-  },
-  {
-    title: "Mining System",
-    text: "Participate, earn, and grow.",
-    Icon: TrendingUp,
-  },
-  {
-    title: "Staking & Rewards",
-    text: "Earn passive income and long-term benefits.",
-    Icon: Gem,
-  },
-  {
-    title: "Wallet & Payments",
-    text: "Send, receive, and spend WLT globally.",
-    Icon: Wallet,
-  },
-  {
-    title: "Exchange & Liquidity",
-    text: "Greater accessibility and trading opportunities.",
-    Icon: Eye,
-  },
-  {
-    title: "Ecosystem dApps",
-    text: "A growing suite of decentralized applications.",
-    Icon: Hexagon,
-  },
-  {
-    title: "Real World Utility",
-    text: "Use WLT in everyday life, products, and services.",
-    Icon: CircleDot,
-  },
-  {
-    title: "Governance",
-    text: "Community-driven decisions for a fair future.",
-    Icon: User,
   },
 ];
 
@@ -106,20 +105,19 @@ export default function EcosystemOverview() {
 
         <div className={styles.overviewBody}>
           <div className={styles.overviewCopy}>
-            <p className={styles.overviewKicker}>Ecosystem Overview</p>
+            <p className={styles.overviewKicker}>Research Overview</p>
             <h2 className={styles.overviewTitle}>
-              Built To Empower
+              Explore The
               <br />
-              Everyone.
+              Connected Field.
             </h2>
             <p className={styles.overviewText}>
-              Our ecosystem brings together innovative products, strategic
-              partnerships, and a growing community to create a sustainable and
-              inclusive digital economy. Each component is designed to add real
-              value and work together seamlessly.
+              Robotics connects engineering, software, sensing, and human
+              experience. Explore these linked disciplines through accessible
+              articles and topic guides.
             </p>
             <button type="button" className={styles.overviewCta}>
-              Learn How It Works
+              Browse Research Areas
               <ArrowRight size={16} strokeWidth={2.2} />
             </button>
           </div>

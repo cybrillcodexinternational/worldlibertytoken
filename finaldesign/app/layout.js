@@ -10,11 +10,11 @@ const aldrich = Aldrich({
 });
 
 export const metadata = {
-  title: "Robert Network Research | WLT Research & Insights",
+  title: "Robotic Networks Research | Robotics & Intelligent Systems",
   description:
-    "Robert Network Research brings WLT research, ecosystem insights, and digital asset education together in one place.",
+    "Robotic Networks Research explores robotics, automation, intelligent systems, and connected technologies through accessible research and insights.",
   icons: {
-    icon: "/images/robert-network-research-coin.png",
+    icon: "/images/rnr-logo.png",
   },
 };
 

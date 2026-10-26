@@ -1,22 +1,22 @@
 const PHASES = [
   {
     tag: "Phase 02",
-    title: "Launch",
-    items: ["Token Launch", "Ecosystem Modules", "Exchange Listings"],
+    title: "Learning",
+    items: ["Accessible Guides", "Research Library", "Topic Collections"],
   },
   {
     tag: "Phase 03",
-    title: "Expansion",
+    title: "Exploration",
     items: [
-      "Strategic Partnerships",
-      "Mining Referral Network 10/5/3",
-      "Global Growth",
+      "Robotics & Automation",
+      "Artificial Intelligence",
+      "Connected Systems",
     ],
   },
   {
     tag: "Phase 04",
-    title: "Evolution",
-    items: ["DAO Governance", "Advanced Utilities", "Mass Adoption"],
+    title: "Responsible Progress",
+    items: ["Human-Robot Interaction", "Safety & Ethics", "Emerging Ideas"],
   },
 ];
 
@@ -47,9 +47,9 @@ export default function Roadmap() {
           <p className="roadmap-phase-tag">Phase 01</p>
           <h2 className="roadmap-heading">Foundation</h2>
           <ul className="roadmap-lead-list">
-            <li>Project Development</li>
-            <li>Core Smart Contracts</li>
-            <li>3-Level Mining Referral (10% / 5% / 3%)</li>
+            <li>Build a clear research foundation</li>
+            <li>Explain core robotics concepts</li>
+            <li>Connect ideas across disciplines</li>
           </ul>
         </div>
         <div className="roadmap-timeline">

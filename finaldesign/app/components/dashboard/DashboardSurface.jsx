@@ -4,30 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ArrowDownToLine,
-  ArrowLeftRight,
-  ArrowUpFromLine,
-  ArrowUpRight,
   Bell,
+  BookOpen,
   ChartNoAxesCombined,
   ChevronDown,
   ChevronRight,
-  Coins,
+  CircleHelp,
   Copy,
-  Gift,
-  Handshake,
-  Headphones,
+  Cpu,
   House,
   LayoutDashboard,
-  Pickaxe,
-  Receipt,
+  Network,
+  Newspaper,
   Search,
-  Send,
-  Settings,
-  ShieldCheck,
-  ShoppingBag,
   Users,
-  Wallet,
 } from "lucide-react";
 import {
   Area,
@@ -42,64 +32,50 @@ import {
 } from "recharts";
 import LogoutButton from "../auth/LogoutButton";
 import styles from "./dashboard.module.css";
-import coinImage from "../../../assets/images/novax-coin.png";
 import heroGlow from "../../../assets/images/heroneon.png";
 
 const ICON = 18;
 const STROKE = 1.7;
 
-const PRICE_SERIES = [
-  { x: "1", value: 0.168 },
-  { x: "2", value: 0.184 },
-  { x: "3", value: 0.176 },
-  { x: "4", value: 0.198 },
-  { x: "5", value: 0.192 },
-  { x: "6", value: 0.214 },
-  { x: "7", value: 0.208 },
-  { x: "8", value: 0.226 },
-  { x: "9", value: 0.218 },
-  { x: "10", value: 0.242 },
-  { x: "11", value: 0.236 },
-  { x: "12", value: 0.258 },
-  { x: "13", value: 0.252 },
-  { x: "14", value: 0.274 },
-  { x: "15", value: 0.268 },
-  { x: "16", value: 0.292 },
-  { x: "17", value: 0.286 },
-  { x: "18", value: 0.308 },
-  { x: "19", value: 0.298 },
-  { x: "20", value: 0.324 },
+const ACTIVITY_SERIES = [
+  { x: "1", value: 18 },
+  { x: "2", value: 22 },
+  { x: "3", value: 20 },
+  { x: "4", value: 31 },
+  { x: "5", value: 29 },
+  { x: "6", value: 38 },
+  { x: "7", value: 35 },
+  { x: "8", value: 44 },
+  { x: "9", value: 41 },
+  { x: "10", value: 52 },
+  { x: "11", value: 48 },
+  { x: "12", value: 58 },
 ];
 
 const PORTFOLIO = [
-  { name: "WLT Tokens", value: 78, color: "#c9f53a" },
-  { name: "USDT", value: 12, color: "#6d7a52" },
-  { name: "Other Assets", value: 10, color: "#2b3320" },
+  { name: "Robotics", value: 40, color: "#e0b869" },
+  { name: "Automation", value: 35, color: "#c39348" },
+  { name: "Intelligent Systems", value: 25, color: "#806b48" },
 ];
 
 const PERIODS = ["1D", "1W", "1M", "3M", "6M", "1Y"];
 
 const QUICK_ACTIONS = [
-  { label: "Deposit", Icon: ArrowDownToLine },
-  { label: "Withdraw", Icon: ArrowUpFromLine },
-  { label: "Buy WLT", Icon: Wallet },
-  { label: "Send", Icon: Send },
-  { label: "Receive", Icon: ArrowDownToLine },
-  { label: "Swap", Icon: ArrowLeftRight },
+  { label: "Explore Research", Icon: Search, href: "/tokenomics" },
+  { label: "Browse Articles", Icon: BookOpen, href: "/blog" },
+  { label: "Read Updates", Icon: Newspaper, href: "/news" },
+  { label: "Robotics & AI", Icon: Cpu, href: "/tokenomics" },
+  { label: "Connected Systems", Icon: Network, href: "/echosystem" },
+  { label: "Get Help", Icon: CircleHelp, href: "/faq" },
 ];
 
 const NAV_ITEMS = [
-  { label: "Dashboard", Icon: House },
-  { label: "Wallet", Icon: Wallet },
-  { label: "Buy / Presale", Icon: ShoppingBag },
-  { label: "Mining", Icon: Pickaxe },
-  { label: "Daily Rewards", Icon: Gift },
-  { label: "Referral Program", Icon: Users, chevron: true },
-  { label: "Transactions", Icon: Receipt },
-  { label: "Market & Charts", Icon: ChartNoAxesCombined },
-  { label: "KYC Verification", Icon: ShieldCheck },
-  { label: "Settings", Icon: Settings },
-  { label: "Support", Icon: Headphones },
+  { label: "Dashboard", Icon: House, href: "dashboard" },
+  { label: "Research Library", Icon: BookOpen, href: "/blog" },
+  { label: "Research Areas", Icon: LayoutDashboard, href: "/tokenomics" },
+  { label: "Technology News", Icon: Newspaper, href: "/news" },
+  { label: "Ecosystem", Icon: Network, href: "/echosystem" },
+  { label: "FAQ", Icon: CircleHelp, href: "/faq" },
 ];
 
 function NavIcon({ Icon }) {
@@ -112,7 +88,7 @@ export default function DashboardSurface({ user, panel }) {
   const homeHref = panel === "admin" ? "/admin" : "/user";
   const initial = displayName.trim().charAt(0).toUpperCase() || "U";
   const refSlug = displayName.toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const referralUrl = `https://wlt.io/ref/${refSlug || "member"}`;
+  const referralUrl = `/register?ref=${refSlug || "member"}`;
 
   const [period, setPeriod] = useState("1M");
   const [copied, setCopied] = useState(false);
@@ -133,10 +109,10 @@ export default function DashboardSurface({ user, panel }) {
       <aside className={styles.sidebar}>
         <Link href="/" className={styles.brand}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/novax-logo.png" alt="World Liberty Token" />
+          <img src="/images/rnr-logo.png" alt="" />
           <span>
-            <b>WLT</b>
-            <small>WORLD LIBERTY TOKEN</small>
+            <b>RNR</b>
+            <small>ROBOTIC NETWORKS RESEARCH</small>
           </span>
         </Link>
 
@@ -146,14 +122,11 @@ export default function DashboardSurface({ user, panel }) {
             return (
               <Link
                 key={item.label}
-                href={active ? homeHref : "#"}
+                href={active ? homeHref : item.href}
                 className={active ? styles.navActive : styles.navItem}
               >
                 <NavIcon Icon={item.Icon} />
                 <span>{item.label}</span>
-                {item.chevron ? (
-                  <ChevronRight size={14} strokeWidth={2} className={styles.navChevron} />
-                ) : null}
               </Link>
             );
           })}
@@ -167,8 +140,8 @@ export default function DashboardSurface({ user, panel }) {
               <br />
               TOGETHER.
             </p>
-            <Link href="/" className={styles.promoBtn}>
-              Join the Movement <span>→</span>
+            <Link href="/tokenomics" className={styles.promoBtn}>
+              Explore Research <span>→</span>
             </Link>
           </div>
         </article>
@@ -216,23 +189,23 @@ export default function DashboardSurface({ user, panel }) {
 
         <section className={styles.hero}>
           <div className={styles.heroCopy}>
-            <p className={styles.heroEyebrow}>WELCOME BACK,</p>
+            <p className={styles.heroEyebrow}>RESEARCH DASHBOARD · SAMPLE DATA</p>
             <h1>
               {displayName} <span className={styles.wave}>👋</span>
             </h1>
             <p className={styles.heroLead}>
-              Be part of a more open, inclusive and financial future with World
-              Liberty Token.
+              Explore robotics, automation, and intelligent systems with
+              Robotic Networks Research.
             </p>
             <p className={styles.heroQuote}>
-              &ldquo;FREEDOM . INNOVATION . COMMUNITY&rdquo;
+              &ldquo;RESEARCH . DISCOVERY . UNDERSTANDING&rdquo;
             </p>
             <div className={styles.heroActions}>
               <Link href="/" className={styles.heroPrimary}>
                 Explore Ecosystem <span>→</span>
               </Link>
-              <Link href="#" className={styles.heroGhost}>
-                View Whitepaper
+              <Link href="/tokenomics" className={styles.heroGhost}>
+                View Research
               </Link>
             </div>
           </div>
@@ -242,7 +215,7 @@ export default function DashboardSurface({ user, panel }) {
             <span className={`${styles.orbit} ${styles.orbitB}`} />
             <span className={`${styles.orbit} ${styles.orbitC}`} />
             <span className={styles.orbitSpark} />
-            <Image src={coinImage} alt="World Liberty Token coin" className={styles.heroCoin} />
+            <Image src="/images/rnr-logo.png" alt="Robotic Networks Research emblem" width={220} height={220} className={styles.heroCoin} />
           </div>
 
           <div className={styles.heroEarth}>
@@ -250,9 +223,9 @@ export default function DashboardSurface({ user, panel }) {
             <div className={styles.vertCopy}>
               <span>PEOPLE</span>
               <span>UTILITY</span>
-              <span>FREEDOM</span>
-              <span>A BRIGHTER</span>
-              <span>TOMORROW</span>
+              <span>ROBOTICS</span>
+              <span>RESEARCH</span>
+              <span>DISCOVERY</span>
             </div>
           </div>
         </section>
@@ -260,17 +233,14 @@ export default function DashboardSurface({ user, panel }) {
         <section className={styles.statsGrid}>
           <article className={styles.statCard}>
             <div className={styles.statIcon}>
-              <Coins size={18} strokeWidth={1.7} />
+              <BookOpen size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>WLT Balance</p>
-              <h3>12,450.85 WLT</h3>
+              <p>Research Reads</p>
+              <h3>12</h3>
               <div className={styles.statMeta}>
-                <small>≈ $3,982.76</small>
-                <b>
-                  <ArrowUpRight size={12} strokeWidth={2.4} /> +5.23%{" "}
-                  <em>(24h)</em>
-                </b>
+                <small>Example dashboard value</small>
+                <b>Illustrative</b>
               </div>
             </div>
             <button className={styles.roundBtn} type="button" aria-label="Open balance">
@@ -283,12 +253,11 @@ export default function DashboardSurface({ user, panel }) {
               <ChartNoAxesCombined size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>WLT Price</p>
-              <h3>$0.3204</h3>
+              <p>Research Areas</p>
+              <h3>04</h3>
               <div className={styles.statMeta}>
                 <b>
-                  <ArrowUpRight size={12} strokeWidth={2.4} /> +12.4%{" "}
-                  <em>(24h)</em>
+                  Robotics &amp; AI
                 </b>
               </div>
             </div>
@@ -299,16 +268,14 @@ export default function DashboardSurface({ user, panel }) {
 
           <article className={styles.statCard}>
             <div className={styles.statIcon}>
-              <Gift size={18} strokeWidth={1.7} />
+              <BookOpen size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>Daily Reward</p>
-              <h3>25.00 WLT</h3>
+              <p>Saved Resources</p>
+              <h3>25</h3>
               <div className={styles.statMeta}>
-                <small className={styles.timer}>12:24:16</small>
-                <button className={styles.claimBtn} type="button">
-                  Claim Now
-                </button>
+                <small className={styles.timer}>Reading list</small>
+                <Link className={styles.ghostMini} href="/blog">Browse Articles</Link>
               </div>
             </div>
             <button className={styles.roundBtn} type="button" aria-label="Open rewards">
@@ -318,19 +285,19 @@ export default function DashboardSurface({ user, panel }) {
 
           <article className={styles.statCard}>
             <div className={styles.statIcon}>
-              <Pickaxe size={18} strokeWidth={1.7} />
+              <Newspaper size={18} strokeWidth={1.7} />
             </div>
             <div className={styles.statBody}>
-              <p>Mining Status</p>
-              <h3>Active</h3>
+              <p>Research Updates</p>
+              <h3>Latest</h3>
               <div className={styles.statMeta}>
-                <small>1.25 WLT / Day</small>
+                <small>News &amp; articles</small>
                 <button className={styles.ghostMini} type="button">
-                  View Mining
+                  View Updates
                 </button>
               </div>
             </div>
-            <button className={styles.roundBtn} type="button" aria-label="Open mining">
+            <button className={styles.roundBtn} type="button" aria-label="Open research updates">
               <ChevronRight size={16} />
             </button>
           </article>
@@ -341,11 +308,9 @@ export default function DashboardSurface({ user, panel }) {
             <div className={styles.chartHead}>
               <div>
                 <h3>
-                  <i className={styles.liveDot} /> WLT Price Chart
+                  <i className={styles.liveDot} /> Research Activity
                 </h3>
-                <p>
-                  $0.3204 <b>+12.4%</b>
-                </p>
+                <p>Sample activity index <b>Illustrative</b></p>
               </div>
               <button className={styles.rangeBtn} type="button">
                 1 Month <ChevronDown size={14} />
@@ -353,40 +318,39 @@ export default function DashboardSurface({ user, panel }) {
             </div>
             <div className={styles.chartWrap}>
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={PRICE_SERIES} margin={{ top: 8, right: 6, left: 0, bottom: 0 }}>
+                <AreaChart data={ACTIVITY_SERIES} margin={{ top: 8, right: 6, left: 0, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="wltArea" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#c9f53a" stopOpacity={0.38} />
-                      <stop offset="100%" stopColor="#c9f53a" stopOpacity={0} />
+                    <linearGradient id="rnrArea" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#e0b869" stopOpacity={0.38} />
+                      <stop offset="100%" stopColor="#e0b869" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid stroke="rgba(201,245,58,0.06)" vertical={false} />
+                  <CartesianGrid stroke="rgba(224,184,105,0.12)" vertical={false} />
                   <YAxis
                     orientation="right"
-                    domain={[0.1, 0.4]}
-                    ticks={[0.1, 0.2, 0.3, 0.4]}
-                    tickFormatter={(v) => `$${Number(v).toFixed(2)}`}
+                    domain={[0, 75]}
+                    ticks={[0, 25, 50, 75]}
                     axisLine={false}
                     tickLine={false}
                     width={46}
-                    tick={{ fill: "#8d9578", fontSize: 11 }}
+                    tick={{ fill: "#a29a8b", fontSize: 11 }}
                   />
                   <Tooltip
-                    cursor={{ stroke: "rgba(201,245,58,0.35)" }}
+                    cursor={{ stroke: "rgba(224,184,105,0.45)" }}
                     contentStyle={{
-                      background: "#0c1008",
-                      border: "1px solid rgba(201,245,58,0.35)",
+                      background: "#0c0c0b",
+                      border: "1px solid rgba(224,184,105,0.35)",
                       borderRadius: 10,
-                      color: "#eef6d2",
+                      color: "#f1eee7",
                       fontSize: 12,
                     }}
                   />
                   <Area
                     type="monotone"
                     dataKey="value"
-                    stroke="#c9f53a"
+                    stroke="#e0b869"
                     strokeWidth={2.4}
-                    fill="url(#wltArea)"
+                    fill="url(#rnrArea)"
                     dot={false}
                   />
                 </AreaChart>
@@ -408,7 +372,7 @@ export default function DashboardSurface({ user, panel }) {
 
           <article className={styles.portfolioCard}>
             <div className={styles.cardHead}>
-              <h3>Your Portfolio</h3>
+              <h3>Research Topic Mix</h3>
               <button className={styles.iconGhost} type="button" aria-label="Portfolio options">
                 <LayoutDashboard size={15} />
               </button>
@@ -433,8 +397,8 @@ export default function DashboardSurface({ user, panel }) {
                   </PieChart>
                 </ResponsiveContainer>
                 <div className={styles.pieCenter}>
-                  <strong>$3,982.76</strong>
-                  <small>Total Value</small>
+                  <strong>Sample</strong>
+                  <small>Topic Mix</small>
                 </div>
               </div>
               <ul className={styles.mixList}>
@@ -455,10 +419,10 @@ export default function DashboardSurface({ user, panel }) {
             </div>
             <div className={styles.quickGrid}>
               {QUICK_ACTIONS.map((action) => (
-                <button key={action.label} type="button" className={styles.quickBtn}>
+                <Link key={action.label} href={action.href} className={styles.quickBtn}>
                   <action.Icon size={20} strokeWidth={1.7} />
                   <span>{action.label}</span>
-                </button>
+                </Link>
               ))}
             </div>
           </article>
@@ -468,8 +432,8 @@ export default function DashboardSurface({ user, panel }) {
           <article className={styles.referCard}>
             <div className={styles.cardHead}>
               <div>
-                <h3>Referral Program</h3>
-                <p className={styles.subHead}>Invite. Earn. Grow Together.</p>
+                <h3>Share Research</h3>
+                  <p className={styles.subHead}>Invite others to explore RNR.</p>
               </div>
               <button className={styles.copyLink} type="button" onClick={copyReferral}>
                 {copied ? "Copied" : "Copy Link"}
@@ -484,25 +448,25 @@ export default function DashboardSurface({ user, panel }) {
             <div className={styles.referStats}>
               <div>
                 <Users size={16} strokeWidth={1.8} />
-                <b>132</b>
-                <small>Total Referrals</small>
+                <b>Explore</b>
+                <small>Robotics articles</small>
               </div>
               <div>
-                <Handshake size={16} strokeWidth={1.8} />
-                <b>84</b>
-                <small>Active Users</small>
+                <Network size={16} strokeWidth={1.8} />
+                <b>Discover</b>
+                <small>Connected systems</small>
               </div>
               <div>
-                <Coins size={16} strokeWidth={1.8} />
-                <b>425.50 WLT</b>
-                <small>Total Earnings</small>
+                <BookOpen size={16} strokeWidth={1.8} />
+                <b>Read</b>
+                <small>Research resources</small>
               </div>
             </div>
           </article>
 
           <article className={styles.txCard}>
             <div className={styles.cardHead}>
-              <h3>Recent Transactions</h3>
+              <h3>Recent Activity</h3>
               <button className={styles.viewAll} type="button">
                 View All <ChevronRight size={14} />
               </button>
@@ -511,36 +475,36 @@ export default function DashboardSurface({ user, panel }) {
               <li>
                 <i className={styles.txIn}>↓</i>
                 <div>
-                  <strong>Received</strong>
-                  <small>From: Muhammad Khan</small>
+                  <strong>Research guide viewed</strong>
+                  <small>Robotics fundamentals</small>
                 </div>
-                <time>Apr 16, 2024  10:24 AM</time>
+                <time>Today</time>
               </li>
               <li>
                 <i className={styles.txOut}>↑</i>
                 <div>
-                  <strong>Withdraw</strong>
-                  <small>To: External Wallet</small>
+                  <strong>Topic explored</strong>
+                  <small>Automation systems</small>
                 </div>
-                <time>Apr 14, 2024  04:18 PM</time>
+                <time>This week</time>
               </li>
               <li>
                 <i className={styles.txMine}>
-                  <Pickaxe size={13} />
+                  <BookOpen size={13} />
                 </i>
                 <div>
-                  <strong>Mining Reward</strong>
-                  <small>Daily Mining</small>
+                  <strong>Resource saved</strong>
+                  <small>Connected technologies</small>
                 </div>
-                <time>Apr 14, 2024  12:00 AM</time>
+                <time>This week</time>
               </li>
               <li>
-                <i className={styles.txBuy}>$</i>
+                <i className={styles.txBuy}>•</i>
                 <div>
-                  <strong>Purchase</strong>
-                  <small>From: USDT</small>
+                  <strong>Research update</strong>
+                  <small>Intelligent systems</small>
                 </div>
-                <time>Apr 12, 2024  02:36 PM</time>
+                <time>Recently</time>
               </li>
             </ul>
           </article>
@@ -555,26 +519,26 @@ export default function DashboardSurface({ user, panel }) {
             <ul className={styles.newsList}>
               <li>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/echosystem.png" alt="" />
+                <img src="/images/cube.png" alt="" />
                 <div>
-                  <strong>WLT Mining Beta Now Live</strong>
-                  <small>Apr 16, 2024</small>
+                  <strong>Explore robotics and automation</strong>
+                  <small>Research guide</small>
                 </div>
               </li>
               <li>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/partnership.png" alt="" />
+                <img src="/images/rnr-logo.png" alt="" />
                 <div>
-                  <strong>WLT Partners with Global Payment Network</strong>
-                  <small>Apr 02, 2024</small>
+                  <strong>Understanding connected systems</strong>
+                  <small>Technology overview</small>
                 </div>
               </li>
               <li>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/tokenomics.png" alt="" />
+                <img src="/images/rnr-logo.png" alt="" />
                 <div>
-                  <strong>Dashboard v1 Official Release</strong>
-                  <small>Mar 18, 2024</small>
+                  <strong>New research topics added</strong>
+                  <small>Platform update</small>
                 </div>
               </li>
             </ul>

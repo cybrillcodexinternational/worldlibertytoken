@@ -138,8 +138,8 @@ export default function GlobeNetwork() {
           <stop offset="100%" stopColor="#050505" />
         </radialGradient>
         <radialGradient id="wltGlobeLimb" cx="18%" cy="48%" r="72%">
-          <stop offset="0%" stopColor="hsla(70.79deg, 67%, 59%, 0.55)" />
-          <stop offset="28%" stopColor="hsla(70.79deg, 67%, 59%, 0.12)" />
+          <stop offset="0%" stopColor="hsla(39.3deg, 67%, 59%, 0.55)" />
+          <stop offset="28%" stopColor="hsla(39.3deg, 67%, 59%, 0.12)" />
           <stop offset="100%" stopColor="transparent" />
         </radialGradient>
         <filter id="wltDotGlow" x="-50%" y="-50%" width="200%" height="200%">
@@ -157,7 +157,7 @@ export default function GlobeNetwork() {
         cy={CY}
         r={R}
         fill="none"
-        stroke="hsla(70.79deg, 78%, 62%, 0.9)"
+        stroke="hsla(39.3deg, 78%, 62%, 0.9)"
         strokeWidth="3"
         strokeLinecap="round"
         strokeDasharray="210 900"
@@ -165,7 +165,7 @@ export default function GlobeNetwork() {
         transform="rotate(-78 200 200)"
         opacity="0.85"
       />
-      <g stroke="hsla(70.79deg, 67%, 59%, 0.42)" strokeWidth="0.7" fill="none">
+      <g stroke="hsla(39.3deg, 67%, 59%, 0.42)" strokeWidth="0.7" fill="none">
         {edges.map(([a, b]) => {
           const pa = points[a];
           const pb = points[b];
@@ -192,7 +192,7 @@ export default function GlobeNetwork() {
               cx={p.px}
               cy={p.py}
               r={1.05 + Math.max(0, p.z) * 1.15}
-              fill="hsl(70.79deg, 78%, 68%)"
+              fill="hsl(39.3deg, 78%, 68%)"
               opacity={0.45 + Math.max(0, p.z) * 0.55}
             />
           ))}

@@ -8,8 +8,8 @@
   border-top: 1px solid var(--panel-border);
   border-bottom: 1px solid var(--panel-border);
   background:
-    radial-gradient(circle at 77% 30%, rgba(195, 220, 80, 0.17), transparent 44%),
-    radial-gradient(circle at 12% 38%, rgba(195, 220, 80, 0.07), transparent 34%),
+    radial-gradient(circle at 77% 30%, rgba(224, 184, 105, 0.17), transparent 44%),
+    radial-gradient(circle at 12% 38%, rgba(224, 184, 105, 0.07), transparent 34%),
     #050505;
   overflow: hidden;
 }
@@ -93,7 +93,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 18px;
-  border-left: 1px solid rgba(195, 220, 80, 0.24);
+  border-left: 1px solid rgba(224, 184, 105, 0.24);
   padding-left: 22px;
   z-index: 4;
 }
@@ -115,7 +115,7 @@
   height: 3px;
   border-radius: 8px;
   background: var(--primary-color);
-  box-shadow: 0 0 10px rgba(195, 220, 80, 0.55);
+  box-shadow: 0 0 10px rgba(224, 184, 105, 0.55);
 }
 
 .heroVisual {
@@ -132,11 +132,12 @@
 }
 
 .globe {
+  display: block;
   object-fit: contain;
-  filter: drop-shadow(0 0 26px #c3dc503d);
+  filter: drop-shadow(0 0 26px #e0b8693d);
   width: 100%;
-  height: auto;
-  margin-top: 429px;
+  height: 100%;
+  margin-top: 0;
 }
 
 .rightNote {
@@ -185,7 +186,7 @@
     position: static;
     width: 100%;
     border-left: 0;
-    border-top: 1px solid rgba(195, 220, 80, 0.24);
+    border-top: 1px solid rgba(224, 184, 105, 0.24);
     margin-top: 18px;
     padding-left: 0;
     padding-top: 16px;
@@ -204,6 +205,7 @@
 
   .globe {
     width: min(92vw, 640px);
+    height: min(72vw, 420px);
   }
 
   .rightNote {
@@ -339,9 +341,9 @@
 .featuredCard,
 .articleCard,
 .subscribeCard {
-  background: radial-gradient(circle at 14%, #c3dc5014, #0000 46%), #0a0a0a;
-  border: 1px solid #c3dc5047;
-  box-shadow: inset 0 0 4px #c3dc50;
+  background: radial-gradient(circle at 14%, #e0b86914, #0000 46%), #0a0a0a;
+  border: 1px solid #e0b86947;
+  box-shadow: inset 0 0 4px #e0b869;
 }
 
 .featuredCard {
@@ -356,7 +358,7 @@
   position: relative;
   min-height: 280px;
   background:
-    radial-gradient(circle at 50% 55%, rgba(195, 220, 80, 0.18), transparent 48%),
+    radial-gradient(circle at 50% 55%, rgba(224, 184, 105, 0.18), transparent 48%),
     #050505;
 }
 
@@ -384,7 +386,7 @@
 
 .featuredImage {
   object-fit: contain;
-  filter: drop-shadow(0 0 28px #c3dc5047);
+  filter: drop-shadow(0 0 28px #e0b86947);
   padding: 28px 18px 12px;
 }
 
@@ -498,7 +500,7 @@
   height: 168px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 60%, rgba(195, 220, 80, 0.14), transparent 52%),
+    radial-gradient(circle at 50% 60%, rgba(224, 184, 105, 0.14), transparent 52%),
     #050505;
 }
 

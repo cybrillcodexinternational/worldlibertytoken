@@ -10,19 +10,19 @@ export default function EcosystemJoinCta() {
       <div className={`tp-inner ${styles.joinInner}`}>
         <div className={styles.joinFrame}>
           <div className={styles.joinCopy}>
-            <p className={styles.joinKicker}>Join The Ecosystem</p>
-            <h2 className={styles.joinTitle}>Be Part Of A Brighter Tomorrow.</h2>
+            <p className={styles.joinKicker}>Explore The Research</p>
+            <h2 className={styles.joinTitle}>Discover Intelligent Systems.</h2>
             <p className={styles.joinText}>
-              Explore, participate, and grow with World Liberty Token. Together,
-              we can create a more inclusive and empowered global future.
+              Follow research topics, learn about emerging technologies, and
+              explore how robotics connects with the world around us.
             </p>
             <div className={styles.joinActions}>
-              <Link href="/register" className={styles.joinPrimary}>
-                Get Started
+              <Link href="/tokenomics" className={styles.joinPrimary}>
+                Explore RNR
                 <ArrowRight size={16} strokeWidth={2.2} />
               </Link>
-              <Link href="#" className={styles.joinSecondary}>
-                Read Whitepaper
+              <Link href="/blog" className={styles.joinSecondary}>
+                Read Articles
               </Link>
             </div>
           </div>
@@ -40,11 +40,11 @@ export default function EcosystemJoinCta() {
             <p>
               People
               <br />
-              Utility
+              Automation
               <br />
-              Freedom
+              Research
               <br />
-              A Brighter Tomorrow
+              Discovery
             </p>
             <span className={styles.joinAccent}></span>
           </div>

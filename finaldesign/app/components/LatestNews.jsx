@@ -57,8 +57,8 @@ export default function LatestNews() {
               <span>Stay Ahead.</span>
             </h2>
             <p className="latest-news-description">
-              Fresh research, ecosystem milestones, and WLT updates—curated to
-              keep you connected to what matters.
+              Robotics research, technology explainers, and updates on
+              intelligent systems—curated for curious readers.
             </p>
           </div>
           <a className="latest-news-link" href="/news">
@@ -121,7 +121,7 @@ export default function LatestNews() {
                           : undefined
                       }
                     >
-                      <span className="news-card-image-label">WLT INSIGHTS</span>
+                      <span className="news-card-image-label">RNR INSIGHTS</span>
                     </div>
                     <div className="news-card-body">
                       <div className="news-card-meta">

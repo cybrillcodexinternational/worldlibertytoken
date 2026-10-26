@@ -22,12 +22,18 @@ export default function Header() {
       <div className="container-fluid">
         <div className="row main-header">
           <div className="col-md-2 logo-image">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/novax-logo.png"
-              alt="World Liberty Token logo"
-              className="logo-img"
-            />
+            <Link
+              className="header-brand"
+              href="/"
+              aria-label="Robotic Networks Research home"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/rnr-logo.png" alt="" className="logo-img" />
+              <span className="header-brand-name">
+                <strong>Robotic Networks</strong>
+                <span>Research</span>
+              </span>
+            </Link>
           </div>
           <div className="col-md-7 navigation-area">
             <div className="navigation">

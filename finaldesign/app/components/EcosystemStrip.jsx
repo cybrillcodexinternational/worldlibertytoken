@@ -15,13 +15,12 @@ export default function EcosystemStrip() {
                 </svg>
               </div>
               <div className="stat-meta">
-                <div className="stat-label">Total Supply</div>
+                <div className="stat-label">Research Areas</div>
                 <StatCounter
                   className="stat-value"
-                  target={1000000000}
-                  format="comma"
+                  target={4}
                 />
-                <div className="stat-caption">NOVAX</div>
+                <div className="stat-caption">Research Areas</div>
               </div>
             </div>
           </div>
@@ -35,13 +34,12 @@ export default function EcosystemStrip() {
                 </svg>
               </div>
               <div className="stat-meta">
-                <div className="stat-label">Ecosystem Modules</div>
+                <div className="stat-label">Research Focuses</div>
                 <StatCounter
                   className="stat-subvalue"
-                  target={8}
-                  suffix="+"
+                  target={5}
                 />
-                <div className="stat-caption">Core Utilities</div>
+                <div className="stat-caption">Key Topics</div>
               </div>
             </div>
           </div>
@@ -56,13 +54,12 @@ export default function EcosystemStrip() {
                 </svg>
               </div>
               <div className="stat-meta">
-                <div className="stat-label">Community</div>
+                <div className="stat-label">Core Disciplines</div>
                 <StatCounter
                   className="stat-subvalue"
-                  target={250}
-                  suffix="K+"
+                  target={4}
                 />
-                <div className="stat-caption">Global Members</div>
+                <div className="stat-caption">Robotics, AI, Networks</div>
               </div>
             </div>
           </div>
@@ -79,13 +76,12 @@ export default function EcosystemStrip() {
                 </svg>
               </div>
               <div className="stat-meta">
-                <div className="stat-label">Launch Vision</div>
+                <div className="stat-label">Ways To Explore</div>
                 <StatCounter
                   className="stat-subvalue"
-                  target={2025}
-                  prefix="Q4 "
+                  target={3}
                 />
-                <div className="stat-caption">Phase 1</div>
+                <div className="stat-caption">Research, News, Guides</div>
               </div>
             </div>
           </div>

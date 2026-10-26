@@ -61,14 +61,13 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <div className="footer-brand">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/novax-logo.png" alt="World Liberty Token" />
+          <h2>Robotic Networks Research</h2>
           <p>
-            Building a world of digital liberty,
+            Exploring robotics and intelligent systems,
             <br />
-            empowering individuals, uniting communities,
+            sharing research, ideas, and practical insights,
             <br />
-            and transforming the future.
+            for a more connected future.
           </p>
         </div>
         {FOOTER_COLUMNS.map((column) => (
@@ -95,8 +94,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        &copy; {new Date().getFullYear()} World Liberty Token. All rights
-        reserved.
+        &copy; {new Date().getFullYear()} Robotic Networks Research. All rights reserved.
       </div>
     </footer>
   );

@@ -84,8 +84,8 @@ export default function RegisterForm() {
       <p className={styles.panelKicker}>Join The Ecosystem</p>
       <h2 className={styles.panelTitle}>Create your account</h2>
       <p className={styles.panelText}>
-        Register to participate in World Liberty Token — built for people,
-        utility, and a brighter tomorrow.
+        Create your Robotic Networks Research account to follow topics, save
+        resources, and receive research updates.
       </p>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
